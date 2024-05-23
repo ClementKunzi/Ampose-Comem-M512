@@ -3,7 +3,7 @@
 
 <template>
     <div>
-        <h1>Vaud Cul' From vue</h1>
+        <h1 class="text-3xl font-bold underline">Vaud Cul' From vue</h1>
     </div>
 </template>
 
