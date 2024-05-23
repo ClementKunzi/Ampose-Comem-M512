@@ -1,14 +1,13 @@
 /.phpunit.cache
 /node_modules
-# /public/build
-# /public/hot
-# /public/storage
+/public/build
+/public/hot
+/public/storage
 /storage/*.key
 /vendor
 .env
 .env.backup
 .env.production
-.phpactor.json
 .phpunit.result.cache
 Homestead.json
 Homestead.yaml
@@ -19,104 +18,5 @@ yarn-error.log
 /.idea
 /.vscode
 
-# General Development Environment Files
-/node_modules
-# /public/hot
-# /public/storage
-/storage/*.key
-/vendor
-.env
-.env.backup
-.phpunit.result.cache
-Homestead.json
-Homestead.yaml
-npm-debug.log
-yarn-error.log
-
-# Compiled Files
-/bootstrap/compiled.php
-
-# Log Files and Databases
-*.log
-*.sql
-*.sqlite
-
-# Packaged Files
-*.7z
-*.dmg
-*.gz
-*.iso
-*.jar
-*.rar
-*.tar
-*.zip
-
-# OS Generated Files
-ehthumbs.db
-Thumbs.db
-.DS_Store
-.DS_Store?
-._*
-.Spotlight-V100
-.Trashes
-
-# Editor Files
-*.sublime-project
-*.sublime-workspace
-*.komodoproject
-_ide_helper.php
-/.idea
-/.vscode
-
-# Cache
-.cache/
-
-# User Created Files
-*.bak
-*.orig
-
-# System Files
-.bash_history
-LICENSE_AFL.txt
-LICENSE.html
-LICENSE.txt
-LICENSE_EE*
-RELEASE_NOTES.txt
-.ssh/
-error_log
-.htpasswds
-/.htaccess
-php.ini.sample
-.modgit/
-_vti_bin/
-_vti_cnf/
-_vti_inf.html
-_vti_log/
-_vti_pvt/
-_vti_txt/
-tmp/
-php.ini
-_old/
-.htpasswds/
-.htpasswd
-.viminfo
-.profile
-.bashrc
-.bash_logout
-.modman/
-pkginfo
-nohup.out
-Homestead.yaml
-Homestead.json
-/.vagrant
-
-# Laravel Specific Files
-# /public/.htaccess
-/storage
-
-# Vite and Vue.js Specific Entries
-/dist
-# /public
-/node_modules
-/yarn.lock
-/package-lock.json
+composer.lock
+package-lock.json
