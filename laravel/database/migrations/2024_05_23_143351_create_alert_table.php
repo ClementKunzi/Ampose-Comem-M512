@@ -15,9 +15,7 @@ return new class extends Migration
             $table->increments('id');
             $table->string('type');
             $table->string('description');
-            $table->decimal('latitude', 10, 8);
-            $table->decimal('longitude', 11, 8);
-            $table->timestamps('reporting_time');
+            $table->timestamp('reporting_time');
             $table->integer('itinerary_id')->unsigned();
             $table->foreign('itinerary_id')
                 ->references('id')

@@ -5,8 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-
-class User extends Model
+class Image extends Model
 {
     use HasFactory;
     /**
@@ -14,7 +13,7 @@ class User extends Model
      *
      * @var string
      */
-    protected $table = 'user';
+    protected $table = 'image';
 
     /**
      * The attributes that are mass assignable.
@@ -22,16 +21,8 @@ class User extends Model
      * @var array
      */
     protected $fillable = [
-        'username',
-        'last_name',
-        'first_name',
-        'email',
-        'password',
-        'email_verification',
-        'email_verified_at',
-        'last_login',
-        'number_path_added',
-        'profile_picture',
+        'url',
+        'alt_attr',
     ];
 
     /**
@@ -54,28 +45,13 @@ class User extends Model
         'email_verification' => 'boolean',
     ];
 
-    public function badges()
-    {
-        return $this->belongsToMany(Badge::class);
-    }
-
     public function itineraries()
     {
         return $this->hasMany(Itinerary::class);
     }
 
-    public function alerts()
+    public function step()
     {
-        return $this->hasMany(Alert::class);
-    }
-
-    public function favorites()
-    {
-        return $this->hasMany(Favorite::class);
-    }
-
-    public function ratings()
-    {
-        return $this->hasMany(Rating::class);
+        return $this->belongsTo(Step::class);
     }
 }

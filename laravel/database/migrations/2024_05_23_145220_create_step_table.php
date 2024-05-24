@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('step', function (Blueprint $table) {
             $table->increments('id');
-            $table->sting('name');
+            $table->string('name');
             $table->string('description');
             $table->string('adress');
             $table->string('schedule');

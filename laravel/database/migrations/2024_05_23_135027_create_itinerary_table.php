@@ -34,6 +34,7 @@ return new class extends Migration
                 ->on('image')
                 ->onDelete('restrict')
                 ->onUpdate('restrict');
+            $table->string('pdf_url');
             $table->timestamps();
         });
     }

@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('rating', function (Blueprint $table) {
             $table->increments('id');
-            $table->int('note');
+            $table->integer('note');
             $table->string('comment');
             $table->integer('itinerary_id')->unsigned();
             $table->foreign('itinerary_id')
