@@ -6,3 +6,5 @@
 body {
     background-color: darkseagreen;
 }
+
+#map { height: 400px; }

@@ -1,11 +1,17 @@
 <script setup>
+import TheHeader from './components/TheHeader.vue';
+
 </script>
 
+<!-- Example of using Vue Router in a component -->
 <template>
+    <TheHeader />
     <div>
-        <h1 class="text-3xl font-bold underline">Vaud Cul' From vue</h1>
+      
+      <router-view/>
     </div>
-</template>
+  </template>
+  
 
 <style scoped>
 /* Your component's CSS styles go here */
