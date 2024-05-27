@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Enums\DescriptionAlertEnum;
 use App\Enums\TypeAlertEnum;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -38,7 +39,6 @@ class Alert extends Model
         'itinerary_id' => 'integer',
         'user_id' => 'integer',
         'reporting_time' => 'datetime',
-        'type' => TypeAlertEnum::class,
     ];
 
     public function user()

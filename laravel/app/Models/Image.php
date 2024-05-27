@@ -25,33 +25,16 @@ class Image extends Model
         'alt_attr',
     ];
 
-    /**
-     * The attributes that should be hidden for arrays.
-     *
-     * @var array
-     */
-    protected $hidden = [
-        'password',
-        'remember_token',
-    ];
 
-    /**
-     * The attributes that should be cast to native types.
-     *
-     * @var array
-     */
-    protected $casts = [
-        'email_verified_at' => 'datetime',
-        'email_verification' => 'boolean',
-    ];
+
 
     public function itineraries()
     {
         return $this->hasMany(Itinerary::class);
     }
 
-    public function step()
+    public function steps()
     {
-        return $this->belongsTo(Step::class);
+        return $this->belongsToMany(Step::class);
     }
 }

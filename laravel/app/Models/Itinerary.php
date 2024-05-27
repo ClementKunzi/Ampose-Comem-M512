@@ -33,6 +33,7 @@ class Itinerary extends Model
         'estimated_time',
         'difficulty',
         'source',
+        'type', // 'type' is missing from the original code snippet
         'image_id',
         'pdf_url',
     ];
@@ -51,8 +52,6 @@ class Itinerary extends Model
         'difficulty' => 'float',
         'user_id' => 'integer',
         'image_id' => 'integer',
-        'source' => SourceEnum::class,
-        'type' => TypeItineraryEnum::class,
     ];
 
     public function user()

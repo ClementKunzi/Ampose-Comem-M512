@@ -2,6 +2,9 @@
 
 namespace App\Models;
 
+use App\Enums\NameTaxonomyEnum;
+use App\Enums\DescriptionTaxonomyEnum;
+use Hamcrest\Description;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -25,6 +28,9 @@ class Taxonomy extends Model
         'description',
         'icon',
     ];
+
+
+
 
     public function tagCategories()
     {

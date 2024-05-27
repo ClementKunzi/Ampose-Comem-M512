@@ -13,10 +13,10 @@ return new class extends Migration
     {
         Schema::create('itinerary_tag_categorie', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('tag_accessibility_id')->unsigned();
-            $table->foreign('tag_accessibility_id')
+            $table->integer('tag_categorie_id')->unsigned();
+            $table->foreign('tag_categorie_id')
                 ->references('id')
-                ->on('tag_accessibility')
+                ->on('tag_categorie')
                 ->onDelete('restrict')
                 ->onUpdate('restrict');
             $table->integer('itinerary_id')->unsigned();

@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('tag_accessibility', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('taxononmy_id')->unsigned();
-            $table->foreign('taxononmy_id')
+            $table->integer('taxonomy_id')->unsigned();
+            $table->foreign('taxonomy_id')
                 ->references('id')
                 ->on('taxonomy')
                 ->onDelete('restrict')

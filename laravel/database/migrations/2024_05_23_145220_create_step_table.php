@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('schedule');
             $table->decimal('latitude', 10, 8);
             $table->decimal('longitude', 11, 8);
-            $table->integer('ordre');
+            $table->integer('order');
             $table->string('external_link');
             $table->integer('itinerary_id')->unsigned();
             $table->foreign('itinerary_id')

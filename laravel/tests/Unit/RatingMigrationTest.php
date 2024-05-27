@@ -11,13 +11,20 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('tag_categorie', function (Blueprint $table) {
+        Schema::create('rating', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('color');
-            $table->integer('taxonomy_id')->unsigned();
-            $table->foreign('taxonomy_id')
+            $table->integer('note');
+            $table->string('comment');
+            $table->integer('itinerary_id')->unsigned();
+            $table->foreign('itinerary_id')
                 ->references('id')
-                ->on('taxonomy')
+                ->on('itinerary')
+                ->onDelete('restrict')
+                ->onUpdate('restrict');
+            $table->integer('user_id')->unsigned();
+            $table->foreign('user_id')
+                ->references('id')
+                ->on('user')
                 ->onDelete('restrict')
                 ->onUpdate('restrict');
             $table->timestamps();
@@ -29,6 +36,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('tag_categorie');
+        Schema::dropIfExists('rating');
     }
 };
