@@ -7,11 +7,11 @@ import TheHeader from './components/TheHeader.vue';
 <template>
     <TheHeader />
     <div>
-      
-      <router-view/>
+
+        <router-view />
     </div>
-  </template>
-  
+</template>
+
 
 <style scoped>
 /* Your component's CSS styles go here */

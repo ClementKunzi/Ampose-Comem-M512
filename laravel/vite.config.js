@@ -3,6 +3,9 @@ import laravel from 'laravel-vite-plugin';
 import vue from '@vitejs/plugin-vue';
  
 export default defineConfig({
+    // server: {
+    //     historyApiFallback: true,
+    //   },
     plugins: [
         laravel(['resources/js/app.js']),
         vue({

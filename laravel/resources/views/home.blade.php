@@ -8,9 +8,8 @@
         @vite(['resources/css/app.css', 'resources/js/app.js'])
 
     </head>
-    <body>
-        <h1 class="text-3xl font-bold underline">hello</h1>
-        <div id="app">
+    <body>        
+        <div id="app" class="layout min-h-screen font-sans">
             <h1>Vaud Cul'</h1>
             <app></app>
         </div>

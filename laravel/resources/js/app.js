@@ -5,9 +5,6 @@ import { createApp } from 'vue';
 import App from './App.vue';
 import router from '@/router/router.js';
 
-import L from "leaflet";
-import 'leaflet/dist/leaflet.css';
-
 // import './ressources/css/app.css'
 
 createApp(App)

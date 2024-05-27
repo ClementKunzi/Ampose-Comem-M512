@@ -1,0 +1,45 @@
+@import url("https://use.typekit.net/hsh8cjn.css");
+
+@layer base {
+  @font-face {
+    font-family: 'Made Mountain';
+    font-style: normal;
+    font-weight: 400;
+    font-display: swap;
+    src: url(../fonts/Made-Mountain-Regular.woff2) format('woff2');
+  }
+
+  @font-face {
+    font-family: 'Bilo Regular';
+    font-style: normal;
+    font-weight: 400;
+    font-display: swap;
+    src: url(../fonts/Made-Mountain-Regular.woff2) format('woff2');
+  }
+
+  h1,
+  .h1 {
+    @apply text-4xl font-serif;
+
+  }
+
+  h2,
+  .h2 {
+    @apply text-3xl font-serif;
+  
+  }
+
+  h2,
+  .h2 {
+    @apply text-2xl font-serif;
+  
+  }
+
+  .h3 {
+    @apply bg-red-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded;
+  }
+
+  .router-link-active {
+    @apply relative after:content-[''] after:w-1 after:h-1 after:bg-white after:inline-block after:rounded-full after:absolute after:left-[12.5px] after:bottom-[-9px];
+  }
+}
