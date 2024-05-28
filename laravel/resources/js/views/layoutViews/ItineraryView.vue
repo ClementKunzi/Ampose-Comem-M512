@@ -1,4 +1,10 @@
 <script setup>
+import { onMounted } from 'vue';
+const emit = defineEmits(['requireNav']);
+
+onMounted(() => {
+  emit('requireNav', true); 
+});
 </script>
 
 <template>

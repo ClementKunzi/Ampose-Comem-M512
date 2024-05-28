@@ -6,10 +6,10 @@ import TheHeader from './components/TheHeader.vue';
 <!-- Example of using Vue Router in a component -->
 <template>
     <TheHeader />
-    <div>
+    <main>
 
         <router-view />
-    </div>
+    </main>
 </template>
 
 

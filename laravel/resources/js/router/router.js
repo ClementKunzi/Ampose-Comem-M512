@@ -17,34 +17,41 @@ const routes = [
     path: '/',
     name: 'Home',
     component: HomeView,
+    meta: {
+      title: 'Tous les sentiers',
+      requireNav: true,
+    },
 
     children: [
       {
         path: '',
         component: HomeViewContent,
       },
-      {
-        path: 'itinerary/:id',
-        name: 'home.itinerary.view',
-        component: ItineraryView,
-      },
+      // {
+      //   path: 'itinerary/:id',
+      //   name: 'home.itinerary.view',
+      //   component: ItineraryView,
+      // },
     ],
   },
   {
     path: '/community',
     name: 'Community',
     component: HomeView,
+    meta: {
+      title: 'Tous les sentiers de la commu',
+    },
 
     children: [
       {
         path: '',
         component: CommunityViewContent,
       },
-      {
-        path: 'itinerary/:id',
-        name: 'community.itinerary.view',
-        component: ItineraryView,
-      },
+      // {
+      //   path: 'itinerary/:id',
+      //   name: 'community.itinerary.view',
+      //   component: ItineraryView,
+      // },
     ],
   },
   {
@@ -61,6 +68,11 @@ const routes = [
     path: '/favoris',
     name: 'Bookmarks',
     component: BookmarkView,
+  },
+  {
+    path: '/itinerary/:id',
+    name: 'itinerary.view',
+    component: ItineraryView,
   },
   {
     path: '/user/profile',
@@ -88,5 +100,10 @@ const router = createRouter({
   history: createWebHistory(),
   routes,
 });
+
+// router.beforeEach((to, from, next) => {
+//   document.title = to.meta.title || 'Default Title';
+//   next();
+// });
 
 export default router;

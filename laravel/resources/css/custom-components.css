@@ -1,9 +1,19 @@
 @layer components {
     .btn {
-      @apply bg-white text-tv-wine py-3 px-5 border-2 border-tv-wine rounded-full hover:bg-blue-700;
+      @apply bg-tv-eggshell text-tv-wine py-3 px-5 border-2 border-tv-wine rounded-full hover:bg-red-200;
     }
 
     .btn-wine {
       @apply bg-tv-wine text-white border-white rounded-full;
-    }    
+    }
+    
+    
+    #map {
+      z-index: 0;
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+    }
   }

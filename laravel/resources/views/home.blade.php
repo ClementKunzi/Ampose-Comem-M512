@@ -9,7 +9,7 @@
 
     </head>
     <body>        
-        <div id="app" class="layout min-h-screen font-sans">
+        <div id="app" class="layout min-h-screen font-sans bg-tv-eggshell">
             <h1>Vaud Cul'</h1>
             <app></app>
         </div>

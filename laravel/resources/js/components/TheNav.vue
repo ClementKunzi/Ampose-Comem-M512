@@ -6,23 +6,23 @@ import { Home, Users, Map, Plus, Bookmark } from 'lucide-vue-next';
 
 <template>
     <nav class="
-    fixed bottom-4 left-4 
+    z-50 fixed bottom-4 left-4 
     bg-tv-wine w-[calc(100%-2rem)] rounded-full
     pt-3 pb-5 px-8
     flex justify-between">
-        <router-link to="/">
+        <router-link aria-label="Accueil" to="/">
             <Home stroke="#f5f5f5" :size="30" />
         </router-link>
-        <router-link to="/community">
+        <router-link aria-label="Parcours de la communauté" to="/community">
             <Users stroke="#f5f5f5" :size="30" />
         </router-link>
-        <router-link to="/map">
+        <router-link aria-label="Carte des parcours" to="/map">
             <Map stroke="#f5f5f5" :size="30" />
         </router-link>
-        <router-link to="/create">
+        <router-link aria-label="Créer un parcours" to="/create">
             <Plus stroke="#f5f5f5" :size="30" />
         </router-link>
-        <router-link to="/favoris">
+        <router-link aria-label="Favoris" to="/favoris">
             <Bookmark stroke="#f5f5f5" :size="30" />
         </router-link>
     </nav>

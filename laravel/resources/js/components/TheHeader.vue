@@ -3,8 +3,11 @@ import TheNav from './TheNav.vue';
 
 </script>
 
-<template>    
+<template>
+<header>
     <TheNav />
+</header>    
+    
 </template>
 
 <style scoped>

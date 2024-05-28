@@ -1,5 +1,7 @@
 <script setup>
 import { ref, onMounted } from 'vue';
+import SearchBar from '../../components/TheSearch.vue';
+
 import "leaflet/dist/leaflet.css"
 import * as L from 'leaflet';
 import 'leaflet-routing-machine';
@@ -48,11 +50,10 @@ onMounted(() => {
 
 </script>
 
-<template>
-  <h2>MapView</h2>
-  <div>
-    <h3>An interactive leaflet map</h3>
-    <div id="map" class="map" style="height:90vh;"></div>
+<template>    
+  <div class="p-4">
+    <SearchBar />    
+    <div id="map" class="map"></div>
   </div>
 
 </template>

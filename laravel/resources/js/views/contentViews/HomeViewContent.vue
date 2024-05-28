@@ -16,7 +16,7 @@ export default {
 </script>
 
 <template>
-  <h2 class="font-serif">Tous les sentiers</h2>
+  <h2 class="text-tv-wine">{{ $route.meta.title }}</h2>
   
   <!-- <Card /> -->
   <router-link v-for="itinerary in itineraries" :key="itinerary.id" :to="`/itinerary/${itinerary.slug}`">

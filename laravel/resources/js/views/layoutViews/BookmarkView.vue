@@ -3,5 +3,5 @@
 
 <template>
   
-  <h2>Bookmarks View</h2>
+  <h2 class="text-tv-wine">Bookmarks View</h2>
 </template>
