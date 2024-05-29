@@ -83,4 +83,13 @@ class Itinerary extends Model
     {
         return $this->hasMany(Rating::class);
     }
+    public function tagCategorie()
+    {
+        return $this->belongsToMany(TagCategorie::class);
+    }
+
+    public function tagAccessibility()
+    {
+        return $this->belongsToMany(TagAccessibility::class);
+    }
 }

@@ -39,4 +39,9 @@ class TagCategorie extends Model
     {
         return $this->belongsTo(Taxonomy::class);
     }
+
+    public function itineraries()
+    {
+        return $this->belongsToMany(Itinerary::class);
+    }
 }
