@@ -10,7 +10,7 @@ const props = defineProps({
 <template>
 
     <article
-    class="relative max-w min-h-[220px] rounded-3xl mb-6 p-3 pb-5 bg-center text-tv-eggshell flex flex-col justify-between
+    class="relative max-w min-h-[220px] rounded-3xl mb-6 shadow-tv p-3 pb-5 bg-center text-tv-eggshell flex flex-col justify-between
     bg-[linear-gradient(to_top,rgba(0,0,0,1),rgba(0,0,0,0)50%),url('https://loremflickr.com/500/300')]">
             <div class="flex justify-between">
             <ul class="flex gap-3">

@@ -4,8 +4,10 @@ import { Home, Users, Map, Plus, Bookmark } from 'lucide-vue-next';
 
 </script>
 
-<template>
-    <nav class="
+<template>        
+    <nav
+    v-if="$route.meta.requireNav"
+    class="
     z-50 fixed bottom-4 left-4 
     bg-tv-wine w-[calc(100%-2rem)] rounded-full
     pt-3 pb-5 px-8

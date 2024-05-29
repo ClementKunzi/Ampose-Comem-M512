@@ -19,28 +19,79 @@
 
   h1,
   .h1 {
-    @apply text-4xl font-serif;
+    @apply text-5xl leading-[1.2] font-serif;
 
   }
 
   h2,
   .h2 {
-    @apply text-3xl font-serif;
-  
-  }
+    @apply text-4xl leading-[1.2] font-serif;
 
-  h2,
-  .h2 {
-    @apply text-2xl font-serif;
-  
   }
 
   h3,
   .h3 {
-    @apply text-2xl font-sans font-bold;
+    @apply text-2xl leading-[1.2] font-serif;
+
+  }
+
+  h4,
+  .h4 {
+    @apply text-xl leading-[1.2] font-sans font-bold;
+  }
+
+  .body-regular-sm {
+    @apply text-sm font-sans font-normal;
+  }
+
+  .body-regular-base {
+    @apply text-base font-sans font-normal;
+  }
+
+  .body-medium-base {
+    @apply text-base font-sans font-semibold;
+  }
+
+  .body-medium-lg {
+    @apply text-lg font-sans font-semibold;
+  }
+
+  .body-medium-3xl {
+    @apply text-3xl font-sans font-semibold;
+  }
+
+  .body-bold-base {
+    @apply text-base font-sans font-bold;
+  }
+
+  .body-bold-lg {
+    @apply text-lg font-sans font-bold;
+  }
+
+  .body-bold-xl {
+    @apply text-xl font-sans font-bold;
   }
 
   .router-link-active {
     @apply relative after:content-[''] after:w-1 after:h-1 after:bg-white after:inline-block after:rounded-full after:absolute after:left-[12.5px] after:bottom-[-9px];
   }
+
+  .link {
+    @apply text-tv-wine underline flex items-center gap-1;
+  }
+
+  input {
+    @apply max-h-12 bg-red-200;
+  }
+
+  textarea.btn {
+    @apply rounded-3xl;
+  }
+
+  input:not([type="submit"]),
+  select,
+  textarea.btn {
+    @apply w-full;
+  }
+
 }

@@ -40,6 +40,7 @@ const routes = [
     component: HomeView,
     meta: {
       title: 'Tous les sentiers de la commu',
+      requireNav: true,
     },
 
     children: [
@@ -58,16 +59,23 @@ const routes = [
     path: '/map',
     name: 'Map',
     component: MapView,
+    meta: {      
+      requireNav: true,
+    },
   },
   {
     path: '/create',
     name: 'ItineraryCreationView',
-    component: ItineraryCreationView,
+    component: ItineraryCreationView,    
   },
   {
     path: '/favoris',
     name: 'Bookmarks',
     component: BookmarkView,
+    meta: {
+      title: 'Mes favoris',
+      requireNav: true,
+    },
   },
   {
     path: '/itinerary/:id',
@@ -100,10 +108,5 @@ const router = createRouter({
   history: createWebHistory(),
   routes,
 });
-
-// router.beforeEach((to, from, next) => {
-//   document.title = to.meta.title || 'Default Title';
-//   next();
-// });
 
 export default router;

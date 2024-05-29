@@ -1,6 +1,8 @@
 @layer components {
     .btn {
-      @apply bg-tv-eggshell text-tv-wine py-3 px-5 border-2 border-tv-wine rounded-full hover:bg-red-200;
+      @apply bg-tv-eggshell text-tv-wine min-h-12 py-3 px-5 border-2 border-tv-wine rounded-full shadow-md
+      flex gap-2 items-center body-medium-base leading-5
+      hover:bg-red-200;
     }
 
     .btn-wine {
@@ -8,12 +10,16 @@
     }
     
     
-    #map {
+    .map-fullscreen {
       z-index: 0;
       position: absolute;
       top: 0;
       left: 0;
       width: 100vw;
       height: 100vh;
+    }
+
+    .map-pageLayout {
+      @apply w-full h-96 rounded-3xl;
     }
   }

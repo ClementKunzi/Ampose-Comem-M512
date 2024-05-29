@@ -14,7 +14,7 @@
           </div>
 
           <div>
-               <ul class="overflow-scroll w-[calc(100%+2rem)] pl-4 ml-[-1rem] flex gap-1.5">
+               <ul class="overflow-scroll w-[calc(100%+2rem)] pl-4 ml-[-1rem] pb-4 mb-[-1rem] flex gap-1.5">
                     <li class="shrink-0" v-for="i in 15" :key="i">
                          <button class="btn">cat {{ i }}</button>
                     </li>

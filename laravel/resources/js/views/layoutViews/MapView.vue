@@ -53,7 +53,7 @@ onMounted(() => {
 <template>    
   <div class="p-4">
     <SearchBar />    
-    <div id="map" class="map"></div>
+    <div id="map" class="map map-fullscreen"></div>
   </div>
 
 </template>
