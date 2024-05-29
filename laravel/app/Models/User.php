@@ -2,21 +2,25 @@
 
 namespace App\Models;
 
+use DateTimeInterface;
+use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Laravel\Sanctum\HasApiTokens;
+use Illuminate\Support\Str;
+use Illuminate\Foundation\Auth\User as Authenticatable;
 
-
-class User extends Model
+class User extends Authenticatable  implements MustVerifyEmail
 {
     use HasApiTokens;
     use HasFactory;
+
     /**
      * The table associated with the model.
      *
      * @var string
      */
-    protected $table = 'user';
+    protected $table = 'users';
 
     /**
      * The attributes that are mass assignable.
@@ -79,5 +83,46 @@ class User extends Model
     public function ratings()
     {
         return $this->hasMany(Rating::class);
+    }
+
+    public function tokens()
+    {
+        return $this->morphMany(\Laravel\Sanctum\PersonalAccessToken::class, 'tokenable');
+    }
+
+    public function createToken(string $name)
+    {
+        $token = hash('sha256', $plainTextToken = Str::random(80));
+
+        $accessToken = $this->tokens()->create([
+            'name' => $name,
+            'token' => $token,
+        ]);
+
+        return new \Laravel\Sanctum\NewAccessToken(
+            $accessToken,
+            $accessToken->getKey() . '|' . $plainTextToken
+        );
+    }
+
+    public function hasVerifiedEmail()
+    {
+        return $this->email_verified_at !== null;
+    }
+
+    public function markEmailAsVerified()
+    {
+        $this->email_verified_at = $this->freshTimestamp();
+        $this->email_verification = true;
+        $this->save();
+    }
+
+    public function sendEmailVerificationNotification()
+    {
+    }
+
+    public function getEmailForVerification()
+    {
+        return $this->email;
     }
 }

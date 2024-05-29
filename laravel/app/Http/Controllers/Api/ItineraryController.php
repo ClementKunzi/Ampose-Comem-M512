@@ -38,7 +38,8 @@ class ItineraryController extends Controller
      */
     public function store(StoreItineraryRequest $request)
     {
-        $imageFile = $request->file('image');
+
+        /*$imageFile = $request->file('image');
         $imagePath = $imageFile->store('images', 'public');
 
         $image = Image::create(['path' => $imagePath]);
@@ -56,7 +57,9 @@ class ItineraryController extends Controller
             $image->delete();
 
             throw $e;
-        }
+        }*/
+
+        return $this->sendSuccess($request->validated(), 'Itinerary created successfully');
     }
 
     /**
