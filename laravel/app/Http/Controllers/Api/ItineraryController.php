@@ -12,6 +12,7 @@ use App\Models\Image;
 use Illuminate\Support\Facades\Storage;
 use PhpParser\Node\Stmt\Else_;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 
 class ItineraryController extends Controller
 {
@@ -47,7 +48,7 @@ class ItineraryController extends Controller
 
             $image = Image::create([
                 'url' => $imagePath,
-                'alt_attr' => $request->get('image_description'),
+                'alt_attr' => $request->input('image_description'),
             ]);
             $validatedData['image_id'] = $image->id;
 
@@ -63,6 +64,7 @@ class ItineraryController extends Controller
                 'image_id' => $image->id,
             ]);
 
+            // Update additional attributes if present in the validated data
             if (isset($validatedData['negative_drop'])) {
                 $itinerary->negative_drop = $validatedData['negative_drop'];
             }
@@ -73,10 +75,13 @@ class ItineraryController extends Controller
                 $itinerary->positive_drop = $validatedData['positive_drop'];
             }
 
+            // Save the itinerary
             $itinerary->save();
 
+            // Process the steps if present in the request
             if ($request->has('steps')) {
-                foreach ($request->get('steps') as $index => $step) {
+                foreach ($request->input('steps') as $index => $step) {
+                    // Handle step image if present
                     if ($request->hasFile("steps.$index.stepImage")) {
                         $imageFile = $request->file("steps.$index.stepImage");
                         $imagePath = $imageFile->store('images', 'public');
@@ -87,6 +92,7 @@ class ItineraryController extends Controller
                         ]);
                     }
 
+                    // Create a new Step model
                     $newStep = Step::create([
                         'name' => $step['name'],
                         'description' => $step['description'],
@@ -97,15 +103,18 @@ class ItineraryController extends Controller
                         'itinerary_id' => $itinerary->id,
                         'external_link' => $step['external_url'] ?? null,
                     ]);
+
+                    // Attach the step image if present
                     if (isset($stepImage)) {
                         $newStep->images()->attach($stepImage->id);
                     }
                 }
             }
 
-
-
+            // Commit the transaction
             DB::commit();
+
+            // Load related models and hide specific attributes
             $itinerary->load('steps');
             $itinerary->makeHidden('created_at', 'updated_at');
             $itinerary->user->makeHidden('id', 'last_name', 'first_name', 'email', 'password', 'email_verified_at', 'email_verification', 'last_login', 'number_path_added', 'created_at', 'updated_at');
@@ -114,28 +123,39 @@ class ItineraryController extends Controller
             $itinerary->append('formatted_updated_at');
             $itinerary->steps->append('formatted_updated_at');
 
+            // Update the number of paths added for the authenticated user
             $user = auth()->user();
             $user->number_path_added += 1;
             $user->save();
+
+            // Return a success response with the created itinerary
             return $this->sendSuccess($itinerary, 'Itinerary created successfully');
         } catch (\Exception $e) {
-            DB::rollBack();
+            // Rollback the transaction in case of an error
 
+            // Delete the uploaded image and its associated model
             $imagePath = str_replace('/storage/', '', $image->url);
             Storage::disk('public')->delete($imagePath);
             $image->delete();
+
+            // Return an error response
             return $this->sendError('Error creating itinerary', $e->getMessage());
         }
     }
 
     /**
      * Display the specified resource.
+     *
+     * @param  string  $id
+     * @return \Illuminate\Http\JsonResponse
      */
     public function show(string $id)
     {
-
+        // Retrieve the itinerary with its related models
         $itinerary = Itinerary::with(['user', 'image', 'tagCategorie', 'tagAccessibility'])->find($id);
+
         if ($itinerary) {
+            // Hide specific attributes from the response
             $itinerary->makeHidden('created_at', 'user_id', 'image_id', 'tag_categorie_id', 'tag_accessibility_id', 'positive_drop', 'negative_drop', 'length', 'updated_at');
             $itinerary->user->makeHidden('id', 'last_name', 'first_name', 'email', 'password', 'email_verified_at', 'email_verification', 'last_login', 'number_path_added', 'created_at', 'updated_at');
             $itinerary->image->makeHidden('id', 'created_at', 'updated_at');
@@ -143,43 +163,171 @@ class ItineraryController extends Controller
             $itinerary->tagAccessibility->makeHidden(['id', 'created_at', 'updated_at']);
             $itinerary->append('formatted_updated_at');
             $itinerary->step->makeHidden('created_at', 'updated_at', 'itinerary_id');
+
+            // Return a success response with the retrieved itinerary
             return $this->sendSuccess($itinerary, 'Itinerary retrieved successfully');
         } else {
+            // Return an error response if the itinerary is not found
             return $this->sendError('Itinerary not found', 404);
         }
     }
 
     /**
      * Update the specified resource in storage.
+     *
+     * @param  \App\Http\Requests\UpdateItineraryRequest  $request
+     * @param  string  $id
+     * @return \Illuminate\Http\JsonResponse
      */
     public function update(UpdateItineraryRequest $request, string $id)
     {
-        $itinerary = Itinerary::findOrfail($id);
-        $validatedData = $request->validate();
+        // Find the itinerary by ID
+        $itinerary = Itinerary::find($id);
 
-        if ($request->hasFile('image')) {
-            $imageFile = $request->file('image');
-            $imagePath = $imageFile->store('images', 'public');
+        if ($itinerary) {
+            try {
+                // Handle image upload if present
+                if ($request->hasFile('image')) {
+                    $imageFile = $request->file('image');
+                    $imagePath = $imageFile->store('images', 'public');
 
-            if (!$imagePath) {
-                return $this->sendError('Image upload failed');
+                    if (!$imagePath) {
+                        return $this->sendError('Image upload failed');
+                    }
+
+                    // Create a new Image model
+                    $image = Image::create([
+                        'url' => $imagePath,
+                        'alt_attr' => $request->input('image_description'),
+                    ]);
+
+                    // Update the itinerary with the new image ID
+                    $itinerary->update(['image_id' => $image->id]);
+
+                    // Delete the old image and its associated model
+                    Storage::disk('public')->delete($itinerary->image->path);
+                    $itinerary->image->delete();
+                }
+
+                // Filter the request data and update the itinerary
+                $data = array_filter([
+                    'name' => $request->input('name'),
+                    'description' => $request->input('description'),
+                    'type' => $request->input('type'),
+                    'estimated_time' => $request->input('estimated_time'),
+                    'difficulty' => $request->input('difficulty'),
+                    'source' => $request->input('source'),
+                    'pdf_url' => $request->input('pdf_url'),
+                    'image_id' => isset($image) ? $image->id : $itinerary->image_id,
+                ], function ($value) {
+                    return $value !== null;
+                });
+
+                $itinerary->update($data);
+
+                // Process the steps if present in the request
+                if ($request->has('steps')) {
+                    foreach ($request->input('steps') as $index => $stepData) {
+                        if (isset($stepData['id'])) {
+                            // If the step has an ID, it's an update or delete operation
+                            $step = Step::find($stepData['id']);
+                            if (isset($stepData['delete']) && $stepData['delete'] == true) {
+                                $imageId = $step->image_id;
+                                if ($imageId) {
+                                    // Detach the image from the step
+                                    $step->images()->detach($imageId);
+                                    $image = Image::find($imageId);
+                                    if ($image) {
+                                        // Delete the image and its associated model
+                                        $imagePath = str_replace('/storage/', '', $image->url);
+                                        Storage::disk('public')->delete($imagePath);
+                                        $image->delete();
+                                    }
+                                }
+                                // Delete the step
+                                $step->delete();
+                            } else {
+                                // Update the step
+                                if (isset($stepData['image'])) {
+                                    // Si une nouvelle image a été fournie
+
+                                    // Récupérer l'ID de l'ancienne image
+                                    $oldImageId = $step->image_id;
+
+                                    if ($oldImageId) {
+                                        // Supprimer l'entrée de la table pivot
+                                        $step->images()->detach($oldImageId);
+
+                                        // Trouver l'ancienne image par son ID
+                                        $oldImage = Image::find($oldImageId);
+
+                                        if ($oldImage) {
+                                            // Supprimer l'ancienne image
+                                            $imagePath = str_replace('/storage/', '', $oldImage->url);
+                                            Storage::disk('public')->delete($imagePath);
+                                            $oldImage->delete();
+                                        }
+                                    }
+
+                                    // Créer une nouvelle image et l'attacher à l'étape
+
+
+
+                                    $newImage = Image::create([
+                                        'url' => $stepData['image'],
+                                        'alt_attr' => $stepData['image_description'],
+                                    ]);
+
+                                    $step->images()->attach($newImage->id);
+
+                                    // Supprimer l'image du tableau de données de l'étape
+                                    unset($stepData['image']);
+                                }
+
+                                $step->update($stepData);
+                            }
+                        } else {
+                            // Si l'étape n'a pas d'ID, c'est un ajout
+                            if ($request->hasFile("steps.$index.stepImage")) {
+                                $imageFile = $request->file("steps.$index.stepImage");
+                                $imagePath = $imageFile->store('images', 'public');
+
+                                $stepImage = Image::create([
+                                    'url' => $imagePath,
+                                    'alt_attr' => $stepData['image_description'],
+                                ]);
+                            }
+
+                            $newStep = Step::create([
+                                'name' => $stepData['name'],
+                                'description' => $stepData['description'],
+                                'adress' => $stepData['address'],
+                                'latitude' => $stepData['latitude'],
+                                'longitude' => $stepData['longitude'],
+                                'order' => $stepData['order'],
+                                'itinerary_id' => $itinerary->id,
+                                'external_link' => $step['external_url'] ?? null,
+                            ]);
+                            if (isset($stepImage)) {
+                                $newStep->images()->attach($stepImage->id);
+                            }
+                        }
+                    }
+                }
+
+                $itinerary->load('steps');
+                $itinerary->makeHidden('created_at', 'updated_at');
+                $itinerary->user->makeHidden('id', 'last_name', 'first_name', 'email', 'password', 'email_verified_at', 'email_verification', 'last_login', 'number_path_added', 'created_at', 'updated_at');
+                $itinerary->image->makeHidden('id', 'created_at', 'updated_at');
+                $itinerary->steps->makeHidden('created_at', 'updated_at', 'itinerary_id');
+                $itinerary->append('formatted_updated_at');
+                $itinerary->steps->append('formatted_updated_at');
+                return $this->sendSuccess($itinerary, 'Itinerary updated successfully');
+            } catch (\Exception $e) {
+                return $this->sendError('Error creating itinerary', $e->getMessage());
             }
-
-            $image = Image::create(['path' => $imagePath]);
-
-            // Supprime l'ancienne image si la nouvelle image a été téléchargée
-            Storage::disk('public')->delete($itinerary->image->path);
-            $itinerary->image->delete();
-
-            $validatedData['image_id'] = $image->id;
-        }
-
-        $updateSuccess = $itinerary->update($validatedData);
-
-        if (!$updateSuccess) {
-            return $this->sendError('Itinerary update failed');
         } else {
-            return $this->sendSuccess($itinerary, 'Itinerary updated successfully');
+            return $this->sendError('Itinerary not found', 404);
         }
     }
 
