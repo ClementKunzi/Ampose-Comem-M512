@@ -53,4 +53,9 @@ class Step extends Model
     {
         return $this->belongsToMany(Image::class);
     }
+
+    public function getFormattedUpdatedAtAttribute()
+    {
+        return $this->updated_at->toDateString();
+    }
 }

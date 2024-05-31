@@ -21,7 +21,6 @@ class ItineraryController extends Controller
     public function index()
     {
         $itineraries = Itinerary::with(['user', 'image', 'tagCategorie.taxonomy', 'tagAccessibility.taxonomy'])->get();
-        //$itineraries = Itinerary::with(['user', 'image', 'tagCategorie', 'tagAccessibility'])->get();
         $itineraries->makeHidden('created_at');
 
         foreach ($itineraries as $itinerary) {
@@ -29,8 +28,6 @@ class ItineraryController extends Controller
             $itinerary->image->makeHidden(['id', 'created_at', 'updated_at']);
             $itinerary->tagCategorie->makeHidden(['id', 'created_at', 'updated_at']);
             $itinerary->tagAccessibility->makeHidden(['id', 'created_at', 'updated_at']);
-            //$itinerary->tagCategorie->taxonomy->makeHidden(['id', 'created_at', 'updated_at']);
-            //$itinerary->tagAccessibility->taxonomy->makeHidden(['id', 'created_at', 'updated_at']);
         }
         return response()->json($itineraries);
     }
@@ -79,21 +76,18 @@ class ItineraryController extends Controller
             $itinerary->save();
 
             if ($request->has('steps')) {
-                foreach ($request->get('steps') as $step) {
-                    $stepImageId = null;
-                    if (isset($step['image_step'])) {
-                        $imageFile = $step['image_step'];
+                foreach ($request->get('steps') as $index => $step) {
+                    if ($request->hasFile("steps.$index.stepImage")) {
+                        $imageFile = $request->file("steps.$index.stepImage");
                         $imagePath = $imageFile->store('images', 'public');
 
                         $stepImage = Image::create([
                             'url' => $imagePath,
                             'alt_attr' => $step['image_description'],
                         ]);
-
-                        $stepImageId = $stepImage->id;
                     }
 
-                    Step::create([
+                    $newStep = Step::create([
                         'name' => $step['name'],
                         'description' => $step['description'],
                         'adress' => $step['address'],
@@ -101,18 +95,28 @@ class ItineraryController extends Controller
                         'longitude' => $step['longitude'],
                         'order' => $step['order'],
                         'itinerary_id' => $itinerary->id,
-                        'image_id' => $stepImageId,
-                        'external_url' => $step['external_url'] ?? null,
+                        'external_link' => $step['external_url'] ?? null,
                     ]);
+                    if (isset($stepImage)) {
+                        $newStep->images()->attach($stepImage->id);
+                    }
                 }
             }
+
+
+
+            DB::commit();
+            $itinerary->load('steps');
+            $itinerary->makeHidden('created_at', 'updated_at');
+            $itinerary->user->makeHidden('id', 'last_name', 'first_name', 'email', 'password', 'email_verified_at', 'email_verification', 'last_login', 'number_path_added', 'created_at', 'updated_at');
+            $itinerary->image->makeHidden('id', 'created_at', 'updated_at');
+            $itinerary->steps->makeHidden('created_at', 'updated_at', 'itinerary_id');
+            $itinerary->append('formatted_updated_at');
+            $itinerary->steps->append('formatted_updated_at');
 
             $user = auth()->user();
             $user->number_path_added += 1;
             $user->save();
-
-            DB::commit();
-
             return $this->sendSuccess($itinerary, 'Itinerary created successfully');
         } catch (\Exception $e) {
             DB::rollBack();
@@ -138,6 +142,7 @@ class ItineraryController extends Controller
             $itinerary->tagCategorie->makeHidden(['id', 'created_at', 'updated_at']);
             $itinerary->tagAccessibility->makeHidden(['id', 'created_at', 'updated_at']);
             $itinerary->append('formatted_updated_at');
+            $itinerary->step->makeHidden('created_at', 'updated_at', 'itinerary_id');
             return $this->sendSuccess($itinerary, 'Itinerary retrieved successfully');
         } else {
             return $this->sendError('Itinerary not found', 404);
@@ -180,17 +185,48 @@ class ItineraryController extends Controller
 
     /**
      * Remove the specified resource from storage.
+     *
+     * @param  string  $id
+     * @return \Illuminate\Http\Response
      */
     public function destroy(string $id)
     {
-        $itinerary = Itinerary::findOrfail($id);
+        $itinerary = Itinerary::find($id);
+        if ($itinerary) {
+            // Delete all steps associated with the itinerary
+            $steps = Step::where('itinerary_id', $itinerary->id)->get();
 
-        $deleteSuccess = $itinerary->delete();
+            foreach ($steps as $step) {
+                // Detach and delete the images associated with the step
+                foreach ($step->images as $image) {
+                    $step->images()->detach($image->id);
+                    $image->delete();
+                }
 
-        if (!$deleteSuccess) {
-            return $this->sendError('Itinerary deletion failed');
+                // Now it's safe to delete the step
+                $step->delete();
+            }
+
+            // Store the image id before deleting the itinerary
+            $imageId = $itinerary->image_id;
+
+            $deleteSuccess = $itinerary->delete();
+
+            if (!$deleteSuccess) {
+                return $this->sendError('Itinerary deletion failed');
+            } else {
+                // Delete the image associated with the itinerary
+                $image = Image::find($imageId);
+                if ($image) {
+                    $image->delete();
+                }
+                $user = auth()->user();
+                $user->number_path_added -= 1;
+                $user->save();
+                return $this->sendSuccess([], 'Itinerary deleted successfully');
+            }
         } else {
-            return $this->sendSuccess([], 'Itinerary deleted successfully');
+            return $this->sendError('Itinerary not found', 404);
         }
     }
 }

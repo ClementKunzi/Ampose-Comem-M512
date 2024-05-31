@@ -50,7 +50,7 @@ class StoreItineraryRequest extends FormRequest
             'steps.*.latitude' => 'required|numeric',
             'steps.*.longitude' => 'required|numeric',
             'steps.*.order' => 'required|integer',
-            'steps.*.image_step' => 'required|image',
+            'steps.*.stepImage' => 'required|image',
             'steps.*.image_description' => 'required|string',
             'steps.*.external_url' => 'nullable|url',
 
