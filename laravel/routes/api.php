@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\ItineraryController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\Api\ImageController;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,13 +16,30 @@ use App\Http\Controllers\AuthController;
 |
 */
 
-Route::get('/itineraries', [ItineraryController::class, 'index']);
+Route::group(['prefix' => 'itineraries'], function () {
+    Route::get('/', [ItineraryController::class, 'index']);
+    Route::get('/{id}', [ItineraryController::class, 'show']);
+    Route::group(['middleware' => 'auth:sanctum'], function () {
+        Route::post('/', [ItineraryController::class, 'store']);
+        Route::put('/{id}', [ItineraryController::class, 'update']);
+    });
+});
 
-Route::post('/itinerary', [ItineraryController::class, 'store']);
+Route::group(['prefix' => 'images'], function () {
+    Route::get('/', [ImageController::class, 'index']);
+    Route::get('/{id}', [ImageController::class, 'show']);
+    Route::group(['middleware' => 'auth:sanctum'], function () {
+        Route::post('/', [ImageController::class, 'store']);
+        Route::delete('/delete/{id}', [ImageController::class, 'destroy']);
+    });
+});
+
+
+
 
 
 Route::group(['prefix' => 'auth'], function () {
-    Route::post('login', [AuthController::class, 'login']);
+    Route::post('login', [AuthController::class, 'login'])->name('login');
     Route::post('register', [AuthController::class, 'register']);
 
     Route::group(['middleware' => 'auth:sanctum'], function () {

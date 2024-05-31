@@ -15,7 +15,7 @@ class StepMigrationTest extends TestCase
      */
     public function testStepTableExists()
     {
-        $this->assertTrue(Schema::hasTable('step'));
+        $this->assertTrue(Schema::hasTable('steps'));
     }
 
     /**
@@ -26,7 +26,7 @@ class StepMigrationTest extends TestCase
     public function testStepTableHasExpectedColumns()
     {
         $this->assertTrue(
-            Schema::hasColumns('step', [
+            Schema::hasColumns('steps', [
                 'id', 'name', 'description', 'adress', 'schedule', 'latitude', 'longitude', 'order', 'external_link', 'itinerary_id', 'created_at', 'updated_at'
             ]),
             1
@@ -41,7 +41,7 @@ class StepMigrationTest extends TestCase
     public function testStepTableHasForeignKeys()
     {
         $this->assertTrue(
-            Schema::getConnection()->getSchemaBuilder()->hasColumn('step', 'itinerary_id')
+            Schema::getConnection()->getSchemaBuilder()->hasColumn('steps', 'itinerary_id')
 
         );
     }

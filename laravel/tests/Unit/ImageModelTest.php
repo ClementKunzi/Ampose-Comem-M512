@@ -21,7 +21,7 @@ class ImageTest extends TestCase
     {
         $image = Image::factory()->create();
 
-        $this->assertDatabaseHas('image', [
+        $this->assertDatabaseHas('images', [
             'url' => $image->url,
             'alt_attr' => $image->alt_attr,
         ]);

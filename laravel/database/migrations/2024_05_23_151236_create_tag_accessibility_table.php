@@ -11,12 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('tag_accessibility', function (Blueprint $table) {
+        Schema::create('tag_accessibilities', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('taxonomy_id')->unsigned();
             $table->foreign('taxonomy_id')
                 ->references('id')
-                ->on('taxonomy')
+                ->on('taxonomies')
                 ->onDelete('restrict')
                 ->onUpdate('restrict');
             $table->timestamps();

@@ -15,7 +15,7 @@ class ImageMigrationTest extends TestCase
      */
     public function testImagesTableExists()
     {
-        $this->assertTrue(Schema::hasTable('image'));
+        $this->assertTrue(Schema::hasTable('images'));
     }
 
     /**
@@ -26,7 +26,7 @@ class ImageMigrationTest extends TestCase
     public function testImagesTableHasExpectedColumns()
     {
         $this->assertTrue(
-            Schema::hasColumns('image', [
+            Schema::hasColumns('images', [
                 'id', 'url', 'alt_attr', 'created_at', 'updated_at'
             ]),
             1

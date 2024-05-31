@@ -15,7 +15,7 @@ class TagAccessibilityMigrationTest extends TestCase
      */
     public function testTagAccessibilityTableExists()
     {
-        $this->assertTrue(Schema::hasTable('tag_accessibility'));
+        $this->assertTrue(Schema::hasTable('tag_accessibilities'));
     }
 
     /**
@@ -26,7 +26,7 @@ class TagAccessibilityMigrationTest extends TestCase
     public function testTagAccessibilityTableHasExpectedColumns()
     {
         $this->assertTrue(
-            Schema::hasColumns('tag_accessibility', [
+            Schema::hasColumns('tag_accessibilities', [
                 'id', 'taxonomy_id', 'created_at', 'updated_at'
             ]),
             1
@@ -41,7 +41,7 @@ class TagAccessibilityMigrationTest extends TestCase
     public function testTagAccessibilityTableHasForeignKeys()
     {
         $this->assertTrue(
-            Schema::getConnection()->getSchemaBuilder()->hasColumn('tag_accessibility', 'taxonomy_id')
+            Schema::getConnection()->getSchemaBuilder()->hasColumn('tag_accessibilities', 'taxonomy_id')
         );
     }
 }

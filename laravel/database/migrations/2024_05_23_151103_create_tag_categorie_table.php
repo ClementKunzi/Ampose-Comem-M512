@@ -11,13 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('tag_categorie', function (Blueprint $table) {
+        Schema::create('tag_categories', function (Blueprint $table) {
             $table->increments('id');
             $table->string('color');
             $table->integer('taxonomy_id')->unsigned();
             $table->foreign('taxonomy_id')
                 ->references('id')
-                ->on('taxonomy')
+                ->on('taxonomies')
                 ->onDelete('restrict')
                 ->onUpdate('restrict');
             $table->timestamps();

@@ -13,7 +13,7 @@ class Badge extends Model
      *
      * @var string
      */
-    protected $table = 'badge';
+    protected $table = 'badges';
 
     /**
      * The attributes that are mass assignable.

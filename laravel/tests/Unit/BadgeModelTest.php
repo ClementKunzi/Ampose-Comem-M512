@@ -20,7 +20,7 @@ class BadgeTest extends TestCase
     {
         $badge = Badge::factory()->create();
 
-        $this->assertDatabaseHas('badge', [
+        $this->assertDatabaseHas('badges', [
             'name' => $badge->name,
             'description' => $badge->description,
             'badge_picture' => $badge->badge_picture,

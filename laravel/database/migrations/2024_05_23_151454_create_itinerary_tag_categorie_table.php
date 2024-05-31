@@ -16,13 +16,13 @@ return new class extends Migration
             $table->integer('tag_categorie_id')->unsigned();
             $table->foreign('tag_categorie_id')
                 ->references('id')
-                ->on('tag_categorie')
+                ->on('tag_categories')
                 ->onDelete('restrict')
                 ->onUpdate('restrict');
             $table->integer('itinerary_id')->unsigned();
             $table->foreign('itinerary_id')
                 ->references('id')
-                ->on('itinerary')
+                ->on('itineraries')
                 ->onDelete('restrict')
                 ->onUpdate('restrict');
             $table->timestamps();

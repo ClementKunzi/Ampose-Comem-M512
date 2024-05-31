@@ -28,7 +28,7 @@ class AlertTest extends TestCase
             'user_id' => $user->id,
         ]);
 
-        $this->assertDatabaseHas('alert', [
+        $this->assertDatabaseHas('alerts', [
             'id' => $alert->id,
             'type' => $alert->type,
             'description' => $alert->description,

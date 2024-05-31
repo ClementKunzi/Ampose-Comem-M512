@@ -14,7 +14,7 @@ class TagCategorie extends Model
      *
      * @var string
      */
-    protected $table = 'tag_categorie';
+    protected $table = 'tag_categories';
 
     /**
      * The attributes that are mass assignable.

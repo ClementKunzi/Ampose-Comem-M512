@@ -13,7 +13,7 @@ class Image extends Model
      *
      * @var string
      */
-    protected $table = 'image';
+    protected $table = 'images';
 
     /**
      * The attributes that are mass assignable.

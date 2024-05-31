@@ -16,7 +16,7 @@ class Taxonomy extends Model
      *
      * @var string
      */
-    protected $table = 'taxonomy';
+    protected $table = 'taxonomies';
 
     /**
      * The attributes that are mass assignable.

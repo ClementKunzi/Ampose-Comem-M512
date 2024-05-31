@@ -15,7 +15,7 @@ class Itinerary extends Model
      *
      * @var string
      */
-    protected $table = 'itinerary';
+    protected $table = 'itineraries';
 
     /**
      * The attributes that are mass assignable.
@@ -49,7 +49,7 @@ class Itinerary extends Model
         'positive_drop' => 'float',
         'negative_drop' => 'float',
         'estimated_time' => 'float',
-        'difficulty' => 'float',
+        'difficulty' => 'string',
         'user_id' => 'integer',
         'image_id' => 'integer',
     ];
@@ -91,5 +91,10 @@ class Itinerary extends Model
     public function tagAccessibility()
     {
         return $this->belongsToMany(TagAccessibility::class);
+    }
+
+    public function getFormattedUpdatedAtAttribute()
+    {
+        return $this->updated_at->toDateString();
     }
 }

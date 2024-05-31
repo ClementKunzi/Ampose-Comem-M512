@@ -11,15 +11,15 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('alert', function (Blueprint $table) {
+        Schema::create('alerts', function (Blueprint $table) {
             $table->increments('id');
             $table->string('type');
-            $table->string('description');
+            $table->text('description');
             $table->timestamp('reporting_time');
             $table->integer('itinerary_id')->unsigned();
             $table->foreign('itinerary_id')
                 ->references('id')
-                ->on('itinerary')
+                ->on('itineraries')
                 ->onDelete('restrict')
                 ->onUpdate('restrict');
             $table->integer('user_id')->unsigned();

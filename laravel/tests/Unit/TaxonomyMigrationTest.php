@@ -15,7 +15,7 @@ class TaxonomyMigrationTest extends TestCase
      */
     public function testTaxonomyTableExists()
     {
-        $this->assertTrue(Schema::hasTable('taxonomy'));
+        $this->assertTrue(Schema::hasTable('taxonomies'));
     }
 
     /**
@@ -26,7 +26,7 @@ class TaxonomyMigrationTest extends TestCase
     public function testTaxonomyTableHasExpectedColumns()
     {
         $this->assertTrue(
-            Schema::hasColumns('taxonomy', [
+            Schema::hasColumns('taxonomies', [
                 'id', 'name', 'icon', 'description', 'created_at', 'updated_at'
             ]),
             1

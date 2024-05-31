@@ -13,7 +13,7 @@ class Step extends Model
      *
      * @var string
      */
-    protected $table = 'step';
+    protected $table = 'steps';
 
     /**
      * The attributes that are mass assignable.
