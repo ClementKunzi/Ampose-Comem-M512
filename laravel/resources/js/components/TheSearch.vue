@@ -1,12 +1,12 @@
 <script setup>
-
+     import Filters from '@/components/TheFilters.vue'
 </script>
 
 <template>
      <div class="sticky z-50 top-4 mb-9">
           <div class="mb-2 flex justify-between gap-2">
                <input class="btn grow" type="text" v-model="input" placeholder="Rechercher" />
-
+               <Filters />
                <router-link aria-label="Profile utilisateur" to="/user/profile">
                     <img class="max-w-12 rounded-full" src="https://loremflickr.com/300/300" alt="">
                </router-link>

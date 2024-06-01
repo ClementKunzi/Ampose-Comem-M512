@@ -11,6 +11,7 @@ import UserView from '@/views/layoutViews/UserView.vue';
 import UserAuthView from '@/views/layoutViews/UserAuthView.vue';
 import OnboardingView from '@/views/layoutViews/OnboardingView.vue';
 import UserEditView from '@/views/layoutViews/UserEditView.vue';
+import ItineraryCreationStepView from '@/views/layoutViews/ItineraryCreationStepView.vue';
 
 const routes = [
   {
@@ -67,6 +68,11 @@ const routes = [
     path: '/create',
     name: 'ItineraryCreationView',
     component: ItineraryCreationView,    
+  },
+  {
+    path: '/create/steps',
+    name: 'ItineraryCreationStepView',
+    component: ItineraryCreationStepView,    
   },
   {
     path: '/favoris',

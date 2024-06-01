@@ -1,25 +1,61 @@
 @layer components {
-    .btn {
-      @apply bg-tv-eggshell text-tv-wine min-h-12 py-3 px-5 border-2 border-tv-wine rounded-full shadow-md
-      flex gap-2 items-center body-medium-base leading-5
-      hover:bg-red-200;
-    }
-
-    .btn-wine {
-      @apply bg-tv-wine text-white border-white rounded-full;
-    }
-    
-    
-    .map-fullscreen {
-      z-index: 0;
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100vw;
-      height: 100vh;
-    }
-
-    .map-pageLayout {
-      @apply w-full h-96 rounded-3xl;
-    }
+  .btn {
+    @apply bg-tv-eggshell text-tv-wine min-h-12 py-3 px-5 border-2 border-tv-wine rounded-full shadow-md flex gap-2 items-center body-medium-base leading-5 hover:bg-red-200;
   }
+
+  .btn-wine {
+    @apply bg-tv-wine text-white border-white rounded-full;
+  }
+
+  .btn:focus-visible {
+    outline: 0;
+    @apply bg-tv-wine text-tv-eggshell;
+  }
+
+  .btn-wine:focus-visible {
+    outline: 0;
+    @apply bg-tv-eggshell text-tv-wine;
+  }
+
+  .btn-iconContainer {
+    @apply relative bg-tv-eggshell text-tv-wine rounded-full w-10 h-10 p-2 border border-solid border-gray-100 shadow-tv
+    flex justify-center items-center;        
+  }
+
+  .btn-iconContainerWine {
+    @apply bg-tv-wine text-tv-eggshell border-tv-wine;        
+  }
+
+
+  .map-fullscreen {
+    z-index: 0;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+  }
+
+  .map-pageLayout {
+    @apply w-full h-96 rounded-3xl;
+  }
+}
+
+
+#inputImageLoader {
+  width: 100%;
+  @apply my-4;
+
+  input {
+    position: absolute;
+  }
+
+  div {
+    display: flex;
+    justify-content: center;
+  }
+
+  img:hover {
+    cursor: pointer;
+  }
+}

@@ -1,5 +1,8 @@
-<script setup>  </script>
+<script setup>
+  
+</script>
 <template>
+  <FormLogin />
   <form class="flex flex-col space-y-4">
     <label for="name">Name</label>
     <input type="text" id="name" v-model="name" />

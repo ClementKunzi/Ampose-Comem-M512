@@ -15,6 +15,8 @@ import 'lrm-graphhopper';
 // https://github.com/perliedman/lrm-graphhopper
 // const initialMap = ref(null);
 
+// https://docs.graphhopper.com/#operation/getRoute
+
 onMounted(() => {
 
   const orsToken = '1894ebf9-bfe5-4ab1-80b2-e8ccf733ab5e';
@@ -26,6 +28,8 @@ onMounted(() => {
 
   let control = L.Routing.control({
     // router: new L.Routing.GraphHopper(orsToken),
+    serviceUrl: "http://routing.openstreetmap.de/routed-foot/route/v1",
+    // serviceUrl: `https://graphhopper.com/api/1/route?key=1894ebf9-bfe5-4ab1-80b2-e8ccf733ab5e`,
     waypoints: [
       L.latLng(46.777933, 6.6442309),
       L.latLng(46.7779608, 6.6306562)

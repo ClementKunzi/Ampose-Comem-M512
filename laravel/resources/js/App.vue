@@ -6,7 +6,7 @@ import TheHeader from './components/TheHeader.vue';
 <!-- Example of using Vue Router in a component -->
 <template>
     <TheHeader />
-    <main>
+    <main class="grow flex flex-col">
 
         <router-view />
     </main>
