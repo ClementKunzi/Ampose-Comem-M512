@@ -28,7 +28,8 @@ export default {
   },
   purge: {    
     options: {
-      safelist: ['.router-link-active'],
+  
+    safelist: ['.router-link-active', '.leaflet-routing-container'],
     },
   },
   plugins: [],

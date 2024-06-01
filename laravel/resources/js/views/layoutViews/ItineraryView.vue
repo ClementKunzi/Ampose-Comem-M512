@@ -9,6 +9,12 @@ import 'leaflet-routing-machine/dist/leaflet-routing-machine.css';
 
 const emit = defineEmits(['requireNav']);
 
+let markers = [
+        [46.784937, 6.637402],
+        [46.788490, 6.643284],
+        [46.780901, 6.643649]
+      ]
+
 onMounted(() => {
 
   const orsToken = '1894ebf9-bfe5-4ab1-80b2-e8ccf733ab5e';
@@ -16,16 +22,17 @@ onMounted(() => {
     scrollWheelZoom: false,
   });
 
-  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+  L.tileLayer('http://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png', {
     attribution: '© OpenStreetMap contributors'
   }).addTo(map);
 
+  let waypoints = markers.map(coord => L.latLng(coord[0], coord[1]));
+
   let control = L.Routing.control({
     // router: new L.Routing.GraphHopper(orsToken),
-    waypoints: [
-      L.latLng(46.777933, 6.6442309),
-      L.latLng(46.7779608, 6.6306562)
-    ],
+    waypoints,
+    serviceUrl: "http://routing.openstreetmap.de/routed-foot/route/v1",
+      language: 'fr',
 
     routeWhileDragging: false,
 
@@ -33,12 +40,9 @@ onMounted(() => {
     // addWaypoints: true,
     // reverseWaypoints: true,
     showInstructions: false,
-
-
-    profile: 'foot'
   }).addTo(map);
 
-  let waypoints = control.getWaypoints();
+  // let waypoints = control.getWaypoints();
   console.log(waypoints);
 
   L.Control.geocoder().addTo(map);

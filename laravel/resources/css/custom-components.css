@@ -39,6 +39,11 @@
   .map-pageLayout {
     @apply w-full h-96 rounded-3xl;
   }
+
+  .leaflet-routing-container {
+    display: none;
+    opacity: .5 !important;
+  }
 }
 
 
