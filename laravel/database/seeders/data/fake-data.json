@@ -1,0 +1,766 @@
+[
+    {
+        "name": "Tour théatrale proche de Lausanne",
+        "description": "Découvrez les lieux de création et de diffusion théâtrale de Lausanne, en suivant ce parcours qui vous emmènera à travers les différents théâtres de la ville.",
+        "type": "boucle",
+        "length": 10.5,
+        "positive_drop": 500,
+        "negative_drop": 300,
+        "estimated_time": 45,
+        "difficulty": "modéré",
+        "source": "officiel",
+        "image": {
+            "url": "/itinerary_image/tour-theatrale-de-lausanne.jpg",
+            "alt_attr": "Image montrant un théâtre à Lausanne"
+        },
+        "steps": [
+            {
+                "name": "Théâtre de Vidy",
+                "description": "Commencez votre balade au Théâtre de Vidy, un lieu de création et de diffusion théâtrale situé au bord du lac Léman.",
+                "address": "Avenue Emile Jaques-Dalcroze 5, 1007 Lausanne, Suisse",
+                "latitude": 46.512857105594044,
+                "longitude": 6.610835110872302,
+                "order": 1,
+                "external_link": "https://vidy.ch/",
+                "stepImage": "/imagestep/tour-theatrale-proche-de-lausanne/step1.jpg",
+                "image_description": "Image for step 1 of the itinerary 'Tour théatrale proche de Lausanne'"
+            },
+            {
+                "name": "Opéra de Lausanne",
+                "description": "L'Opéra de Lausanne est un lieu prestigieux pour la musique classique et lyrique, offrant une expérience sonore exceptionnelle dans un cadre magnifique.",
+                "address": "Av. du Théâtre 12, 1005 Lausanne, Suisse",
+                "latitude": 46.51804577161189,
+                "longitude": 6.636886263014645,
+                "order": 2,
+                "external_link": "https://www.opera-lausanne.ch/",
+                "stepImage": "/imagestep/tour-theatrale-proche-de-lausanne/step2.jpg",
+                "image_description": "Image for step 1 of the itinerary 'Tour théatrale proche de Lausanne'"
+            },
+            {
+                "name": "Théâtre de l'Octogone",
+                "description": "Visitez le Théâtre de l'Octogone, un lieu de création et de diffusion théâtrale situé dans le quartier de la Pontaise.",
+                "address": "Avenue de Lavaux 41, 1009 Pully, Suisse",
+                "latitude": 46.51210127917652,
+                "longitude": 6.66080271406898,
+                "order": 3,
+                "external_link": "https://www.theatre-octogone.ch/",
+                "stepImage": "/imagestep/tour-theatrale-proche-de-lausanne/step3.jpg",
+                "image_description": "Image for step 3 of the itinerary 'Tour théatrale proche de Lausanne'"
+            },
+            {
+                "name": "Théâtre de l'Échandole",
+                "description": "Explorez le Théâtre de l'Échandole, un lieu de création et de diffusion théâtrale situé dans le quartier du Flon.",
+                "address": "Place de l'Europe 1, 1003 Lausanne, Suisse",
+                "latitude": 46.778231943912694,
+                "longitude": 6.641499308507065,
+                "order": 4,
+                "external_link": "",
+                "stepImage": "/imagestep/tour-theatrale-proche-de-lausanne/step4.jpg",
+                "image_description": "Image for step 4 of the itinerary 'Tour théatrale proche de Lausanne'"
+            },
+            {
+                "name": "Arsenic – Centre d'art scenique contemporain",
+                "description": "Arsenic est un centre d'art scenique contemporain qui propose des productions innovantes et des ateliers, soutenant la création artistique.",
+                "address": "Rue de Genève 57, 1004 Lausanne, Suisse",
+                "latitude": 46.52266602055357,
+                "longitude": 6.6214393525203725,
+                "order": 5,
+                "external_link": "https://arsenic.ch/",
+                "stepImage": "/imagestep/tour-theatrale-proche-de-lausanne/step5.jpg",
+                "image_description": "Image for step 5 of the itinerary 'Tour théatrale proche de Lausanne'"
+            },
+            {
+                "name": "Théâtre de Vidy",
+                "description": "Commencez votre balade au Théâtre de Vidy, un lieu de création et de diffusion théâtrale situé au bord du lac Léman.",
+                "address": "Avenue Emile Jaques-Dalcroze 5, 1007 Lausanne, Suisse",
+                "latitude": 46.512857105594044,
+                "longitude": 6.610835110872302,
+                "order": 6,
+                "external_link": "https://vidy.ch/",
+                "stepImage": "/imagestep/tour-theatrale-proche-de-lausanne/step6.jpg",
+                "image_description": "Image for step 6 of the itinerary 'Tour théatrale proche de Lausanne'"
+            }
+        ]
+    },
+    {
+        "name": "Sortie en forêt au coeur de chalet à Gobet",
+        "description": "Découvrez la nature préservée de Lausanne en suivant ce parcours qui vous emmènera à travers les forêts et les étangs de la région.",
+        "type": "boucle",
+        "length": 20.0,
+        "positive_drop": 600,
+        "negative_drop": 400,
+        "estimated_time": 90,
+        "difficulty": "difficile",
+        "source": "communautaire",
+        "image": {
+            "url": "/itinerary_image/sortie-en-foret-au-coeur-de-chalet-a-gobet.jpg",
+            "alt_attr": "Image montrant une forêt au chalet a gobet"
+        },
+        "steps": [
+            {
+                "name": "Parking chalet à gobet",
+                "description": "Commencez votre balade au Parking chalet à Gobet, un point de départ idéal pour explorer les espaces verts de Lausanne.",
+                "address": "Rte de Cojonnex 64, 1000 Lausanne",
+                "latitude": 46.56460405927906,
+                "longitude": 6.690367452591765,
+                "order": 1,
+                "external_link": "",
+                "stepImage": "/imagestep/sortie-en-foret-au-coeur-de-chalet-a-gobet/step1.jpg",
+                "image_description": "Image for step 1 of the itinerary 'Sortie en forêt au coeur de chalet à Gobet'"
+            },
+            {
+                "name": "Parcours Vita chalet à Gobet",
+                "description": "Découvrez le Parcours Vita chalet à Gobet, un parcours de santé qui vous permet de vous entraîner en pleine nature.",
+                "address": "Rte de Cojonnex 95, 1000 Lausanne",
+                "latitude": 46.56537294030099,
+                "longitude": 6.68906831180062,
+                "order": 2,
+                "external_link": "",
+                "stepImage": "/imagestep/sortie-en-foret-au-coeur-de-chalet-a-gobet/step2.jpg",
+                "image_description": "Image for step 2 of the itinerary 'Sortie en forêt au coeur de chalet à Gobet'"
+            },
+            {
+                "name": "Cabane scout de Sauvabelin",
+                "description": "Découvrez la Cabane scout de Sauvabelin, un lieu de rencontre et de loisirs au cœur de la forêt de Sauvabelin.",
+                "address": "Rte des Corbessières, 1000 Lausanne",
+                "latitude": 46.57029635102179,
+                "longitude": 6.684560051684349,
+                "order": 3,
+                "external_link": "",
+                "stepImage": "/imagestep/sortie-en-foret-au-coeur-de-chalet-a-gobet/step3.jpg",
+                "image_description": "Image for step 3 of the itinerary 'Sortie en forêt au coeur de chalet à Gobet'"
+            },
+            {
+                "name": "Étang de la Bressonne",
+                "description": "Explorez l'Étang de la Bressonne, un espace naturel préservé offrant une faune et une flore riches.",
+                "address": "Route du Chalet-à-Gobet, 1052 Le Mont-sur-Lausanne",
+                "latitude": 46.57302933498894,
+                "longitude": 6.700484367156292,
+                "order": 4,
+                "external_link": "",
+                "stepImage": "/imagestep/sortie-en-foret-au-coeur-de-chalet-a-gobet/step4.jpeg",
+                "image_description": "Image for step 4 of the itinerary 'Sortie en forêt au coeur de chalet à Gobet'"
+            },
+            {
+                "name": "Parking chalet à gobet",
+                "description": "Terminez votre balade en revenant au Parking chalet à Gobet, où vous pourrez vous détendre après une journée en pleine nature.",
+                "address": "Rte de Cojonnex 64, 1000 Lausanne",
+                "latitude": 46.56460405927906,
+                "longitude": 6.690367452591765,
+                "order": 5,
+                "external_link": "",
+                "stepImage": "/imagestep/sortie-en-foret-au-coeur-de-chalet-a-gobet/step5.jpg",
+                "image_description": "Image for step 5 of the itinerary 'Sortie en forêt au coeur de chalet à Gobet'"
+            }
+        ]
+    },
+    {
+        "name": "Balade mécanique de Sainte-Croix",
+        "description": "Découvrez l'histoire de la mécanique d'art à Sainte-Croix, en visitant les musées et ateliers qui perpétuent cette tradition artisanale.",
+        "type": "point AB",
+        "length": 5.0,
+        "positive_drop": 100,
+        "negative_drop": 50,
+        "estimated_time": 100,
+        "difficulty": "facile",
+        "source": "officiel",
+        "image": {
+            "url": "/itinerary_image/balade-mecanique-de-sainte-croix.jpg",
+            "alt_attr": "Intérieur mécanique d'un musée à sainte-croix"
+        },
+        "steps": [
+            {
+                "name": "Centre International de la Mécanique d'Art (CIMA)",
+                "description": "Découvrez une riche collection d'objets mécaniques d'art et d'artisanat.",
+                "address": "Rue de l'Industrie 2, 1450 Sainte-Croix",
+                "latitude": 46.82088287501783,
+                "longitude": 6.503140453621326,
+                "order": 1,
+                "external_link": "https://www.cima-switzerland.org/",
+                "stepImage": "/imagestep/balade-mecanique-de-sainte-croix/step1.jpg",
+                "image_description": "Image for step 1 of the itinerary 'Balade mécanique de Sainte-Croix'"
+            },
+            {
+                "name": "Musée Baud",
+                "description": "Explorez une collection unique de boîtes à musique et d'automates.",
+                "address": "Grand-Rue 23, 1454 Auberson, Suisse",
+                "latitude": 46.81972734685799,
+                "longitude": 6.470934132520868,
+                "order": 2,
+                "external_link": "https://www.musee-baud.ch/",
+                "stepImage": "/imagestep/balade-mecanique-de-sainte-croix/step2.jpg",
+                "image_description": "Image for step 2 of the itinerary 'Balade mécanique de Sainte-Croix'"
+            },
+            {
+                "name": "Atelier de mécanique ancienne du Dr. Wyss",
+                "description": "Visitez un atelier où l'artisanat mécanique est encore pratiqué aujourd'hui.",
+                "address": "Rue de l'Industrie 15, 1450 Sainte-Croix, Suisse",
+                "latitude": 46.82049127265748,
+                "longitude": 6.502976978134115,
+                "order": 3,
+                "external_link": "https://www.wyss-mechanic.ch/",
+                "stepImage": "/imagestep/balade-mecanique-de-sainte-croix/step3.jpg",
+                "image_description": "Image for step 3 of the itinerary 'Balade mécanique de Sainte-Croix'"
+            },
+            {
+                "name": "Manufacture Reuge SA",
+                "description": "Découvrez la tradition de fabrication de mouvements mécaniques de précision chez Reuge.",
+                "address": "Qur du Progrès 37, 1450 Sainte-Croix, Suisse",
+                "latitude": 46.817154672130016,
+                "longitude": 6.505981482278767,
+                "order": 4,
+                "external_link": "https://www.reuge.com/",
+                "stepImage": "/imagestep/balade-mecanique-de-sainte-croix/step4.jpg",
+                "image_description": "Image for step 4 of the itinerary 'Balade mécanique de Sainte-Croix'"
+            }
+        ]
+    },
+    {
+        "name": "Balade botanique dans la ville de Lausanne ",
+        "description": "Découvrez les espaces verts et les jardins botaniques de Lausanne, en suivant ce parcours qui vous emmènera à travers les parcs et les musées de la ville.",
+        "type": "boucle",
+        "length": 15.0,
+        "positive_drop": 400,
+        "negative_drop": 200,
+        "estimated_time": 80,
+        "difficulty": "facile",
+        "source": "communautaire",
+        "image": {
+            "url": "/itinerary_image/balade-botanique-dans-la-ville-de-lausanne.jpg",
+            "alt_attr": "Image for Itinerary 4"
+        },
+        "steps": [
+            {
+                "name": "Parc de Sauvabelin",
+                "description": "Commencez votre balade au Parc de Sauvabelin, un espace vert idyllique offrant une vue imprenable sur Lausanne et le lac Léman.",
+                "address": "Route de Sauvabelin 1, 1007 Lausanne, Suisse",
+                "latitude": 46.53546435094737,
+                "longitude": 6.638368120141571,
+                "order": 1,
+                "external_link": "",
+                "stepImage": "/imagestep/balade-botanique-dans-la-ville-de-lausanne-/step1.jpg",
+                "image_description": "Image for step 1 of the itinerary 'Balade botanique dans la ville de Lausanne '"
+            },
+            {
+                "name": "Jardin botanique de Lausanne",
+                "description": "Visitez le Jardin botanique de Lausanne , un lieu de découverte et de conservation des plantes, offrant également une vue sur le lac Léman.",
+                "address": "Av. de Cour 14B, 1007 Lausanne",
+                "latitude": 46.513423209801275,
+                "longitude": 6.622670820861838,
+                "order": 2,
+                "external_link": "https://botanique.vd.ch/jardin-de-lausanne/jardin-botanique-de-lausanne/",
+                "stepImage": "/imagestep/balade-botanique-dans-la-ville-de-lausanne-/step2.jpg",
+                "image_description": "Image for step 2 of the itinerary 'Balade botanique dans la ville de Lausanne '"
+            },
+            {
+                "name": "Parc de l'Hermitage",
+                "description": "Admirez le Parc de l'Hermitage, un jardin anglais qui abrite une collection de plantes et d'arbres exotiques, ainsi que le Musée de l'Art Brut.",
+                "address": "Route de l'Hermitage 33, 1007 Lausanne, Suisse",
+                "latitude": 46.529542060477,
+                "longitude": 6.637092555073105,
+                "order": 3,
+                "external_link": "",
+                "stepImage": "/imagestep/balade-botanique-dans-la-ville-de-lausanne-/step3.jpg",
+                "image_description": "Image for step 3 of the itinerary 'Balade botanique dans la ville de Lausanne '"
+            },
+            {
+                "name": "Musée de Zoologie",
+                "description": "Explorez le Musée de Zoologie, situé dans le Parc de l'Hermitage, qui propose une exposition sur la biodiversité mondiale.",
+                "address": "Route de l'Hermitage 33, 1007 Lausanne, Suisse",
+                "latitude": 46.523519308744866,
+                "longitude": 6.633858943530197,
+                "order": 4,
+                "external_link": "",
+                "stepImage": "/imagestep/balade-botanique-dans-la-ville-de-lausanne-/step4.jpg",
+                "image_description": "Image for step 4 of the itinerary 'Balade botanique dans la ville de Lausanne '"
+            },
+            {
+                "name": "Retour au Parc de Sauvabelin",
+                "description": "Terminez votre balade en revenant au Parc de Sauvabelin, où vous pouvez profiter d'un moment de détente dans un cadre verdoyant.",
+                "address": "Route de Sauvabelin 1, 1007 Lausanne, Suisse",
+                "latitude": 46.53546435094737,
+                "longitude": 6.638368120141571,
+                "order": 5,
+                "external_link": "",
+                "stepImage": "/imagestep/balade-botanique-dans-la-ville-de-lausanne-/step5.jpg",
+                "image_description": "Image for step 5 of the itinerary 'Balade botanique dans la ville de Lausanne '"
+            }
+        ]
+    },
+    {
+        "name": "Parcours Gastronomique et musical à Montreux",
+        "description": "Découvrez Montreux à travers ses saveurs locales et son histoire musicale, en suivant ce parcours qui combine gastronomie et jazz.",
+        "type": "point AB",
+        "length": 25.0,
+        "positive_drop": 800,
+        "negative_drop": 600,
+        "estimated_time": 120,
+        "difficulty": "difficile",
+        "source": "communautaire",
+        "image": {
+            "url": "/itinerary_image/parcours-historique-de-la-ville-de-lausanne.jpg",
+            "alt_attr": "Image montrant une vue sur Montreux et le lac Léman"
+        },
+        "steps": [
+            {
+                "name": "Marché Couvert de Montreux",
+                "description": "Commencez votre voyage culinaire au cœur de Montreux, dans son marché couvert animé. Dégustez les produits frais et locaux.",
+                "address": "Rue du Théâtre, 1820 Montreux, Suisse",
+                "latitude": 46.43229702662141,
+                "longitude": 6.909744697068952,
+                "order": 1,
+                "external_link": "",
+                "stepImage": "/imagestep/parcours-gastronomique-et-musical-a-montreux/step1.jpg",
+                "image_description": "Image for step 1 of the itinerary 'Parcours Gastronomique et musical à Montreux'"
+            },
+            {
+                "name": "Statue de Freddie Mercury",
+                "description": "Rendez-vous sur le quai de Montreux pour admirer la statue de Freddie Mercury, membre fondateur de Queen, qui avait une résidence à Montreux.",
+                "address": "Pl. du Marché, 1820 Montreux, Suisse",
+                "latitude": 46.43289835033573,
+                "longitude": 6.909558786821751,
+                "order": 2,
+                "external_link": "",
+                "stepImage": "/imagestep/parcours-gastronomique-et-musical-a-montreux/step2.jpg",
+                "image_description": "Image for step 2 of the itinerary 'Parcours Gastronomique et musical à Montreux'"
+            },
+            {
+                "name": "Queen Studio Experience Montreux",
+                "description": "Visitez le studio où Queen a travaillé et découvrez l'histoire du rock et du jazz à Montreux grâce à des expositions interactives.",
+                "address": "Rue du Théâtre 9, 1820 Montreux, Suisse",
+                "latitude": 46.429669592471235,
+                "longitude": 6.91168728100153,
+                "order": 3,
+                "external_link": "https://www.montreuxjazz.com/studio-experience/",
+                "stepImage": "/imagestep/parcours-gastronomique-et-musical-a-montreux/step3.jpg",
+                "image_description": "Image for step 3 of the itinerary 'Parcours Gastronomique et musical à Montreux'"
+            },
+            {
+                "name": "Funky Claude's Bar",
+                "description": "Un line-up incroyable de cocktails traditionnels faits maison enviés par beaucoup en Suisse! Le Funky Claude's Bar vous accueille dans un endroit chaleureux avec une cuisine gastronomique simple et décontractée. C'est le meilleur endroit pour danser, s'amuser et découvrir cet endroit emblématique.",
+                "address": "Av. Claude-Nobs 2, 1820 Montreux",
+                "latitude": 46.43864251372073,
+                "longitude": 6.90650082036989,
+                "order": 4,
+                "external_link": "",
+                "stepImage": "/imagestep/parcours-gastronomique-et-musical-a-montreux/step4.jpg",
+                "image_description": "Image for step 4 of the itinerary 'Parcours Gastronomique et musical à Montreux'"
+            },
+            {
+                "name": "Montreux Jazz Café",
+                "description": "Ce restaurant thématique autour du célèbre Festival de Jazz de Montreux propose un menu de plats français et internationaux.",
+                "address": "Av. Claude-Nobs 2, 1820 Montreux",
+                "latitude": 46.43856455192497,
+                "longitude": 6.906741600166576,
+                "order": 5,
+                "external_link": "",
+                "stepImage": "/imagestep/parcours-gastronomique-et-musical-a-montreux/step5.jpg",
+                "image_description": "Image for step 5 of the itinerary 'Parcours Gastronomique et musical à Montreux'"
+            },
+            {
+                "name": "Piano Bar du Mirador",
+                "description": "Pour terminer votre soirée, rendez-vous à cette piano-bar élégante pour écouter de la musique live tout en dégustant des cocktails raffinés.",
+                "address": "Rue du Théâtre 5, 1820 Montreux, Suisse",
+                "latitude": 46.42950394317996,
+                "longitude": 6.912948597784004,
+                "order": 6,
+                "external_link": "",
+                "stepImage": "/imagestep/parcours-gastronomique-et-musical-a-montreux/step6.jpg",
+                "image_description": "Image for step 6 of the itinerary 'Parcours Gastronomique et musical à Montreux'"
+            }
+        ]
+    },
+    {
+        "name": "Parcours historique de la ville de Lausanne",
+        "description": "Découvrez l'histoire de Lausanne à travers ses monuments et musées emblématiques, en suivant ce parcours qui vous emmènera à travers la vieille ville.",
+        "type": "boucle",
+        "length": 30.0,
+        "positive_drop": 1000,
+        "negative_drop": 700,
+        "estimated_time": 75,
+        "difficulty": "difficile",
+        "source": "officiel",
+        "image": {
+            "url": "/itinerary_image/parcours-historique-de-la-ville-de-lausanne.jpg",
+            "alt_attr": "Image montrant la vieille ville de Lausanne"
+        },
+        "steps": [
+            {
+                "name": "Cathédrale de Lausanne",
+                "description": "Commencez votre parcours à la Cathédrale Notre-Dame, un symbole emblématique de Lausanne, construite entre le IXe et le XIIIe siècle.",
+                "address": "Place de la Cathédrale, 1005 Lausanne, Suisse",
+                "latitude": 46.52266467925694,
+                "longitude": 6.634658238458433,
+                "order": 1,
+                "external_link": "https://www.cathedralelausanne.ch/",
+                "stepImage": "/imagestep/parcours-historique-de-la-ville-de-lausanne/step1.jpg",
+                "image_description": "Image for step 1 of the itinerary 'Parcours historique de la ville de Lausanne'"
+            },
+            {
+                "name": "Musée Historique Lausanne",
+                "description": "Visitez le Musée Historique de Lausanne, situé dans l'ancien palais épiscopal, pour découvrir l'histoire de Lausanne à travers des collections variées.",
+                "address": "Place de la Cathédrale, 1005 Lausanne, Suisse",
+                "latitude": 46.52214505050433,
+                "longitude": 6.63498733950549,
+                "order": 2,
+                "external_link": "https://www.ville-lausanne.ch/fr/musees-et-collections/musee-canton-albert-rieder",
+                "stepImage": "/imagestep/parcours-historique-de-la-ville-de-lausanne/step2.jpg",
+                "image_description": "Image for step 2 of the itinerary 'Parcours historique de la ville de Lausanne'"
+            },
+            {
+                "name": "Palais de Rumine",
+                "description": "Visitez le Palais de Rumine, un monument historique qui abrite aujourd'hui le musée cantonal d'art et d'histoire, ainsi qu'un observatoire.",
+                "address": "Place de Rumine, 1005 Lausanne, Suisse",
+                "latitude": 46.523513758925766,
+                "longitude": 6.633757768457698,
+                "order": 3,
+                "external_link": "https://www.ville-lausanne.ch/fr/musees-et-collections/musee-canton-albert-rieder",
+                "stepImage": "/imagestep/parcours-historique-de-la-ville-de-lausanne/step3.jpg",
+                "image_description": "Image for step 3 of the itinerary 'Parcours historique de la ville de Lausanne'"
+            },
+            {
+                "name": "Place de la Palud",
+                "description": "Visitez la Place de la Palud, le cœur de la vieille ville de Lausanne, animé par de nombreux petits commerces et restaurants historiques.",
+                "address": "Place de la Palud, 1003 Lausanne, Suisse",
+                "latitude": 46.52196293134904,
+                "longitude": 6.632878935539892,
+                "order": 4,
+                "external_link": "",
+                "stepImage": "/imagestep/parcours-historique-de-la-ville-de-lausanne/step4.jpg",
+                "image_description": "Image for step 4 of the itinerary 'Parcours historique de la ville de Lausanne'"
+            },
+            {
+                "name": "Église réformée Saint-François",
+                "description": "Explorez l'Église réformée Saint-François, un lieu de culte historique datant du XIIIe siècle, situé au cœur de la vieille ville.",
+                "address": "Pl. Saint-François, 1003 Lausanne, Suisse",
+                "latitude": 46.51977260760436,
+                "longitude": 6.633318077578461,
+                "order": 5,
+                "external_link": "http://www.sainf.ch/",
+                "stepImage": "/imagestep/parcours-historique-de-la-ville-de-lausanne/step5.jpg",
+                "image_description": "Image for step 5 of the itinerary 'Parcours historique de la ville de Lausanne'"
+            },
+            {
+                "name": "Retour à la Cathédrale Notre-Dame",
+                "description": "Terminez votre parcours en revenant à la Cathédrale Notre-Dame, où vous pourrez apprécier la tranquillité du jardin et la vue sur la ville.",
+                "address": "Place de la Cathédrale, 1005 Lausanne, Suisse",
+                "latitude": 46.5097,
+                "longitude": 6.6394,
+                "order": 6,
+                "external_link": "https://www.cathedralelausanne.ch/",
+                "stepImage": "/imagestep/parcours-historique-de-la-ville-de-lausanne/step6.jpg",
+                "image_description": "Image for step 6 of the itinerary 'Parcours historique de la ville de Lausanne'"
+            }
+        ]
+    },
+    {
+        "name": "Vevey à travers les âges",
+        "description": "Découvrez l'histoire de Vevey à travers ses monuments et musées emblématiques, en suivant ce parcours qui vous emmènera à travers la ville.",
+        "type": "point AB",
+        "length": 7.5,
+        "positive_drop": 200,
+        "negative_drop": 150,
+        "estimated_time": 45,
+        "difficulty": "modéré",
+        "source": "officiel",
+        "image": {
+            "url": "/itinerary_image/vevey-a-travers-les-ages.jpg",
+            "alt_attr": "image montrant Vevey à travers les âges"
+        },
+        "steps": [
+            {
+                "name": "Place du Marché",
+                "description": "Commencez votre visite à travers les âges à la Place du marché, le cœur de Vevey",
+                "address": "Place de l'Europe, 1800 Vevey, Suisse",
+                "latitude": 46.45976478506689,
+                "longitude": 6.842232436143262,
+                "order": 1,
+                "external_link": "https://www.vevey-tourisme.ch/fr/place-de-leurope",
+                "stepImage": "/imagestep/vevey-a-travers-les-ages/step1.jpg",
+                "image_description": "Image for step 1 of the itinerary 'Vevey à travers les âges'"
+            },
+            {
+                "name": "Château de Chillon",
+                "description": "Visitez le Château de Chillon, situé à seulement 3 km de Vevey, un joyau de l'architecture médiévale qui a servi de scène à la pièce de théâtre 'La Princesse de Clèves'.",
+                "address": "Château de Chillon, 1820 Veyrier-du-Lac, Suisse",
+                "latitude": 46.414212563408086,
+                "longitude": 6.9274839161924575,
+                "order": 2,
+                "external_link": "https://www.chillon.ch/",
+                "stepImage": "/imagestep/vevey-a-travers-les-ages/step2.jpg",
+                "image_description": "Image for step 2 of the itinerary 'Vevey à travers les âges'"
+            },
+            {
+                "name": "Musée de l'Alimentation",
+                "description": "Découvrez le Musée de l'Alimentation, qui retrace l'histoire de l'alimentation à travers les âges et propose des expositions interactives.",
+                "address": "Quai Perdonnet 25, 1800 Vevey, Suisse",
+                "latitude": 46.45838369832091,
+                "longitude": 6.846449330856793,
+                "order": 3,
+                "external_link": "https://www.alimentarium.org/fr",
+                "stepImage": "/imagestep/vevey-a-travers-les-ages/step3.jpg",
+                "image_description": "Image for step 3 of the itinerary 'Vevey à travers les âges'"
+            },
+            {
+                "name": "Fondation Pierre Gianadda",
+                "description": "Visitez la Fondation Pierre Gianadda, qui abrite des expositions temporaires d'art classique et moderne, ainsi que des sculptures romaines.",
+                "address": "Route de Lavaux 136, 1800 Vevey, Suisse",
+                "latitude": 46.09518974523818,
+                "longitude": 7.07086745943281,
+                "order": 4,
+                "external_link": "https://www.fondationgianadda.ch/",
+                "stepImage": "/imagestep/vevey-a-travers-les-ages/step4.jpg",
+                "image_description": "Image for step 4 of the itinerary 'Vevey à travers les âges'"
+            },
+            {
+                "name": "Promenade de la Treille",
+                "description": "Profitez d'une promenade paisible le long de la Promenade de la Treille, offrant des vues spectaculaires sur le lac Léman et les montagnes.",
+                "address": "Promenade de la Treille, 1800 Vevey, Suisse",
+                "latitude": 46.20041738065914,
+                "longitude": 6.146259496662884,
+                "order": 5,
+                "external_link": "",
+                "stepImage": "/imagestep/vevey-a-travers-les-ages/step5.jpg",
+                "image_description": "Image for step 5 of the itinerary 'Vevey à travers les âges'"
+            },
+            {
+                "name": "Église St-Martin",
+                "description": "Visitez l'Église St-Martin, un monument gothique du XVIe siècle, et admire son orgue baroque et son maître-autel richement décoré.",
+                "address": "Rue St-Martin 15, 1800 Vevey, Suisse",
+                "latitude": 46.462237656609254,
+                "longitude": 6.847093616620887,
+                "order": 6,
+                "external_link": "https://www.eglise-st-martin.ch/",
+                "stepImage": "/imagestep/vevey-a-travers-les-ages/step6.jpg",
+                "image_description": "Image for step 6 of the itinerary 'Vevey à travers les âges'"
+            },
+            {
+                "name": "Musée Jenisch",
+                "description": "Découvrez le Musée Jenisch, consacré à l'art suisse contemporain, et admirez la collection d'art de la famille Jenisch.",
+                "address": "Route de Collonge 21, 1800 Vevey, Suisse",
+                "latitude": 46.46147687053969,
+                "longitude": 6.845271636583399,
+                "order": 7,
+                "external_link": "https://www.museumjenisch.org/",
+                "stepImage": "/imagestep/vevey-a-travers-les-ages/step7.png",
+                "image_description": "Image for step 7 of the itinerary 'Vevey à travers les âges'"
+            }
+        ]
+    },
+    {
+        "name": "Balade des arts à Vevey",
+        "description": "Découvrez les lieux culturels et artistiques de Vevey, en suivant ce parcours qui vous emmènera à travers les musées et les galeries de la ville.",
+        "type": "point AB",
+        "length": 12.0,
+        "positive_drop": 300,
+        "negative_drop": 250,
+        "estimated_time": 85,
+        "difficulty": "facile",
+        "source": "communautaire",
+        "image": {
+            "url": "/itinerary_image/balade-des-arts-a-vevey.jpg",
+            "alt_attr": "Image montrant une galerie d'art à Vevey"
+        },
+        "steps": [
+            {
+                "name": "Bibliothèque Municipale de Vevey",
+                "description": "Commencez votre voyage littéraire à la Bibliothèque Municipale de Vevey, où vous pouvez explorer une riche collection de livres et documents historiques.",
+                "address": "Quai Perdonnet 33, 1800 Vevey",
+                "latitude": 46.45841248292971,
+                "longitude": 6.844952150877074,
+                "order": 1,
+                "external_link": "https://biblio.vevey.ch/",
+                "stepImage": "/imagestep/balade-des-arts-a-vevey/step1.jpg",
+                "image_description": "Image for step 1 of the itinerary 'Balade des arts à Vevey'"
+            },
+            {
+                "name": "Maison de Charlie Chaplin",
+                "description": "Visitez la Maison de Charlie Chaplin, qui abrite également un musée dédié à la vie et à l'œuvre de cet artiste exceptionnel. Bien qu'il soit principalement connu comme acteur et réalisateur, Chaplin était aussi scénariste et compositeur, contribuant ainsi à la littérature cinématographique.",
+                "address": "Route de Fenil 2, 1804 Corsier-sur-Vevey, Suisse",
+                "latitude": 46.475518201938094,
+                "longitude": 6.851408492189787,
+                "order": 2,
+                "external_link": "https://www.chaplinsworld.com/fr",
+                "stepImage": "/imagestep/balade-des-arts-a-vevey/step2.jpg",
+                "image_description": "Image for step 2 of the itinerary 'Balade des arts à Vevey'"
+            },
+            {
+                "name": "Villa le lac - le Corbusier",
+                "description": "Suivez les traces de Le Corbusier, architecte et écrivain influent, en découvrant ses œuvres architecturales à Vevey. Cette promenade vous permettra d'explorer la relation entre architecture et littérature.",
+                "address": "Rte de Lavaux 21, 1802 Corseaux",
+                "latitude": 46.46845933981181,
+                "longitude": 6.829310639793454,
+                "order": 3,
+                "external_link": "https://villalelac.ch/fr/information",
+                "stepImage": "/imagestep/balade-des-arts-a-vevey/step3.jpg",
+                "image_description": "Image for step 3 of the itinerary 'Balade des arts à Vevey'"
+            },
+            {
+                "name": "Statue de Mihai Eminescu",
+                "description": "Sur le quai Perdonnet, non loin de Chaplin et Gogol, se tient le buste en bronze de Mihai Eminescu, auteur romantique roumain. Offerte par l'Ambassade de Roumanie en Suisse à la ville de Vevey en 2000, cette œuvre d'Andreia Bove Năstăsescu met en scène le buste de Mihai Eminescu sur une pile de livres qui crée son socle. Sur les livres sont écrits en plusieurs langues les titres des œuvres d'Eminescu. Une plaque devant la statue décrit le poète et le contexte de la donation.",
+                "address": "Quai Perdonnet, 1800 Vevey, Suisse",
+                "latitude": 46.458051809426145,
+                "longitude": 6.845523705455283,
+                "order": 4,
+                "external_link": "",
+                "stepImage": "/imagestep/balade-des-arts-a-vevey/step4.jpg",
+                "image_description": "Image for step 4 of the itinerary 'Balade des arts à Vevey'"
+            },
+            {
+                "name": "Café Littéraire",
+                "description": "Le Café Littéraire est un lieu unique à Vevey où la littérature rencontre le café et la gastronomie. Situé sur le Quai Perdonnet, c'est un endroit parfait pour savourer un bon livre tout en profitant d'une vue imprenable sur le lac Léman. Le café propose régulièrement des événements littéraires, des lectures publiques et des rencontres avec des auteurs.",
+                "address": "Quai Perdonnet 33, 1800 Vevey, Suisse",
+                "latitude": 46.45838420586528,
+                "longitude": 6.844950512049883,
+                "order": 5,
+                "external_link": "https://lecafelitteraire.ch/",
+                "stepImage": "/imagestep/balade-des-arts-a-vevey/step5.jpg",
+                "image_description": "Image for step 5 of the itinerary 'Balade des arts à Vevey'"
+            }
+        ]
+    },
+    {
+        "name": "Découvertes autour du lac Léman",
+        "description": "Découvrez les trésors cachés des rives du lac Léman en suivant ce parcours qui vous emmènera à travers les villes et les sites historiques de la région.",
+        "type": "point AB",
+        "length": 18.0,
+        "positive_drop": 700,
+        "negative_drop": 500,
+        "estimated_time": 180,
+        "difficulty": "modéré",
+        "source": "communautaire",
+        "image": {
+            "url": "/itinerary_image/decouvertes-autour-du-lac-leman.jpg",
+            "alt_attr": "Image montrant le lac léman"
+        },
+        "steps": [
+            {
+                "name": "Port d'Ouchy",
+                "description": "Découvrez le port d'Ouchy, un lieu animé avec des bateaux de plaisance et des liaisons maritimes vers d'autres villes du lac.",
+                "address": "Port d'Ouchy, 1006 Lausanne, Suisse",
+                "latitude": 46.50673710406017,
+                "longitude": 6.6267341037258305,
+                "order": 1,
+                "external_link": "",
+                "stepImage": "/imagestep/decouvertes-autour-du-lac-leman/step1.jpg",
+                "image_description": "Image for step 1 of the itinerary 'Découvertes autour du lac Léman'"
+            },
+            {
+                "name": "Musée Olympique",
+                "description": "Le Musée Olympique est dédié à l'histoire des Jeux Olympiques. Il offre une expérience immersive grâce à ses expositions interactives.",
+                "address": "Quai d'Ouchy 1, 1006 Lausanne, Suisse",
+                "latitude": 46.50875452316076,
+                "longitude": 6.634098625695509,
+                "order": 2,
+                "external_link": "https://www.olympic.org/fr/musee",
+                "stepImage": "/imagestep/decouvertes-autour-du-lac-leman/step2.jpg",
+                "image_description": "Image for step 2 of the itinerary 'Découvertes autour du lac Léman'"
+            },
+            {
+                "name": "Château d'Ouchy",
+                "description": "Situé sur les rives du lac Léman, le Château d'Ouchy est un monument historique qui abrite aujourd'hui un hôtel de luxe.",
+                "address": "Place du Port 2, 1006 Lausanne, Suisse",
+                "latitude": 46.50683716733429,
+                "longitude": 6.627494406342736,
+                "order": 3,
+                "external_link": "https://www.chateaudouchy.ch/",
+                "stepImage": "/imagestep/decouvertes-autour-du-lac-leman/step3.jpg",
+                "image_description": "Image for step 3 of the itinerary 'Découvertes autour du lac Léman'"
+            },
+            {
+                "name": "Promenade des Quais d'Ouchy",
+                "description": "Une balade le long des quais bordés de trois somptueux jardins, offrant une vue magnifique sur le lac Léman en toute saison.",
+                "address": "Quai d'Ouchy, 1006 Lausanne, Suisse",
+                "latitude": 46.50613545386054,
+                "longitude": 6.6377191290910815,
+                "order": 4,
+                "external_link": "",
+                "stepImage": "/imagestep/decouvertes-autour-du-lac-leman/step4.jpg",
+                "image_description": "Image for step 4 of the itinerary 'Découvertes autour du lac Léman'"
+            },
+            {
+                "name": "Port d'Ouchy",
+                "description": "Retour au port de départ pour terminer la visite.",
+                "address": "Port d'Ouchy, 1006 Lausanne, Suisse",
+                "latitude": 46.50673710406017,
+                "longitude": 6.6267341037258305,
+                "order": 5,
+                "external_link": "",
+                "stepImage": "/imagestep/decouvertes-autour-du-lac-leman/step5.jpg",
+                "image_description": "Image for step 5 of the itinerary 'Découvertes autour du lac Léman'"
+            }
+        ]
+    },
+    {
+        "name": "Parcours des vignobles et de l'histoire du Lavaux",
+        "description": "Découvrez les vignobles en terrasses du Lavaux, classés au patrimoine mondial de l'UNESCO, en suivant ce parcours qui vous emmènera à travers les villages et les sites historiques de la région.",
+        "type": "boucle",
+        "length": 35.0,
+        "positive_drop": 1200,
+        "negative_drop": 900,
+        "estimated_time": 150,
+        "difficulty": "difficile",
+        "source": "officiel",
+        "image": {
+            "url": "/itinerary_image/parcours-des-vignobles-et-de-l-histoire-du-lavaux.jpg",
+            "alt_attr": "Image de vignes et des montagnes en arrière-plan"
+        },
+        "steps": [
+            {
+                "name": "Place de l'Hôtel de Ville, Lutry",
+                "description": "Commencez votre parcours à Lutry, un village charmant au bord du lac Léman, connu pour son architecture historique et sa place centrale animée.",
+                "address": "Place de l'Hôtel de Ville, 1095 Lutry, Suisse",
+                "latitude": 46.50221242720916,
+                "longitude": 6.685565701276277,
+                "order": 1,
+                "external_link": "",
+                "stepImage": "/imagestep/parcours-des-vignobles-et-de-lhistoire-du-lavaux/step1.jpg",
+                "image_description": "Image for step 1 of the itinerary 'Parcours des vignobles et de l'histoire du Lavaux'"
+            },
+            {
+                "name": "Lutry Menhirs",
+                "description": "Visitez les Lutry Menhirs, des menhirs historiques qui offrent une perspective fascinante sur la préhistoire suisse. Ces monuments datent de l'époque néolithique et sont situés près du lac Léman.",
+                "address": "Menhirs de Lutry, Chemin du Petit Bois, 1095 Lutry, Suisse",
+                "latitude": 46.50327461779018,
+                "longitude": 6.684906395202128,
+                "order": 2,
+                "external_link": "",
+                "stepImage": "/imagestep/parcours-des-vignobles-et-de-lhistoire-du-lavaux/step2.jpg",
+                "image_description": "Image for step 2 of the itinerary 'Parcours des vignobles et de l'histoire du Lavaux'"
+            },
+            {
+                "name": "Domaine Bovy, Rivaz",
+                "description": "Marchez jusqu'à Rivaz pour une visite au Domaine Bovy, où vous pourrez déguster des vins locaux tout en appréciant une vue imprenable sur le lac Léman.",
+                "address": "Route de la Corniche 2, 1071 Rivaz, Suisse",
+                "latitude": 46.48021739840303,
+                "longitude": 6.77999817691416,
+                "order": 3,
+                "external_link": "https://www.domaine-bove.ch/",
+                "stepImage": "/imagestep/parcours-des-vignobles-et-de-lhistoire-du-lavaux/step3.jpg",
+                "image_description": "Image for step 3 of the itinerary 'Parcours des vignobles et de l'histoire du Lavaux'"
+            },
+            {
+                "name": "Maison de la Dîme, Cully",
+                "description": "Descendez à Cully pour visiter la Maison de la Dîme, un bâtiment historique transformé en espace culturel, offrant une exposition permanente sur la viticulture locale.",
+                "address": "Grand-Rue 10, 1096 Cully, Suisse",
+                "latitude": 46.31491198362163,
+                "longitude": 6.9756884629796945,
+                "order": 4,
+                "external_link": "https://www.lavaux.ch/fr/culture-et-patrimoine/maison-de-la-dime-cully.html",
+                "stepImage": "/imagestep/parcours-des-vignobles-et-de-lhistoire-du-lavaux/step4.jpg",
+                "image_description": "Image for step 4 of the itinerary 'Parcours des vignobles et de l'histoire du Lavaux'"
+            },
+            {
+                "name": "Retour à Lutry",
+                "description": "Terminez votre parcours en revenant à Lutry, où vous pourrez profiter d'une promenade le long du lac avant de rejoindre le point de départ.",
+                "address": "Place de l'Hôtel de Ville, 1095 Lutry, Suisse",
+                "latitude": 46.50221242720916,
+                "longitude": 6.685565701276277,
+                "order": 5,
+                "external_link": "",
+                "stepImage": "/imagestep/parcours-des-vignobles-et-de-lhistoire-du-lavaux/step5.jpg",
+                "image_description": "Image for step 5 of the itinerary 'Parcours des vignobles et de l'histoire du Lavaux'"
+            }
+        ]
+    }
+]

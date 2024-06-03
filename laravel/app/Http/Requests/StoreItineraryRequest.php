@@ -9,6 +9,7 @@ use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Http\Exceptions\HttpResponseException;
+use Illuminate\Validation\Rule; // Add this import statement
 
 class StoreItineraryRequest extends FormRequest
 {
@@ -36,10 +37,8 @@ class StoreItineraryRequest extends FormRequest
             'negative_drop' => 'nullable|numeric',
             'estimated_time' => 'required|numeric',
             'difficulty' => 'required|string',
-            //'source' => 'required|string|in:' . implode(',', SourceEnum::getValues()),
-            //'type' => 'required|string|in:' . implode(',', TypeItineraryEnum::getValues()),
-            'type' => 'required|string',
-            'source' => 'required|string',
+            'type' => ['required', Rule::in(array_values(TypeItineraryEnum::toArray()))],
+            'source' => ['required', Rule::in(array_values(SourceEnum::toArray()))],
             'image' => 'required|image',
             'image_description' => 'required|string',
             'pdf_url' => 'nullable|url',

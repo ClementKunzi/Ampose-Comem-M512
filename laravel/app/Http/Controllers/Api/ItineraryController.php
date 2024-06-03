@@ -13,6 +13,8 @@ use Illuminate\Support\Facades\Storage;
 use PhpParser\Node\Stmt\Else_;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
+use App\Models\TagCategorie;
+use App\Models\TagAccessibility;
 
 class ItineraryController extends Controller
 {
@@ -63,6 +65,13 @@ class ItineraryController extends Controller
                 'user_id' => auth()->user()->id,
                 'image_id' => $image->id,
             ]);
+
+            $tagCategories = TagCategorie::find($request->input('tagCategories'));
+            $itinerary->tagCategorie()->attach($tagCategories);
+
+            // Ajouter les tags d'accessibilité à l'itinéraire
+            $tagAccessibilities = TagAccessibility::find($request->input('tagAccessibilities'));
+            $itinerary->tagAccessibility()->attach($tagAccessibilities);
 
             // Update additional attributes if present in the validated data
             if (isset($validatedData['negative_drop'])) {
@@ -115,13 +124,23 @@ class ItineraryController extends Controller
             DB::commit();
 
             // Load related models and hide specific attributes
-            $itinerary->load('steps');
-            $itinerary->makeHidden('created_at', 'updated_at');
+            $itinerary->load('steps', 'tagCategorie.taxonomy', 'tagAccessibility.taxonomy', 'user');
+            $itinerary->makeHidden('created_at', 'user_id', 'image_id', 'tag_categorie_id', 'tag_accessibility_id', 'positive_drop', 'negative_drop', 'length', 'updated_at');
             $itinerary->user->makeHidden('id', 'last_name', 'first_name', 'email', 'password', 'email_verified_at', 'email_verification', 'last_login', 'number_path_added', 'created_at', 'updated_at');
             $itinerary->image->makeHidden('id', 'created_at', 'updated_at');
-            $itinerary->steps->makeHidden('created_at', 'updated_at', 'itinerary_id');
+            $itinerary->tagCategorie->makeHidden(['created_at', 'updated_at', 'pivot', 'taxonomy_id']);
+            foreach ($itinerary->tagCategorie as $tagCategorie) {
+                $tagCategorie->taxonomy->makeHidden(['id', 'created_at', 'updated_at']);
+            }
+            $itinerary->tagAccessibility->makeHidden(['created_at', 'updated_at', 'pivot', 'taxonomy_id']);
+            foreach ($itinerary->tagAccessibility as $tagAccessibility) {
+                $tagAccessibility->taxonomy->makeHidden(['id', 'created_at', 'updated_at']);
+            }
             $itinerary->append('formatted_updated_at');
-            $itinerary->steps->append('formatted_updated_at');
+            foreach ($itinerary->steps as $step) {
+                $step->makeHidden(['created_at',  'itinerary_id', 'updated_at']);
+                $step->append('formatted_updated_at');
+            }
 
             // Update the number of paths added for the authenticated user
             $user = auth()->user();
@@ -136,7 +155,7 @@ class ItineraryController extends Controller
             // Delete the uploaded image and its associated model
             $imagePath = str_replace('/storage/', '', $image->url);
             Storage::disk('public')->delete($imagePath);
-            $image->delete();
+            //$image->delete();
 
             // Return an error response
             return $this->sendError('Error creating itinerary', $e->getMessage());
@@ -152,17 +171,26 @@ class ItineraryController extends Controller
     public function show(string $id)
     {
         // Retrieve the itinerary with its related models
-        $itinerary = Itinerary::with(['user', 'image', 'tagCategorie', 'tagAccessibility'])->find($id);
+        $itinerary = Itinerary::with(['user', 'image', 'tagCategorie.taxonomy', 'tagAccessibility.taxonomy', 'steps',])->find($id);
 
         if ($itinerary) {
             // Hide specific attributes from the response
             $itinerary->makeHidden('created_at', 'user_id', 'image_id', 'tag_categorie_id', 'tag_accessibility_id', 'positive_drop', 'negative_drop', 'length', 'updated_at');
             $itinerary->user->makeHidden('id', 'last_name', 'first_name', 'email', 'password', 'email_verified_at', 'email_verification', 'last_login', 'number_path_added', 'created_at', 'updated_at');
             $itinerary->image->makeHidden('id', 'created_at', 'updated_at');
-            $itinerary->tagCategorie->makeHidden(['id', 'created_at', 'updated_at']);
-            $itinerary->tagAccessibility->makeHidden(['id', 'created_at', 'updated_at']);
+            $itinerary->tagCategorie->makeHidden(['created_at', 'updated_at', 'pivot', 'taxonomy_id']);
+            foreach ($itinerary->tagCategorie as $tagCategorie) {
+                $tagCategorie->taxonomy->makeHidden(['id', 'created_at', 'updated_at']);
+            }
+            $itinerary->tagAccessibility->makeHidden(['created_at', 'updated_at', 'pivot', 'taxonomy_id']);
+            foreach ($itinerary->tagAccessibility as $tagAccessibility) {
+                $tagAccessibility->taxonomy->makeHidden(['id', 'created_at', 'updated_at']);
+            }
             $itinerary->append('formatted_updated_at');
-            $itinerary->step->makeHidden('created_at', 'updated_at', 'itinerary_id');
+            foreach ($itinerary->steps as $step) {
+                $step->makeHidden(['created_at',  'itinerary_id', 'updated_at']);
+                $step->append('formatted_updated_at');
+            }
 
             // Return a success response with the retrieved itinerary
             return $this->sendSuccess($itinerary, 'Itinerary retrieved successfully');
@@ -224,6 +252,18 @@ class ItineraryController extends Controller
                 });
 
                 $itinerary->update($data);
+
+                // Mettre à jour les catégories de tags de l'itinéraire
+                if ($request->has('tagCategories')) {
+                    $tagCategories = TagCategorie::find($request->input('tagCategories'));
+                    $itinerary->tagCategories()->sync($tagCategories);
+                }
+
+                // Mettre à jour les tags d'accessibilité de l'itinéraire
+                if ($request->has('tagAccessibilities')) {
+                    $tagAccessibilities = TagAccessibility::find($request->input('tagAccessibilities'));
+                    $itinerary->tagAccessibilities()->sync($tagAccessibilities);
+                }
 
                 // Process the steps if present in the request
                 if ($request->has('steps')) {
@@ -315,13 +355,23 @@ class ItineraryController extends Controller
                     }
                 }
 
-                $itinerary->load('steps');
-                $itinerary->makeHidden('created_at', 'updated_at');
+                $itinerary->load('steps, tagCategorie.taxonomy, tagAccessibility.taxonomy', 'user');
+                $itinerary->makeHidden('created_at', 'user_id', 'image_id', 'tag_categorie_id', 'tag_accessibility_id', 'positive_drop', 'negative_drop', 'length', 'updated_at');
                 $itinerary->user->makeHidden('id', 'last_name', 'first_name', 'email', 'password', 'email_verified_at', 'email_verification', 'last_login', 'number_path_added', 'created_at', 'updated_at');
                 $itinerary->image->makeHidden('id', 'created_at', 'updated_at');
-                $itinerary->steps->makeHidden('created_at', 'updated_at', 'itinerary_id');
+                $itinerary->tagCategorie->makeHidden(['created_at', 'updated_at', 'pivot', 'taxonomy_id']);
+                foreach ($itinerary->tagCategorie as $tagCategorie) {
+                    $tagCategorie->taxonomy->makeHidden(['id', 'created_at', 'updated_at']);
+                }
+                $itinerary->tagAccessibility->makeHidden(['created_at', 'updated_at', 'pivot', 'taxonomy_id']);
+                foreach ($itinerary->tagAccessibility as $tagAccessibility) {
+                    $tagAccessibility->taxonomy->makeHidden(['id', 'created_at', 'updated_at']);
+                }
                 $itinerary->append('formatted_updated_at');
-                $itinerary->steps->append('formatted_updated_at');
+                foreach ($itinerary->steps as $step) {
+                    $step->makeHidden(['created_at',  'itinerary_id', 'updated_at']);
+                    $step->append('formatted_updated_at');
+                }
                 return $this->sendSuccess($itinerary, 'Itinerary updated successfully');
             } catch (\Exception $e) {
                 return $this->sendError('Error creating itinerary', $e->getMessage());

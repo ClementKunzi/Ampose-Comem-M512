@@ -35,6 +35,16 @@ class TagCategorie extends Model
         'taxonomy_id' => 'integer',
     ];
 
+    /**
+     * The model's default values for attributes.
+     *
+     * @var array
+     */
+    protected $attributes = [
+        'color' => '', // replace 'default_color' with your default color
+    ];
+
+
     public function taxonomy()
     {
         return $this->belongsTo(Taxonomy::class);
