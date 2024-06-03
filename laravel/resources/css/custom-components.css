@@ -40,10 +40,41 @@
     @apply w-full h-96 rounded-3xl;
   }
 
-  .leaflet-routing-container {
-    display: none;
-    opacity: .5 !important;
+  .map-noUi {
+    .leaflet-routing-container {
+      display: none;
+      opacity: .5 !important;
+    }
   }
+
+  .map-norouteInstructions {
+    .leaflet-routing-container {
+      display: none;
+    }
+  }
+
+  .leaflet-control-geocoder {
+    /* width: 100%; */
+    display: flex;
+    align-items: center;
+    /* @apply btn p-0; */
+  }
+
+  .leaflet-control-geocoder-expanded {
+    width: 100%;   
+  }
+  
+  .leaflet-control-geocoder-icon {
+    margin-top: 0;
+    /* @apply min-h-12 p-6; */
+  }
+
+  .leaflet-marker-pane > :not(:last-child) {
+    display: none
+  }
+
+
+  
 }
 
 

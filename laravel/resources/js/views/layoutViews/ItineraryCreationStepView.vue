@@ -52,7 +52,7 @@ export default {
       </button>
     </div>
     <div class="flex justify-center mt-auto">
-      <button class="btn">Finaliser le parcours</button>
+      <button class="btn mt-6">Finaliser le parcours</button>
     </div>
 
   </div>

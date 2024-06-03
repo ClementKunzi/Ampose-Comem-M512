@@ -1,7 +1,16 @@
 <script setup>
-import { ref, reactive } from 'vue';
+import { ref, reactive, watch, onMounted, defineProps } from 'vue';
 import axios from 'axios';
 import { useRouter } from 'vue-router';
+
+import "leaflet/dist/leaflet.css"
+import * as L from 'leaflet';
+import 'leaflet-routing-machine';
+import 'leaflet-routing-machine/dist/leaflet-routing-machine.css';
+
+const props = defineProps({
+    isActive: Boolean,
+});
 
 const router = useRouter();
 
@@ -16,26 +25,97 @@ const submitForm = () => {
     // router.push('/create/steps');
 }
 
+let mapInitialized = false;
+const mapContainerRef = ref(null);
+let marker;
+let geocodeMarker;
+
+
+onMounted(() => {
+
+    // Watcher for isActive changes
+    watch(() => props.isActive, (newValue, oldValue) => {
+        if (!mapInitialized && newValue) {
+            setTimeout(() => {
+                initializeMap();
+            }, 100); // Initialize the map only if it hasn't been initialized before and isActive is true
+            mapInitialized = true; // Mark the map as initialized
+            // console.log('initialize')
+        }
+
+    }, { immediate: true });
+
+    function initializeMap() {
+        const mapContainer = document.getElementById('map'); // Assuming your map container has an ID of 'map'
+        const map = L.map(mapContainerRef.value).setView([51.505, -0.09], 13);
+
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            maxZoom: 19,
+        }).addTo(map);
+        
+        const geocoder = L.Control.geocoder().on('markgeocode', e => {
+            if (geocodeMarker) {
+                map.removeLayer(geocodeMarker);
+
+            }
+
+            // Create a new marker at the geocoded location
+            var latLng = e.geocode.center;
+            geocodeMarker = L.marker(latLng).addTo(map);
+            // marker = L.marker(latLng);
+        }).addTo(map);
+
+        // Handle map click to add marker
+        map.on('click', e => {
+            // Remove the existing marker if it exists
+            if(geocodeMarker) {
+                map.removeLayer(geocodeMarker);
+            }
+            if (marker && map.hasLayer(marker)) {
+                console.log("Removing marker");
+                map.removeLayer(marker);
+            } else {
+                console.log("Marker not found or already removed");
+            }
+
+            // Add a new marker at the clicked location
+            marker = L.marker(e.latlng).addTo(map);
+            console.log('marker', marker);
+        });
+
+
+        // Additional map configuration...
+    }
+
+});
+
 </script>
 
 <template>
     <form @submit.prevent="submitForm">
         <div class="flex flex-col gap-6">
             <div>
-                <label for="name">Name:</label>
+                <label for="name">Nom de l'étape</label>
                 <input id="name" v-model="formFields.name" type="text" placeholder="Nom de l'étape" />
             </div>
             <div>
-                <label for="name">Image:</label>
+                <label for="name">Image de l'étape</label>
                 <input type="file" name="img" v-on:change="formFields.image" accept="image/*" />
-            </div>                                   
+
+            </div>
             <div>
-                <label for="name">Description:</label>
+                <label for="coordinate">Coordonnées</label>
+                <input id="coordinate" class="opacity-0 pointer-events-none mb-[-48px]" v-model="formFields.coordinate"
+                    type="text" placeholder="Rechercher une adresse" />
+                <div ref="mapContainerRef" id="map" class="map-pageLayout map-norouteInstructions"></div>
+            </div>
+            <div>
+                <label for="description">Description</label>
                 <textarea name="description" rows="5" v-model="formFields.description"
                     placeholder="Description"></textarea>
             </div>
             <div>
-                <label for="name">Lien utile:</label>
+                <label for="link">Lien utile:</label>
                 <input id="link" v-model="formFields.link" type="text" placeholder="https://cool.io" />
             </div>
             <!-- <button type="submit" class="btn self-center">Submit</button> -->

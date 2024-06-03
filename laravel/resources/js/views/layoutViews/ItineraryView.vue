@@ -142,7 +142,7 @@ onMounted(() => {
     </div>
     <div class="mb-16">
       <h3 class="text-tv-wine">Parcours</h3>
-      <div id="map" class="map-pageLayout"></div>
+      <div id="map" class="map-pageLayout map-noUi"></div>
     </div>
     <div class="text-tv-wine">
       <h3>Accessibilité</h3>

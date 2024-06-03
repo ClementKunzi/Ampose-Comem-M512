@@ -8,7 +8,6 @@ import 'leaflet-routing-machine';
 import 'leaflet-routing-machine/dist/leaflet-routing-machine.css';
 import 'leaflet-control-geocoder/dist/Control.Geocoder.js';
 import 'leaflet-control-geocoder/dist/Control.Geocoder.css';
-import '../../scripts/L.Routing.OpenRouteService.js';
 import 'lrm-graphhopper';
 // https://medium.com/@smhabibjr/implement-an-interactive-map-in-the-vue-js-8a865010fb41
 
@@ -20,7 +19,7 @@ import 'lrm-graphhopper';
 onMounted(() => {
 
   const orsToken = '1894ebf9-bfe5-4ab1-80b2-e8ccf733ab5e';
-  let map = L.map('map').setView([46.7680914, 6.5969949], 15);
+  let map = L.map('map').setView([46.5794109, 5.3376684], 8);
   let mapInfoContainer = document.getElementById('map-info');
   let mapInfoTitle = document.getElementById('map-infoTitle');
   let mapInfoDesc = document.getElementById('map-infoDesc');
@@ -144,7 +143,7 @@ onMounted(() => {
 <template>
   <div class="p-4">
     <SearchBar />
-    <div id="map" class="map map-fullscreen"></div>
+    <div id="map" class="map map-fullscreen map-noUi"></div>
     <div id="map-info" class="hidden fixed bottom-3 left-1/2 translate-x-[-50%] z-50 w-[calc(100%-2rem)] min-h-24 bg-tv-eggshell p-4 rounded-3xl shadow-tv flex flex-col">
       <p id="map-infoTitle" class="h3">lolilol</p>
       <p id="map-infoDesc">asfjhasdifosdafjiasfd</p>

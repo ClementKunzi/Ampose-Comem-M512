@@ -23,7 +23,7 @@ import { Home, Users, Map, Plus, Bookmark } from 'lucide-vue-next';
         </router-link>
         <router-link class="flex flex-col items-center" aria-label="Carte des parcours" to="/map">
             <Map stroke="#f5f5f5" :size="30" />
-            <span aria-hidden="true">Map</span>
+            <span aria-hidden="true">Carte</span>
         </router-link>
         <router-link class="flex flex-col items-center" aria-label="Créer un parcours" to="/create">
             <Plus stroke="#f5f5f5" :size="30" />

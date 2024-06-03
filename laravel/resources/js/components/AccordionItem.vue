@@ -8,14 +8,14 @@
                 </div>
                 <div class="p-6 text-tv-wine grow text-left">
                     <h3 class="body-medium-base">Etape {{ index + 1 }}</h3>
-                    <h2 class="body-bold-xl">Nom étape</h2>
+                    <h2 class="body-bold-xl">Nom étape</h2>                    
                 </div>
 
             </div>
         </button>        
             <div v-show="isActive">
                 <div class="mt-4">
-                    <FormNewItineraryStep />
+                    <FormNewItineraryStep :isActive="isActive" />
                 </div>
 
             </div>        
@@ -24,12 +24,13 @@
 
 <script setup>
 import FormNewItineraryStep from '@/components/forms/FormNewItinerarySteps.vue';
-import { ref, inject, watch } from 'vue';
+import { ref, inject, watch, defineProps } from 'vue';
 
 const props = defineProps({
     title: String,
     content: String,
     index: Number,
+    isActive: Boolean,
 });
 
 const activeIndex = inject('activeIndex');

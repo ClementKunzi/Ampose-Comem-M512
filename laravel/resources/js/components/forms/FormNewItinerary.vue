@@ -33,15 +33,15 @@ const submitForm = () => {
     <form @submit.prevent="submitForm">
         <div class="flex flex-col gap-6">
             <div>
-                <label for="name">Name:</label>
+                <label for="name">Nom du parcours</label>
                 <input id="name" v-model="formFields.name" type="text" placeholder="Nom du parcours" />
             </div>
             <div>
-                <label for="name">Image:</label>
+                <label for="name">Image</label>
                 <input type="file" name="img" v-on:change="formFields.description" accept="image/*" />
             </div>
             <div>
-                <label for="category">Category:</label>
+                <label for="category">Catégories</label>
                 <select id="category" v-model="formFields.category">
                     <option value="undefined" disabled>Select a category</option>
                     <option value="2020">2020</option>
@@ -50,13 +50,13 @@ const submitForm = () => {
                 </select>
             </div>
             <div>
-                <label for="difficulty">Difficulty:</label>
+                <label for="difficulty">Difficulté</label>
                 <select id="difficulty" v-model="formFields.difficulty">
                     <!-- Difficulty options here -->
                 </select>
             </div>
             <div>
-                <label for="name">Description:</label>
+                <label for="name">Description</label>
                 <textarea name="description" rows="5" v-model="formFields.description"
                     placeholder="Description"></textarea>
             </div>

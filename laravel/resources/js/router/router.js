@@ -1,5 +1,5 @@
 // router/index.js
-import { createRouter, createWebHistory } from 'vue-router';
+import { createRouter, createWebHashHistory } from 'vue-router';
 import HomeView from '@/views/layoutViews/HomeView.vue';
 import HomeViewContent from '@/views/contentViews/HomeViewContent.vue';
 import CommunityViewContent from '@/views/contentViews/CommunityViewContent.vue';
@@ -111,7 +111,7 @@ const routes = [
 ];
 
 const router = createRouter({
-  history: createWebHistory(),
+  history: createWebHashHistory(),
   routes,
 });
 

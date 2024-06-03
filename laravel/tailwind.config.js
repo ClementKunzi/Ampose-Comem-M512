@@ -29,7 +29,11 @@ export default {
   purge: {    
     options: {
   
-    safelist: ['.router-link-active', '.leaflet-routing-container'],
+    safelist: ['.router-link-active',
+    '.leaflet-routing-container',
+    'leaflet-control-geocoder',
+    '.leaflet-control-geocoder-icon',
+    'leaflet-marker-pane'],
     },
   },
   plugins: [],
