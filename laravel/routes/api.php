@@ -27,8 +27,8 @@ Route::group(['prefix' => 'itineraries'], function () {
     Route::get('/', [ItineraryController::class, 'index']);
     Route::get('/{id}', [ItineraryController::class, 'show']);
     Route::group(['middleware' => 'auth:sanctum'], function () {
-        Route::post('/', [ItineraryController::class, 'store']);
-        Route::put('/{id}', [ItineraryController::class, 'update']);
+        Route::post('/add', [ItineraryController::class, 'store']);
+        Route::put('/update/{id}', [ItineraryController::class, 'update']);
         Route::delete('/delete/{id}', [ItineraryController::class, 'destroy']);
     });
 });
