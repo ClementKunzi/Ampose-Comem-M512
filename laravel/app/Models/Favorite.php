@@ -13,7 +13,7 @@ class Favorite extends Model
      *
      * @var string
      */
-    protected $table = 'favorite';
+    protected $table = 'favorites';
 
     /**
      * The attributes that are mass assignable.

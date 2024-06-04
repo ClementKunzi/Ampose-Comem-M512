@@ -16,7 +16,7 @@ return new class extends Migration
             $table->integer('badge_id')->unsigned();
             $table->foreign('badge_id')
                 ->references('id')
-                ->on('badge')
+                ->on('badges')
                 ->onDelete('restrict')
                 ->onUpdate('restrict');
             $table->integer('user_id')->unsigned();

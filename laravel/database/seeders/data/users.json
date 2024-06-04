@@ -1,0 +1,90 @@
+[
+    {
+        "username": "cantonVaud",
+        "lastname": "Vaud",
+        "firstname": "Canton",
+        "email": "canton@vd.ch",
+        "password": "passwordVaud",
+        "profile_picture": "/profil_img/vd.png"
+    },
+    {
+        "username": "john_doe123",
+        "lastname": "Doe",
+        "firstname": "John",
+        "email": "john.doe@example.com",
+        "password": "passwordheig1",
+        "profile_picture": "/profil_img/cat1.jpg"
+    },
+    {
+        "username": "jane_smith89",
+        "lastname": "Smith",
+        "firstname": "Jane",
+        "email": "jane.smith@example.com",
+        "password": "passwordheig2",
+        "profile_picture": "/profil_img/cat2.jpg"
+    },
+    {
+        "username": "mike_johnson77",
+        "lastname": "Johnson",
+        "firstname": "Michael",
+        "email": "michael.johnson@example.com",
+        "password": "passwordheig3",
+        "profile_picture": "/profil_img/cat3.jpg"
+    },
+    {
+        "username": "emily_williams12",
+        "lastname": "Williams",
+        "firstname": "Emily",
+        "email": "emily.williams@example.com",
+        "password": "passwordheig4",
+        "profile_picture": "/profil_img/cat4.png"
+    },
+    {
+        "username": "chris_brown42",
+        "lastname": "Brown",
+        "firstname": "Christopher",
+        "email": "christopher.brown@example.com",
+        "password": "passwordheig5",
+        "profile_picture": "/profil_img/cat5.jpg"
+    },
+    {
+        "username": "jessica_jones56",
+        "lastname": "Jones",
+        "firstname": "Jessica",
+        "email": "jessica.jones@example.com",
+        "password": "passwordheig6",
+        "profile_picture": "/profil_img/cat6.jpg"
+    },
+    {
+        "username": "david_garcia34",
+        "lastname": "Garcia",
+        "firstname": "David",
+        "email": "david.garcia@example.com",
+        "password": "passwordheig7",
+        "profile_picture": "/profil_img/cat7.jpg"
+    },
+    {
+        "username": "sarah_miller91",
+        "lastname": "Miller",
+        "firstname": "Sarah",
+        "email": "sarah.miller@example.com",
+        "password": "passwordheig8",
+        "profile_picture": "/profil_img/cat8.jpg"
+    },
+    {
+        "username": "james_davis78",
+        "lastname": "Davis",
+        "firstname": "James",
+        "email": "james.davis@example.com",
+        "password": "passwordheig9",
+        "profile_picture": "/profil_img/cat9.jpg"
+    },
+    {
+        "username": "laura_martinez67",
+        "lastname": "Martinez",
+        "firstname": "Laura",
+        "email": "laura.martinez@example.com",
+        "password": "passwordheig10",
+        "profile_picture": "/profil_img/cat10.png"
+    }
+]

@@ -16,13 +16,13 @@ return new class extends Migration
             $table->integer('step_id')->unsigned();
             $table->foreign('step_id')
                 ->references('id')
-                ->on('step')
+                ->on('steps')
                 ->onDelete('restrict')
                 ->onUpdate('restrict');
             $table->integer('image_id')->unsigned();
             $table->foreign('image_id')
                 ->references('id')
-                ->on('image')
+                ->on('images')
                 ->onDelete('restrict')
                 ->onUpdate('restrict');
             $table->timestamps();

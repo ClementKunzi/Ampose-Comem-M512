@@ -14,7 +14,7 @@ class TagAccessibility extends Model
      *
      * @var string
      */
-    protected $table = 'tag_accessibility';
+    protected $table = 'tag_accessibilities';
 
     /**
      * The attributes that are mass assignable.

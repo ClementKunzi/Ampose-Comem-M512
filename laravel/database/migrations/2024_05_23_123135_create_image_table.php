@@ -11,10 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('image', function (Blueprint $table) {
+        Schema::create('images', function (Blueprint $table) {
             $table->increments('id');
             $table->string('url');
-            $table->string('alt_attr');
+            $table->text('alt_attr');
             $table->timestamps();
         });
     }

@@ -15,7 +15,7 @@ class BadgeMigrationTest extends TestCase
      */
     public function testBadgesTableExists()
     {
-        $this->assertTrue(Schema::hasTable('badge'));
+        $this->assertTrue(Schema::hasTable('badges'));
     }
 
     /**
@@ -26,7 +26,7 @@ class BadgeMigrationTest extends TestCase
     public function testBadgesTableHasExpectedColumns()
     {
         $this->assertTrue(
-            Schema::hasColumns('badge', [
+            Schema::hasColumns('badges', [
                 'id', 'name', 'description', 'badge_picture', 'created_at', 'updated_at'
             ]),
             1

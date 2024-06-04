@@ -11,11 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('taxonomy', function (Blueprint $table) {
+        Schema::create('taxonomies', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
             $table->string('icon');
-            $table->string('description');
+            $table->text('description');
             $table->timestamps();
         });
     }

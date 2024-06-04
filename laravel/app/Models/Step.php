@@ -13,7 +13,7 @@ class Step extends Model
      *
      * @var string
      */
-    protected $table = 'step';
+    protected $table = 'steps';
 
     /**
      * The attributes that are mass assignable.
@@ -52,5 +52,10 @@ class Step extends Model
     public function images()
     {
         return $this->belongsToMany(Image::class);
+    }
+
+    public function getFormattedUpdatedAtAttribute()
+    {
+        return $this->updated_at->toDateString();
     }
 }

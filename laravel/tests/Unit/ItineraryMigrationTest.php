@@ -15,7 +15,7 @@ class ItineraryMigrationTest extends TestCase
      */
     public function testItinerariesTableExists()
     {
-        $this->assertTrue(Schema::hasTable('itinerary'));
+        $this->assertTrue(Schema::hasTable('itineraries'));
     }
 
     /**
@@ -26,7 +26,7 @@ class ItineraryMigrationTest extends TestCase
     public function testItinerariesTableHasExpectedColumns()
     {
         $this->assertTrue(
-            Schema::hasColumns('itinerary', [
+            Schema::hasColumns('itineraries', [
                 'id', 'name', 'description', 'type', 'length', 'positive_drop', 'negative_drop',
                 'estimated_time', 'difficulty', 'source', 'user_id', 'image_id', 'pdf_url', 'created_at', 'updated_at'
             ]),
@@ -42,12 +42,12 @@ class ItineraryMigrationTest extends TestCase
     public function testItinerariesTableHasForeignKeys()
     {
         $this->assertTrue(
-            Schema::getConnection()->getSchemaBuilder()->hasColumn('itinerary', 'user_id')
+            Schema::getConnection()->getSchemaBuilder()->hasColumn('itineraries', 'user_id')
 
         );
 
         $this->assertTrue(
-            Schema::getConnection()->getSchemaBuilder()->hasColumn('itinerary', 'image_id')
+            Schema::getConnection()->getSchemaBuilder()->hasColumn('itineraries', 'image_id')
         );
     }
 }

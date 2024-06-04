@@ -11,20 +11,20 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('step', function (Blueprint $table) {
+        Schema::create('steps', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
-            $table->string('description');
-            $table->string('adress');
-            $table->string('schedule');
+            $table->text('description');
+            $table->string('adress')->nullable();
+            $table->string('schedule')->nullable();
             $table->decimal('latitude', 10, 8);
             $table->decimal('longitude', 11, 8);
             $table->integer('order');
-            $table->string('external_link');
+            $table->string('external_link')->nullable();
             $table->integer('itinerary_id')->unsigned();
             $table->foreign('itinerary_id')
                 ->references('id')
-                ->on('itinerary')
+                ->on('itineraries')
                 ->onDelete('restrict')
                 ->onUpdate('restrict');
             $table->timestamps();

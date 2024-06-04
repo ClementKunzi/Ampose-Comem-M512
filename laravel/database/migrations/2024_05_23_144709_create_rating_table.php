@@ -11,14 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('rating', function (Blueprint $table) {
+        Schema::create('ratings', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('note');
-            $table->string('comment');
+            $table->text('comment');
             $table->integer('itinerary_id')->unsigned();
             $table->foreign('itinerary_id')
                 ->references('id')
-                ->on('itinerary')
+                ->on('itineraries')
                 ->onDelete('restrict')
                 ->onUpdate('restrict');
             $table->integer('user_id')->unsigned();

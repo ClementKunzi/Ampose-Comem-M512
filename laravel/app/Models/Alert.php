@@ -15,7 +15,7 @@ class Alert extends Model
      *
      * @var string
      */
-    protected $table = 'alert';
+    protected $table = 'alerts';
 
     /**
      * The attributes that are mass assignable.

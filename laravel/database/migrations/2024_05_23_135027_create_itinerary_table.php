@@ -11,16 +11,16 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('itinerary', function (Blueprint $table) {
+        Schema::create('itineraries', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
-            $table->string('description');
+            $table->text('description');
             $table->string('type');
-            $table->double('length');
-            $table->decimal('positive_drop', 8, 2);
-            $table->decimal('negative_drop', 8, 2);
+            $table->double('length')->nullable();
+            $table->decimal('positive_drop', 8, 2)->nullable();
+            $table->decimal('negative_drop', 8, 2)->nullable();
             $table->double('estimated_time');
-            $table->double('difficulty');
+            $table->string('difficulty');
             $table->string('source');
             $table->integer('user_id')->unsigned();
             $table->foreign('user_id')
@@ -31,7 +31,7 @@ return new class extends Migration
             $table->integer('image_id')->unsigned();
             $table->foreign('image_id')
                 ->references('id')
-                ->on('image')
+                ->on('images')
                 ->onDelete('restrict')
                 ->onUpdate('restrict');
             $table->string('pdf_url');

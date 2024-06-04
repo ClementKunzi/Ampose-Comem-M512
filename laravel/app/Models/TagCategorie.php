@@ -14,7 +14,7 @@ class TagCategorie extends Model
      *
      * @var string
      */
-    protected $table = 'tag_categorie';
+    protected $table = 'tag_categories';
 
     /**
      * The attributes that are mass assignable.
@@ -34,6 +34,16 @@ class TagCategorie extends Model
     protected $casts = [
         'taxonomy_id' => 'integer',
     ];
+
+    /**
+     * The model's default values for attributes.
+     *
+     * @var array
+     */
+    protected $attributes = [
+        'color' => '', // replace 'default_color' with your default color
+    ];
+
 
     public function taxonomy()
     {

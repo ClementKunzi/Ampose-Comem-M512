@@ -15,7 +15,7 @@ class FavoriteMigrationTest extends TestCase
      */
     public function testFavoriteTableExists()
     {
-        $this->assertTrue(Schema::hasTable('favorite'));
+        $this->assertTrue(Schema::hasTable('favorites'));
     }
 
     /**
@@ -26,7 +26,7 @@ class FavoriteMigrationTest extends TestCase
     public function testFavoriteTableHasExpectedColumns()
     {
         $this->assertTrue(
-            Schema::hasColumns('favorite', [
+            Schema::hasColumns('favorites', [
                 'id', 'itinerary_id', 'user_id', 'created_at', 'updated_at'
             ]),
             1
@@ -41,11 +41,11 @@ class FavoriteMigrationTest extends TestCase
     public function testFavoriteTableHasForeignKeys()
     {
         $this->assertTrue(
-            Schema::hasColumn('favorite', 'itinerary_id')
+            Schema::hasColumn('favorites', 'itinerary_id')
         );
 
         $this->assertTrue(
-            Schema::hasColumn('favorite', 'user_id')
+            Schema::hasColumn('favorites', 'user_id')
         );
     }
 }

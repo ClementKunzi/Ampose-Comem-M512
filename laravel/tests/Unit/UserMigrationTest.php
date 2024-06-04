@@ -15,7 +15,7 @@ class UserMigrationTest extends TestCase
      */
     public function testUsersTableExists()
     {
-        $this->assertTrue(Schema::hasTable('user'));
+        $this->assertTrue(Schema::hasTable('users'));
     }
 
     /**
@@ -26,7 +26,7 @@ class UserMigrationTest extends TestCase
     public function testUsersTableHasExpectedColumns()
     {
         $this->assertTrue(
-            Schema::hasColumns('user', [
+            Schema::hasColumns('users', [
                 'id', 'username', 'last_name', 'first_name', 'email', 'password', 'email_verification',
                 'email_verified_at', 'last_login', 'number_path_added', 'profile_picture', 'remember_token', 'created_at', 'updated_at'
             ]),

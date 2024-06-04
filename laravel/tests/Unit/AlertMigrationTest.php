@@ -15,7 +15,7 @@ class AlertMigrationTest extends TestCase
      */
     public function testAlertsTableExists()
     {
-        $this->assertTrue(Schema::hasTable('alert'));
+        $this->assertTrue(Schema::hasTable('alerts'));
     }
 
     /**
@@ -26,7 +26,7 @@ class AlertMigrationTest extends TestCase
     public function testAlertsTableHasExpectedColumns()
     {
         $this->assertTrue(
-            Schema::hasColumns('alert', [
+            Schema::hasColumns('alerts', [
                 'id', 'type', 'description', 'reporting_time', 'itinerary_id', 'user_id', 'created_at', 'updated_at'
             ]),
             1
@@ -41,11 +41,11 @@ class AlertMigrationTest extends TestCase
     public function testAlertsTableHasForeignKeys()
     {
         $this->assertTrue(
-            Schema::getConnection()->getSchemaBuilder()->hasColumn('alert', 'itinerary_id')
+            Schema::getConnection()->getSchemaBuilder()->hasColumn('alerts', 'itinerary_id')
         );
 
         $this->assertTrue(
-            Schema::getConnection()->getSchemaBuilder()->hasColumn('alert', 'user_id')
+            Schema::getConnection()->getSchemaBuilder()->hasColumn('alerts', 'user_id')
         );
     }
 }

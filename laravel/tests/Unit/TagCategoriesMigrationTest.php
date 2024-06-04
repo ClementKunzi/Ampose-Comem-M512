@@ -15,7 +15,7 @@ class TagCategorieMigrationTest extends TestCase
      */
     public function testTagCategorieTableExists()
     {
-        $this->assertTrue(Schema::hasTable('tag_categorie'));
+        $this->assertTrue(Schema::hasTable('tag_categories'));
     }
 
     /**
@@ -26,7 +26,7 @@ class TagCategorieMigrationTest extends TestCase
     public function testTagCategorieTableHasExpectedColumns()
     {
         $this->assertTrue(
-            Schema::hasColumns('tag_categorie', [
+            Schema::hasColumns('tag_categories', [
                 'id', 'color', 'taxonomy_id', 'created_at', 'updated_at'
             ]),
             1
@@ -41,7 +41,7 @@ class TagCategorieMigrationTest extends TestCase
     public function testTagCategorieTableHasForeignKeys()
     {
         $this->assertTrue(
-            Schema::getConnection()->getSchemaBuilder()->hasColumn('tag_categorie', 'taxonomy_id')
+            Schema::getConnection()->getSchemaBuilder()->hasColumn('tag_categories', 'taxonomy_id')
         );
     }
 }
