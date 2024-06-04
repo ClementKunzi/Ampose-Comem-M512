@@ -355,7 +355,8 @@ class ItineraryController extends Controller
                     }
                 }
 
-                $itinerary->load('steps, tagCategorie.taxonomy, tagAccessibility.taxonomy', 'user');
+
+                $itinerary->load('steps', 'tagCategorie.taxonomy', 'tagAccessibility.taxonomy', 'user');
                 $itinerary->makeHidden('created_at', 'user_id', 'image_id', 'tag_categorie_id', 'tag_accessibility_id', 'positive_drop', 'negative_drop', 'length', 'updated_at');
                 $itinerary->user->makeHidden('id', 'last_name', 'first_name', 'email', 'password', 'email_verified_at', 'email_verification', 'last_login', 'number_path_added', 'created_at', 'updated_at');
                 $itinerary->image->makeHidden('id', 'created_at', 'updated_at');
