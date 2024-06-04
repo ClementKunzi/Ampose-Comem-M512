@@ -1,6 +1,19 @@
 <script setup>
-import { CircleX, Pencil, LogOut } from 'lucide-vue-next';
+import { CircleX, Pencil, LogOut, User } from 'lucide-vue-next';
 import CardItinerary from '../../components/CardItinerary.vue';
+import { onMounted } from 'vue';
+import { getLocalStorageUser } from '../../utils/LocalStorageUser';
+import { getUserAccessToken, unsetUserAccessToken } from '../../utils/UserAccessToken.js';
+import { UserLocalStorage } from '@/classes/UserLocalStorage.js';
+import { logOut } from '../../utils/apiCalls.js';
+import axios from 'axios';
+
+const user = new UserLocalStorage();
+
+onMounted(() => {
+
+
+});
 
 </script>
 <script>
@@ -13,6 +26,9 @@ export default {
     };
   }
 };
+
+
+
 </script>
 
 <template>
@@ -27,7 +43,7 @@ export default {
         class="mr-auto btn-iconContainer" aria-label="Retour">        
           <CircleX aria-hidden="true" :size="32" />              
       </button>
-      <button @click="$router.go(-1)"
+      <button @click="logOut"
         class="btn-iconContainer" aria-label="Se déconnecter">
         <LogOut aria-hidden="true" :size="32" />
       </button>
@@ -39,8 +55,8 @@ export default {
       <img class="max-w-40 rounded-full" src="https://loremflickr.com/300/300" alt="">
     </div>
     <div class="mb-12 text-center">
-      <h1 class="h2 ">Maxime Peretti</h1>
-      <p aria-label="Adresse mail du compte">maxime@cool.sugus</p>
+      <h1 class="h2 ">{{ user.getUserName() }}</h1>
+      <p aria-label="Adresse mail du compte">{{ user.getEmail() }}</p>
     </div>
 
     <div>

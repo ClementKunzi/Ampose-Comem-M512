@@ -19,7 +19,7 @@ class UserSeeder extends Seeder
     public function run()
     {
         // Read JSON file
-        $json = file_get_contents(database_path() . '\seeders\data\users.json');
+        $json = file_get_contents(database_path() . '/seeders/data/users.json');
 
         // Decode JSON to array
         $data = json_decode($json, true);

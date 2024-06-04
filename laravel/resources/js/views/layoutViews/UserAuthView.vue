@@ -33,6 +33,6 @@ function toggleVisibility() {
       <FormLogin v-show="isVisible" />
       <FormRegister v-show="!isVisible" />      
     </div>
-    <button @click="toggleVisibility" class="mt-2 link text-tv-eggshell self-center">S'inscrire</button>
+    <button @click="toggleVisibility" class="mt-2 link text-tv-eggshell self-center">{{isVisible? 'S\'inscrire' : 'Se connecter'}}</button>
   </div>
 </template>

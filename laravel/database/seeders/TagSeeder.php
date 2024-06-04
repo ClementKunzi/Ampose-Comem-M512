@@ -19,7 +19,7 @@ class TagSeeder extends Seeder
     public function run()
     {
         // Read the JSON file
-        $json = File::get(database_path('seeders\data\taxonomy.json'));
+        $json = File::get(database_path('seeders/data/taxonomy.json'));
 
         // Decode the JSON data
         $data = json_decode($json);

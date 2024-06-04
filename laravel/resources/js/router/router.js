@@ -12,6 +12,13 @@ import UserAuthView from '@/views/layoutViews/UserAuthView.vue';
 import OnboardingView from '@/views/layoutViews/OnboardingView.vue';
 import UserEditView from '@/views/layoutViews/UserEditView.vue';
 import ItineraryCreationStepView from '@/views/layoutViews/ItineraryCreationStepView.vue';
+import { getUserAccessToken } from '../utils/UserAccessToken.js';
+
+// Function to check if the user is authenticated
+function isAuthenticated() {
+  // Example: Check for an accessToken in localStorage
+  return getUserAccessToken();
+}
 
 const routes = [
   {
@@ -62,6 +69,7 @@ const routes = [
     component: MapView,
     meta: {      
       requireNav: true,
+      requiresAuth: true,
     },
   },
   {
@@ -81,6 +89,7 @@ const routes = [
     meta: {
       title: 'Mes favoris',
       requireNav: true,
+      requiresAuth: true,
     },
   },
   {
@@ -113,6 +122,27 @@ const routes = [
 const router = createRouter({
   history: createWebHashHistory(),
   routes,
+});
+
+// Global beforeEach guard
+router.beforeEach((to, from, next) => {
+  // Check if the route requires authentication
+  const requiresAuth = to.matched.some(record => record.meta.requiresAuth);
+
+  // If the route requires auth and the user is not authenticated,
+  // redirect to the login page.
+  if (requiresAuth &&!isAuthenticated()) {
+      next('/user/auth'); // Redirect to login page
+  } else if (
+      // If the user is already authenticated and tries to access the login page,
+      // redirect them to the home page or another suitable page.
+      to.path === '/user/auth' && isAuthenticated()
+  ) {
+      next('/');
+  } else {
+      // Proceed with the route transition
+      next();
+  }
 });
 
 export default router;
