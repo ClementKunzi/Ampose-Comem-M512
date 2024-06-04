@@ -109,6 +109,15 @@ class AuthController extends Controller
      */
     public function user(Request $request)
     {
-        return response()->json($request->user()->makeHidden(['email_verified_at', 'email_verification', 'last_login',  'created_at', 'updated_at', 'password', 'remember_token']));
+        //return response()->json($request->user()->makeHidden(['email_verified_at', 'email_verification', 'last_login',  'created_at', 'updated_at', 'password', 'remember_token']));
+        $user = $request->user()->load('itineraries.image');
+        $user->makeHidden(['email_verified_at', 'email_verification', 'last_login',  'created_at', 'updated_at', 'password', 'remember_token']);
+        $user->itineraries->makeHidden(['created_at', 'updated_at', 'user_id', 'image_id']);
+        $user->itineraries->each(function ($itinerary) {
+            $itinerary->image->makeHidden(['created_at', 'updated_at', 'id']);
+        });
+        $user->itineraries->append('formatted_updated_at');
+
+        return response()->json($user);
     }
 }

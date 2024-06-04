@@ -15,7 +15,7 @@ return new class extends Migration
             $table->increments('id');
             $table->string('name');
             $table->text('description');
-            $table->string('adress');
+            $table->string('adress')->nullable();
             $table->string('schedule')->nullable();
             $table->decimal('latitude', 10, 8);
             $table->decimal('longitude', 11, 8);

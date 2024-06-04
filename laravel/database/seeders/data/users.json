@@ -1,5 +1,13 @@
 [
     {
+        "username": "cantonVaud",
+        "lastname": "Vaud",
+        "firstname": "Canton",
+        "email": "canton@vd.ch",
+        "password": "passwordVaud",
+        "profile_picture": "/profil_img/vd.png"
+    },
+    {
         "username": "john_doe123",
         "lastname": "Doe",
         "firstname": "John",
