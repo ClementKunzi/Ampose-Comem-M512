@@ -16,7 +16,7 @@
 <script setup>
 import { ref, defineExpose } from 'vue'; // Import defineExpose
 import axios from 'axios';
-import {logIn} from '@/utils/apiCalls.js';
+import {logIn} from '@/utils/apiCalls/apiCalls.js';
 import { UserLocalStorage } from '@/classes/UserLocalStorage.js';
 
 

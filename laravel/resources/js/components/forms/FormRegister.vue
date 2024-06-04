@@ -21,7 +21,7 @@
 <script setup>
 import { ref, defineExpose } from 'vue'; // Import defineExpose
 import axios from 'axios';
-import { register } from '@/utils/apiCalls.js';
+import { register } from '@/utils/apiCalls/apiCalls.js';
 
 const formFields = [
     { name: 'userName', label: 'Nom d\'utilisateur', value: 'Bingo', type: 'text', placeholder: 'Username', isValid: true },

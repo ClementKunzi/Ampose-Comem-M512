@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { UserLocalStorage } from '../classes/UserLocalStorage';
+import { UserLocalStorage } from '../../classes/UserLocalStorage';
 
 const userLocalStorage = new UserLocalStorage();
 

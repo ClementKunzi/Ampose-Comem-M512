@@ -5,7 +5,7 @@ import { onMounted } from 'vue';
 import { getLocalStorageUser } from '../../utils/LocalStorageUser';
 import { getUserAccessToken, unsetUserAccessToken } from '../../utils/UserAccessToken.js';
 import { UserLocalStorage } from '@/classes/UserLocalStorage.js';
-import { logOut } from '../../utils/apiCalls.js';
+import { logOut } from '../../utils/apiCalls/apiCalls.js';
 import axios from 'axios';
 
 const user = new UserLocalStorage();

@@ -6,6 +6,9 @@ import "leaflet/dist/leaflet.css"
 import * as L from 'leaflet';
 import 'leaflet-routing-machine';
 import 'leaflet-routing-machine/dist/leaflet-routing-machine.css';
+import { ApiGetItinerary } from '../../utils/apiCalls/ApiGetItinerary';
+
+
 
 const emit = defineEmits(['requireNav']);
 
@@ -16,6 +19,9 @@ let markers = [
       ]
 
 onMounted(() => {
+
+  const cool = ApiGetItinerary(1);
+console.log(cool);
 
   const orsToken = '1894ebf9-bfe5-4ab1-80b2-e8ccf733ab5e';
   var map = L.map('map', {
