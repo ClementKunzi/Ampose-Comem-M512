@@ -69,12 +69,9 @@
     /* @apply min-h-12 p-6; */
   }
 
-  .map-pageLayout .leaflet-marker-pane > :not(:last-child) {
+  .map-markerPicker .leaflet-marker-pane > :not(:last-child) {
     display: none
-  }
-
-
-  
+  }  
 }
 
 

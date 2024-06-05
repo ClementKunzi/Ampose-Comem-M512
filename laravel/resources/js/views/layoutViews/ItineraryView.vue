@@ -1,28 +1,23 @@
 <script setup>
-import { onMounted } from 'vue';
+import { onMounted,computed } from 'vue';
 import { Bookmark, CircleX, Share, Download, Star, MapPin, Footprints, Route, Clock, Mountain, Accessibility, TriangleAlert } from 'lucide-vue-next';
 
 import "leaflet/dist/leaflet.css"
 import * as L from 'leaflet';
 import 'leaflet-routing-machine';
 import 'leaflet-routing-machine/dist/leaflet-routing-machine.css';
-import { ApiGetItinerary } from '../../utils/apiCalls/ApiGetItinerary';
+import { storeItinerary } from '../../stores/StoreItinerary.js';
+import { getIdFromUrl } from '../../utils/IdFromUrl.js';
 
+const itinerary = computed(() => storeItinerary.itinerary.data);
+const steps = computed(() => storeItinerary.itinerary.data.steps);
 
+let markers = steps.value.map(step => [step.latitude, step.longitude]);
 
 const emit = defineEmits(['requireNav']);
 
-let markers = [
-        [46.784937, 6.637402],
-        [46.788490, 6.643284],
-        [46.780901, 6.643649]
-      ]
-
 onMounted(() => {
-
-  const cool = ApiGetItinerary(1);
-console.log(cool);
-
+ 
   const orsToken = '1894ebf9-bfe5-4ab1-80b2-e8ccf733ab5e';
   var map = L.map('map', {
     scrollWheelZoom: false,
@@ -43,21 +38,23 @@ console.log(cool);
     routeWhileDragging: false,
 
     // geocoder: L.Control.Geocoder.nominatim(),
-    // addWaypoints: true,
-    // reverseWaypoints: true,
+    addWaypoints: false,
+    draggableWaypoints: false,
     showInstructions: false,
   }).addTo(map);
 
-  // let waypoints = control.getWaypoints();
-  console.log(waypoints);
+  console.log('waypoints', control.getWaypoints());
 
   L.Control.geocoder().addTo(map);
 
 });
 
 </script>
+<script>
+export const itineraryPageId = getIdFromUrl(window.location.href);
+</script>
 
-<template>
+<template>  
   <div>
     <div style="background-image: url('https://loremflickr.com/600/600');"
       class="bg-center w-screen h-[250px] p-4 flex">
@@ -90,7 +87,7 @@ console.log(cool);
     </ul>
 
     <div class="flex justify-between">
-      <h1 class="h3 text-tv-wine">{{ $route.params.id }}</h1>
+      <h1 class="h3 text-tv-wine">{{itinerary.name}}</h1>  
       <div class="flex items-center gap-1 text-tv-wine">
         <Star stroke="#754043" :size="18" />
         <p aria-label="Note du parcours sur 5">
@@ -105,7 +102,7 @@ console.log(cool);
       <div class="w-1 h-1 mt-[.3rem] bg-tv-wine rounded-full"></div>
       <div class="flex items-center gap-1 text-tv-wine">
         <Footprints stroke="#754043" :size="18" />
-        <p aria-label="Difficulté du parcours">Moyen</p>
+        <p aria-label="Difficulté du parcours">{{itinerary.difficulty}}</p>
       </div>
     </div>
 
@@ -125,7 +122,7 @@ console.log(cool);
           <p>Durée
           </p>
         </div>
-        <p><time>1h30</time></p>
+        <p><time>{{itinerary.estimated_time}}</time></p>
       </div>
 
       <div class="flex flex-col items-center flex-wrap">
@@ -141,10 +138,7 @@ console.log(cool);
 
     <div class="mb-16">
       <h3 class="text-tv-wine">Description</h3>
-      <p>On sait depuis longtemps que travailler avec du texte lisible et contenant du sens est source de distractions,
-        et empêche de se concentrer sur la mise en page elle-même. L'avantage du Lorem Ipsum sur un texte générique
-        comme 'Du texte. Du texte. Du texte.' est qu'il possède une distribution de lettres plus ou moins normale, et en
-        tout cas comparable avec celle du français standard.</p>
+      <p>{{itinerary.description}}</p>
     </div>
     <div class="mb-16">
       <h3 class="text-tv-wine">Parcours</h3>

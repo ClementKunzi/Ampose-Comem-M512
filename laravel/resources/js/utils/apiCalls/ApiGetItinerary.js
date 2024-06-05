@@ -5,7 +5,7 @@ const userLocalStorage = new UserLocalStorage();
 
 const ApiGetItinerary = async (id) => {
     try {
-        const response = await axios.get(`http://localhost:8000/api/itineraries/${1}`,{
+        const response = await axios.get(`http://localhost:8000/api/itineraries/${id}`,{
             headers: {
                 Authorization: `Bearer ${userLocalStorage.getAccessToken()}`,
             },            

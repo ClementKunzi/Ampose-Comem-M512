@@ -107,7 +107,7 @@ onMounted(() => {
                 <label for="coordinate">Coordonnées</label>
                 <input id="coordinate" class="opacity-0 pointer-events-none mb-[-48px]" v-model="formFields.coordinate"
                     type="text" placeholder="Rechercher une adresse" />
-                <div ref="mapContainerRef" id="map" class="map-pageLayout map-norouteInstructions"></div>
+                <div ref="mapContainerRef" id="map" class="map-pageLayout map-norouteInstructions map-markerPicker"></div>
             </div>
             <div>
                 <label for="description">Description</label>

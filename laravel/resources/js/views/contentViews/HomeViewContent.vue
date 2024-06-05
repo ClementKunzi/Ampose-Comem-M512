@@ -3,18 +3,11 @@ import { ref, onMounted } from 'vue';
 import CardItinerary from '../../components/CardItinerary.vue';
 import { storeItineraries } from '../../stores/StoreItineraries.js';
 
-
 </script>
 
 <script>
-import sourceData from '../../../../data_temp.json';
 
-export default {
-  // data() {
-  //   return {
-  //     itineraries: sourceData.destinations
-  //   };
-  // },
+export default {  
   name: 'Itineraries',
   computed: {
     itineraries() {
