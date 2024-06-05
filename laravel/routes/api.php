@@ -55,7 +55,7 @@ Route::group(['prefix' => 'itinerary-difficulty'], function () {
 
 Route::group(['prefix' => 'images'], function () {
     Route::get('/', [ImageController::class, 'index']);
-    Route::get('/{id}', [ImageController::class, 'show']);
+    Route::get('{filename}', [ImageController::class, 'show']);
     Route::group(['middleware' => 'auth:sanctum'], function () {
         Route::post('/', [ImageController::class, 'store']);
         Route::delete('/delete/{id}', [ImageController::class, 'destroy']);

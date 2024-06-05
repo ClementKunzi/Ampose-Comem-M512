@@ -28,12 +28,14 @@ class UserSeeder extends Seeder
             // Get image content from URL or local file
             $imageContent = file_get_contents(base_path('database/seeders/data' . $user['profile_picture']));
 
+            $extension = pathinfo($user['profile_picture'], PATHINFO_EXTENSION);
+
+            $newFilename = time() . '_' . uniqid() . '.' . $extension;
             // Define path to save image
-            $imagePath = 'public/profile_pictures/' . basename($user['profile_picture']);
+            $imagePath = 'public/images/' . $newFilename;
 
             // Save image to the defined path
             Storage::put($imagePath, $imageContent);
-
             // Insert data into the users table
             DB::table('users')->insert([
                 'username' => $user['username'],
@@ -41,7 +43,7 @@ class UserSeeder extends Seeder
                 'first_name' => $user['firstname'],
                 'email' => $user['email'],
                 'password' => Hash::make($user['password']),
-                'profile_picture' => Storage::url($imagePath),
+                'profile_picture' => $newFilename,
             ]);
         }
     }
