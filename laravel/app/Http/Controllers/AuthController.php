@@ -23,10 +23,10 @@ class AuthController extends Controller
     {
         if ($request->profile_picture) {
             $image = $request->file('profile_picture');
-            $imageName = $image->store('profile_pictures', 'public');
-            $imagePath = 'storage/' . $imageName;
+            $imageName = time() . '_' . uniqid() . '.' . $image->getClientOriginalExtension();
+            $imageName = $image->store('images', 'public');
         } else {
-            $imagePath = null;
+            $imageName = null;
         }
         $user = new User([
             'username'  => $request->username,
@@ -38,7 +38,7 @@ class AuthController extends Controller
             'email_verified_at' => null,
             'last_login' => null,
             'number_path_added' => 0,
-            'profile_picture' => $imagePath,
+            'profile_picture' => $imageName,
 
         ]);
         if ($user->save()) {

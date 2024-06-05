@@ -52,16 +52,16 @@ class ImageController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show($filename)
     {
-        $image = Image::find($id);
+        $basePath = 'storage/images/';
+        $pathToFile = public_path($basePath) . $filename;
 
-        if ($image) {
-            $image = $image->makeHidden(['id', 'created_at', 'updated_at']);
-            return $this->sendSuccess($image, 'Image retrieved successfully');
+        if (!file_exists($pathToFile)) {
+            return $this->sendError('File not found.', 404);
         }
 
-        return $this->sendError('Image not found', 404);
+        return $this->sendSuccess($pathToFile);
     }
 
     /**

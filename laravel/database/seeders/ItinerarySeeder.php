@@ -45,7 +45,7 @@ class ItinerarySeeder extends Seeder
 
             // Créer une image pour l'itinéraire
             $image = Image::create([
-                'url' => $imagePath,
+                'url' => $imageName,
                 'alt_attr' => $item['image']['alt_attr'],
             ]);
             $itinerary = Itinerary::create([
@@ -81,7 +81,7 @@ class ItinerarySeeder extends Seeder
 
                 // Créer une image pour l'étape
                 $stepImage = Image::create([
-                    'url' => $stepImagePath,
+                    'url' => $stepImageName,
                     'alt_attr' => $stepData['image_description'],
                 ]);
 

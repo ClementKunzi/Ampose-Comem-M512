@@ -23,15 +23,27 @@ class ItineraryController extends Controller
      */
     public function index()
     {
-        $itineraries = Itinerary::with(['user', 'image', 'tagCategorie.taxonomy', 'tagAccessibility.taxonomy'])->get();
-        $itineraries->makeHidden('created_at');
+        $itineraries = Itinerary::with(['user', 'image', 'tagCategorie.taxonomy', 'tagAccessibility.taxonomy', 'steps'])->get();
+        $itineraries->makeHidden('created_at', 'updated_at');
 
-        foreach ($itineraries as $itinerary) {
+        $itineraries->transform(function ($itinerary) {
+            $itinerary->makeHidden(['created_at', 'updated_at']);
             $itinerary->user->makeHidden(['id', 'last_name', 'first_name', 'email', 'password', 'email_verified_at', 'email_verification', 'last_login', 'number_path_added',  'created_at', 'updated_at']);
             $itinerary->image->makeHidden(['id', 'created_at', 'updated_at']);
             $itinerary->tagCategorie->makeHidden(['id', 'created_at', 'updated_at']);
             $itinerary->tagAccessibility->makeHidden(['id', 'created_at', 'updated_at']);
-        }
+            $itinerary->append('formatted_updated_at');
+
+
+            if ($itinerary->steps->isNotEmpty()) {
+                $firstStep = $itinerary->steps->first();
+                $itinerary->setAttribute('first_step_latitude', $firstStep->latitude);
+                $itinerary->setAttribute('first_step_longitude', $firstStep->longitude);
+            }
+
+            unset($itinerary->steps);
+            return $itinerary;
+        });
         return response()->json($itineraries);
     }
 
@@ -93,10 +105,11 @@ class ItineraryController extends Controller
                     // Handle step image if present
                     if ($request->hasFile("steps.$index.stepImage")) {
                         $imageFile = $request->file("steps.$index.stepImage");
-                        $imagePath = $imageFile->store('images', 'public');
-
+                        $extension = $imageFile->getClientOriginalExtension();
+                        $newFilename = time() . '_' . uniqid() . '.' . $extension;
+                        $imagePath = $imageFile->storeAs('images', $newFilename, 'public');
                         $stepImage = Image::create([
-                            'url' => $imagePath,
+                            'url' => $newFilename,
                             'alt_attr' => $step['image_description'],
                         ]);
                     }
@@ -171,7 +184,7 @@ class ItineraryController extends Controller
     public function show(string $id)
     {
         // Retrieve the itinerary with its related models
-        $itinerary = Itinerary::with(['user', 'image', 'tagCategorie.taxonomy', 'tagAccessibility.taxonomy', 'steps',])->find($id);
+        $itinerary = Itinerary::with(['user', 'image', 'tagCategorie.taxonomy', 'tagAccessibility.taxonomy', 'steps.images',])->find($id);
 
         if ($itinerary) {
             // Hide specific attributes from the response
@@ -190,6 +203,7 @@ class ItineraryController extends Controller
             foreach ($itinerary->steps as $step) {
                 $step->makeHidden(['created_at',  'itinerary_id', 'updated_at']);
                 $step->append('formatted_updated_at');
+                $step->images->makeHidden(['created_at', 'updated_at', 'id', 'pivot']);
             }
 
             // Return a success response with the retrieved itinerary
@@ -217,7 +231,9 @@ class ItineraryController extends Controller
                 // Handle image upload if present
                 if ($request->hasFile('image')) {
                     $imageFile = $request->file('image');
-                    $imagePath = $imageFile->store('images', 'public');
+                    $extension = $imageFile->getClientOriginalExtension();
+                    $newFilename = time() . '_' . uniqid() . '.' . $extension;
+                    $imagePath = $imageFile->storeAs('images', $newFilename,  'public');
 
                     if (!$imagePath) {
                         return $this->sendError('Image upload failed');
@@ -225,7 +241,7 @@ class ItineraryController extends Controller
 
                     // Create a new Image model
                     $image = Image::create([
-                        'url' => $imagePath,
+                        'url' => $newFilename,
                         'alt_attr' => $request->input('image_description'),
                     ]);
 
@@ -311,10 +327,12 @@ class ItineraryController extends Controller
 
                                     // Créer une nouvelle image et l'attacher à l'étape
 
-
-
+                                    $imageFile = $stepData['image'];
+                                    $extension = $imageFile->getClientOriginalExtension();
+                                    $newFilename = time() . '_' . uniqid() . '.' . $extension;
+                                    $imagePath = $imageFile->storeAs('images', $newFilename, 'public');
                                     $newImage = Image::create([
-                                        'url' => $stepData['image'],
+                                        'url' => $newFilename,
                                         'alt_attr' => $stepData['image_description'],
                                     ]);
 
@@ -330,10 +348,12 @@ class ItineraryController extends Controller
                             // Si l'étape n'a pas d'ID, c'est un ajout
                             if ($request->hasFile("steps.$index.stepImage")) {
                                 $imageFile = $request->file("steps.$index.stepImage");
-                                $imagePath = $imageFile->store('images', 'public');
+                                $extension = $imageFile->getClientOriginalExtension();
+                                $newFilename = time() . '_' . uniqid() . '.' . $extension;
+                                $imagePath = $imageFile->store('images', $newFilename, 'public');
 
                                 $stepImage = Image::create([
-                                    'url' => $imagePath,
+                                    'url' => $newFilename,
                                     'alt_attr' => $stepData['image_description'],
                                 ]);
                             }
