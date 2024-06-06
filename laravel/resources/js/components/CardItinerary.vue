@@ -5,15 +5,16 @@ import { Bookmark, Star } from 'lucide-vue-next';
 const props = defineProps({
     itinerary: Array,
 });
-const imageUrl = computed(() => itinerary.image.url);
+// const imageUrl = computed(() => itinerary.image.url);
 </script>
 
 <template>
 
     <article
-    class="relative max-w min-h-[220px] rounded-3xl mb-6 shadow-tv p-3 pb-5 bg-center text-tv-eggshell flex flex-col justify-between
-    bg-[linear-gradient(to_top,rgba(0,0,0,1),rgba(0,0,0,0)50%),url('https://loremflickr.com/500/300')]">
-            <div class="flex justify-between">                
+    class="relative max-w min-h-[220px] rounded-3xl mb-6 shadow-tv p-3 pb-5 bg-center text-tv-eggshell flex flex-col justify-between    
+    before:content-[''] before:absolute before:top-0 before:left-0 before:h-full before:w-full before:rounded-3xl before:bg-[linear-gradient(to_top,rgba(0,0,0,1),rgba(0,0,0,0)50%)]"
+    :style="{ backgroundImage: 'url(storage/images/' + itinerary.image.url + ')' }">
+            <div class="flex justify-between z-10">                
             <ul class="flex gap-3">
                 <li class="bg-tv-eggshell rounded-full w-[28px] h-[28px] flex justify-center items-center"
                     aria-label="Nom catégorie">
@@ -34,7 +35,7 @@ const imageUrl = computed(() => itinerary.image.url);
                 </button>
             </div>
         </div>
-        <div class="flex justify-between">
+        <div class="flex justify-between z-10">
             <div>
                 <h3 aria-label="Nom du parcours">{{ itinerary.name }}</h3>
                 <address class="not-italic">Lausanne</address>

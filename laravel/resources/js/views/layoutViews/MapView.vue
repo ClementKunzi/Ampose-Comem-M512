@@ -9,16 +9,44 @@ import 'leaflet-routing-machine/dist/leaflet-routing-machine.css';
 import 'leaflet-control-geocoder/dist/Control.Geocoder.js';
 import 'leaflet-control-geocoder/dist/Control.Geocoder.css';
 import 'lrm-graphhopper';
+import { storeItineraries } from '../../stores/StoreItineraries.js';
+import { storeItinerary, storeItineraryById } from '../../stores/StoreItinerary.js';
 // https://medium.com/@smhabibjr/implement-an-interactive-map-in-the-vue-js-8a865010fb41
 
 // https://github.com/perliedman/lrm-graphhopper
 // const initialMap = ref(null);
 
 // https://docs.graphhopper.com/#operation/getRoute
+const itineraries = async () => {
+  await storeItineraries.itineraries;
+  return storeItineraries.itineraries;
+}
+
+let itinerariesFirstMarker = (itineraries) => {
+  let newArray = [];
+  for (let i = 0; i < itineraries.length; i++) {
+  newArray.push({
+    id: itineraries[i].id,
+    description: itineraries[i].description,
+    latLng: [itineraries[i].first_step_latitude, itineraries[i].first_step_longitude]
+  });
+}
+  return newArray;
+};
+
+async function resolveData(values) {
+  const resolvedValue = await values;
+  // console.log('resolvedValue', resolvedValue[0]);
+  // Now you can work with resolvedValue directly
+  return itinerariesFirstMarker(resolvedValue)
+}
+resolveData(itineraries());
+
+
+
 
 onMounted(() => {
-
-  const orsToken = '1894ebf9-bfe5-4ab1-80b2-e8ccf733ab5e';
+  
   let map = L.map('map').setView([46.5794109, 5.3376684], 8);
   let mapInfoContainer = document.getElementById('map-info');
   let mapInfoTitle = document.getElementById('map-infoTitle');
@@ -112,7 +140,7 @@ onMounted(() => {
 
   let control = L.Routing.control({
     // router: new L.Routing.GraphHopper(orsToken),
-    serviceUrl: "http://routing.openstreetmap.de/routed-foot/route/v1",
+    serviceUrl: "https://routing.openstreetmap.de/routed-foot/route/v1",
     language: 'fr',
     // serviceUrl: `https://graphhopper.com/api/1/route?key=1894ebf9-bfe5-4ab1-80b2-e8ccf733ab5e`,
     // waypoints: [
@@ -144,6 +172,8 @@ onMounted(() => {
   <div class="p-4">
     <SearchBar />
     <div id="map" class="map map-fullscreen map-noUi"></div>
+    
+     <!-- {{ itinerary }} -->
     <div id="map-info" class="hidden fixed bottom-3 left-1/2 translate-x-[-50%] z-50 w-[calc(100%-2rem)] min-h-24 bg-tv-eggshell p-4 rounded-3xl shadow-tv flex flex-col">
       <p id="map-infoTitle" class="h3">lolilol</p>
       <p id="map-infoDesc">asfjhasdifosdafjiasfd</p>

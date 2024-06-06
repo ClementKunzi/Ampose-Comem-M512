@@ -1,45 +1,34 @@
 <script setup>
-import { onMounted, computed, ref } from 'vue';
+import { onMounted,computed, ref } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
-import { Bookmark, CircleX, Share, Download, Star, MapPin, Footprints, Route, Clock, Mountain, Accessibility, TriangleAlert, SquareArrowOutUpRight } from 'lucide-vue-next';
-import { hideMarker } from '../../utils/MarkersVisibility.js';
+import { Bookmark, CircleX, Share, Download, Star, MapPin, Footprints, Route, Clock, Mountain, Accessibility, TriangleAlert } from 'lucide-vue-next';
 
 import "leaflet/dist/leaflet.css"
 import * as L from 'leaflet';
 import 'leaflet-routing-machine';
 import 'leaflet-routing-machine/dist/leaflet-routing-machine.css';
 import { storeItinerary } from '../../stores/StoreItinerary.js';
+import { getIdFromUrl } from '../../utils/IdFromUrl.js';
 
 const route = useRoute();
-const router = useRouter();
-const routeItinerary = computed(() => {
-  return route.name === 'itinerary.view';
-});
-const stepId = computed(() => route.params.stepId-1);
-
-
+const router = useRouter()
+const test = computed(() => route.params.stepId);
+console.log('test', test);
 const itinerary = computed(() => storeItinerary.itinerary.data);
 const steps = computed(() => storeItinerary.itinerary.data.steps);
-const step = computed(() => storeItinerary.itinerary.data.steps[stepId.value]);
 
-
-
-
+let coordinates = steps.value.map(step => [step.latitude, step.longitude]);
+let stepTitles = steps.value.map(step => step.name);
+console.log('stepTitles', stepTitles);
 
 const emit = defineEmits(['requireNav']);
 
 const stepAccess = (id) => {
-  router.push(`${route.fullPath}/step/${id+1}`);
+    router.push(`${route.fullPath}/step/${id+1}`);
 }
 
-hideMarker(stepId);
-
 onMounted(() => {
-  let coordinates = steps.value.map(step => [step.latitude, step.longitude]);
-  let stepTitles = steps.value.map(step => step.name);
-
-
-
+ 
   const orsToken = '1894ebf9-bfe5-4ab1-80b2-e8ccf733ab5e';
   var map = L.map('map', {
     scrollWheelZoom: false,
@@ -54,17 +43,15 @@ onMounted(() => {
   let control = L.Routing.control({
     // router: new L.Routing.GraphHopper(orsToken),
     waypoints,
-    serviceUrl: "http://routing.openstreetmap.de/routed-foot/route/v1",
-    language: 'fr',
+    serviceUrl: "https://routing.openstreetmap.de/routed-foot/route/v1",
+      language: 'fr',
 
     routeWhileDragging: false,
-    createMarker: function (i, wp, nWps) {
-      return L.marker(wp.latLng)
-        .bindPopup(stepTitles[i]).on('click', function (e) {
-          // Custom click event logic here
-          
-          stepAccess(i)
-          hideMarker(i)
+    createMarker: function(i, wp, nWps) {
+        return L.marker(wp.latLng)
+           .bindPopup(stepTitles[i]).on('click', function(e) {
+            // Custom click event logic here
+            stepAccess(i)            
         });;
     },
     // geocoder: L.Control.Geocoder.nominatim(),
@@ -73,7 +60,8 @@ onMounted(() => {
     showInstructions: false,
   }).addTo(map);
   
-
+  console.log('waypoints', control.getWaypoints());
+  
   // control.setWaypoints([46.778186, 6.641524], [46.778186, 6.641524]);
   // control.spliceWaypoints(0, 3)
   // control.setWaypoints(waypoints);
@@ -86,10 +74,11 @@ onMounted(() => {
 
 </script>
 
-<template>
 
+<template>  
+<h1>Hello</h1>
   <div>
-    <div v-if="routeItinerary" :style="{ 'background-image': 'url(storage/images/' + itinerary.image.url + ')' }"
+    <div :style="{ backgroundImage: 'url(/storage/images/' + itinerary.image.url + ')' }"
       class="bg-center w-screen h-[250px] p-4 flex">
       <button class="mr-auto bg-tv-eggshell rounded-full w-[28px] h-[28px] flex justify-center items-center"
         aria-label="Retour">
@@ -103,9 +92,8 @@ onMounted(() => {
         aria-label="Ajouter aux favoris">
         <Bookmark aria-hidden="true" stroke="#754043" :size="18" />
       </button>
+
     </div>
-    <div v-else :style="{ 'background-image': 'url(storage/images/' + step.images[0].url + ')' }"
-      class="bg-center w-screen h-[250px] p-4 flex"></div>
   </div>
   <div class="p-4">
     <ul class="mt-[-2rem] flex gap-3">
@@ -121,21 +109,14 @@ onMounted(() => {
     </ul>
 
     <div class="flex justify-between">
-      <h1 class="h3 text-tv-wine">
-        <span v-if="routeItinerary">
-          {{ itinerary.name }}
-        </span>
-        <span v-else>
-          {{ step.name }}
-        </span>
-      </h1>
-      <div v-if="routeItinerary" class="flex items-center gap-1 text-tv-wine">
+      <h1 class="h3 text-tv-wine">{{itinerary.name}}</h1>  
+      <div class="flex items-center gap-1 text-tv-wine">
         <Star stroke="#754043" :size="18" />
         <p aria-label="Note du parcours sur 5">
           4.8</p>
       </div>
     </div>
-    <div v-if="routeItinerary" class="flex items-center gap-2 mb-16">
+    <div class="flex items-center gap-2 mb-16">
       <div class="flex items-center gap-1 text-tv-wine">
         <MapPin stroke="#754043" :size="18" />
         <address class="not-italic">Lausanne</address>
@@ -143,14 +124,11 @@ onMounted(() => {
       <div class="w-1 h-1 mt-[.3rem] bg-tv-wine rounded-full"></div>
       <div class="flex items-center gap-1 text-tv-wine">
         <Footprints stroke="#754043" :size="18" />
-        <p aria-label="Difficulté du parcours">{{ itinerary.difficulty }}</p>
+        <p aria-label="Difficulté du parcours">{{itinerary.difficulty}}</p>
       </div>
     </div>
-    <div v-else class="flex items-center gap-2 mb-16 text-tv-wine">
-      <address class="not-italic">{{ step.adress }}</address>
-    </div>
 
-    <div v-if="routeItinerary" class="mb-16 bg-tv-wine text-tv-eggshell rounded-3xl p-8 flex justify-between">
+    <div class="mb-16 bg-tv-wine text-tv-eggshell rounded-3xl p-8 flex justify-between">
       <div class="flex flex-col items-center flex-wrap">
         <div class="w-full flex items-center gap-1 text-tv-beige">
           <Route stroke="#FAF0CA" :size="18" />
@@ -182,16 +160,13 @@ onMounted(() => {
 
     <div class="mb-16">
       <h3 class="text-tv-wine">Description</h3>
-      <p v-if="routeItinerary">{{ itinerary.description}}</p>
-      <p v-else>{{ step.description }}</p>
+      <p>{{itinerary.description}}</p>
     </div>
     <div class="mb-16">
       <h3 class="text-tv-wine">Parcours</h3>
-      <div :class="{'map-step':!routeItinerary}">
-        <div id="map" class="map-pageLayout map-noUi"></div>
-      </div>
+      <div id="map" class="map-pageLayout map-noUi"></div>
     </div>
-    <div v-if="routeItinerary" class="text-tv-wine">
+    <div class="text-tv-wine">
       <h3>Accessibilité</h3>
       <ul class="flex flex-col gap-3">
         <li class="flex items-center gap-1">
@@ -204,19 +179,13 @@ onMounted(() => {
         </li>
       </ul>
     </div>
-    <div v-if="routeItinerary" class="mb-16 justify-center">
+    <div class="mb-16">
       <button class="btn">
         <Download aria-hidden="true" stroke="#754043" :size="18" />
         Télécharger le parcours
       </button>
     </div>
-    <div v-else class="mb-16 flex justify-center">
-      <a href="" class="btn">
-        <SquareArrowOutUpRight aria-hidden="true" stroke="#754043" :size="18" />
-        En savoir plus
-      </a>
-    </div>
-    <div v-if="routeItinerary">
+    <div>
       <h3 class="text-tv-wine">Avis de la communauté <span>(8)</span></h3>
       <div class="flex items-center gap-1 text-tv-wine">
         <Star stroke="#754043" :size="18" />
@@ -248,8 +217,7 @@ onMounted(() => {
       <div>
         <a href="#" class="link justify-center">
           <TriangleAlert aria-hidden="true" stroke="#754043" :size="18" />
-          Signaler un problème avec ce parcours
-        </a>
+          Signaler un problème avec ce parcours</a>
       </div>
     </div>
   </div>

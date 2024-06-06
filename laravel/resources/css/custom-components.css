@@ -53,6 +53,16 @@
     }
   }
 
+  .map-step #map {
+    pointer-events: none;
+    * {
+      pointer-events: none;
+    }
+    .leaflet-marker-pane {
+      
+    }
+  }
+
   .leaflet-control-geocoder {
     /* width: 100%; */
     display: flex;

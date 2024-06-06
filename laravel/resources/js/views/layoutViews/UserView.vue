@@ -1,6 +1,7 @@
 <script setup>
 import { CircleX, Pencil, LogOut, User } from 'lucide-vue-next';
 import CardItinerary from '../../components/CardItinerary.vue';
+import { storeItineraries } from '../../stores/StoreItineraries.js';
 import { onMounted } from 'vue';
 import { getLocalStorageUser } from '../../utils/LocalStorageUser';
 import { getUserAccessToken, unsetUserAccessToken } from '../../utils/UserAccessToken.js';
@@ -17,18 +18,15 @@ onMounted(() => {
 
 </script>
 <script>
-import sourceData from '../../../../data_temp.json';
 
-export default {
-  data() {
-    return {
-      itineraries: sourceData.destinations,      
-    };
-  }
+export default {  
+  name: 'Itineraries',
+  computed: {
+    itineraries() {
+      return storeItineraries.itineraries;
+    },
+  },
 };
-
-
-
 </script>
 
 <template>
@@ -62,10 +60,9 @@ export default {
     <div>
       <h2 class="h3 text-tv-wine">Mes sentiers</h2>
 
-      <!-- <Card /> -->
-      <router-link v-for="itinerary in itineraries" :key="itinerary.id" :to="`/itinerary/${itinerary.slug}`">
-        <CardItinerary :itinerary-name="itinerary.name" />
-      </router-link>
+      <router-link v-for="itinerary in itineraries" :key="itinerary.id" :to="`/itinerary/${itinerary.id}`">
+    <CardItinerary :itinerary="itinerary" :image="itinerary.image.url" />
+  </router-link>
     </div>
 
     <router-link to="/user/auth">Login or register</router-link>   

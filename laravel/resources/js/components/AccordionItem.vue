@@ -15,7 +15,7 @@
         </button>        
             <div v-show="isActive">
                 <div class="mt-4">
-                    <FormNewItineraryStep :isActive="isActive" />
+                    <FormNewItineraryStep :isActive="isActive" :index="index" />
                 </div>
 
             </div>        
@@ -24,7 +24,7 @@
 
 <script setup>
 import FormNewItineraryStep from '@/components/forms/FormNewItinerarySteps.vue';
-import { ref, inject, watch, defineProps } from 'vue';
+import { ref, inject, watch, defineProps, defineExpose } from 'vue';
 
 const props = defineProps({
     title: String,

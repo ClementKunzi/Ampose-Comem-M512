@@ -1,7 +1,8 @@
 <script setup>
-import { ref, reactive } from 'vue';
+import { ref, reactive, defineExpose } from 'vue';
 import axios from 'axios';
 import { useRouter } from 'vue-router';
+import { storeItineraryForm } from '../../stores/StoreItineraryForm';
 
 const router = useRouter();
 
@@ -15,22 +16,10 @@ const formFields = reactive({
     description: '',
 });
 
-// const submitForm = async () => {
-//     try {
-//         await axios.post('YOUR_API_ENDPOINT', formFields);
-//         console.log('Form submitted successfully');
-//     } catch (error) {
-//         console.error('Failed to submit form:', error);
-//     }
-// };
-const submitForm = () => {
-    router.push('/create/steps');
-}
-
 </script>
 
 <template>
-    <form @submit.prevent="submitForm">
+    <form @submit.prevent="storeItineraryForm.addMainData(formFields)">
         <div class="flex flex-col gap-6">
             <div>
                 <label for="name">Nom du parcours</label>
@@ -60,7 +49,11 @@ const submitForm = () => {
                 <textarea name="description" rows="5" v-model="formFields.description"
                     placeholder="Description"></textarea>
             </div>
-            <button type="submit" class="btn self-center">Ajouter les étapes</button>
+            <button type="submit" class="btn self-center btn-itineraryMain pointer-events-none absolute z-[-10]">Ajouter les étapes</button>
         </div>
+    </form>
+    <form @submit.prevent="$emit('toggleVisibility')">
+        <button @submit.prevent="$emit('toggleVisibility')" type="submit"
+            class="btn self-center mt-8 ml-auto mr-auto">Ajouter les étapes</button>
     </form>
 </template>

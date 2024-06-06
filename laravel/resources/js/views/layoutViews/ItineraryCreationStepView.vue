@@ -1,5 +1,5 @@
 <script setup>
- import { ArrowLeft, Plus } from 'lucide-vue-next';
+ import { ArrowLeft, Plus, Watch } from 'lucide-vue-next';
 </script>
 <script>
 import AccordionItem from '@/components/AccordionItem.vue';
@@ -22,6 +22,11 @@ export default {
       const newIndex = this.accordionItems.length;
       this.accordionItems.push({ title: `Item ${newIndex + 1}`, content: `Content ${newIndex + 1}` });
     },
+    handleFormFields(data) {
+      Watch(data, (newValue, oldValue) => {
+        console.log(newValue);
+      }, { deep: true });
+    },
   },
 };
 </script>
@@ -35,7 +40,8 @@ export default {
     <h1 class="h3 pb-4 text-tv-wine text-center">Etapes</h1 class="h3">
     <accordion>
       <accordion-item v-for="(item, index) in accordionItems" :key="index" :title="item.title" :content="item.content"
-        :index="index" />
+        :index="index"
+        @send-stepData-to-parent="handleFormFields" />
     </accordion>
 
     <div class="mt-4 flex justify-center items-center gap-2">
