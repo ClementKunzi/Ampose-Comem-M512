@@ -35,12 +35,11 @@ class ItineraryController extends Controller
             $itinerary->append('formatted_updated_at');
 
 
-            if ($itinerary->steps->isNotEmpty()) {
-                $firstStep = $itinerary->steps->first();
-                $itinerary->setAttribute('first_step_latitude', $firstStep->latitude);
-                $itinerary->setAttribute('first_step_longitude', $firstStep->longitude);
+            $markers = [];
+            foreach ($itinerary->steps as $step) {
+                $markers[] = [$step->latitude, $step->longitude];
             }
-
+            $itinerary->setAttribute('markers', $markers);
             unset($itinerary->steps);
             return $itinerary;
         });

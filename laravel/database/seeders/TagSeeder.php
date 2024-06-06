@@ -24,18 +24,20 @@ class TagSeeder extends Seeder
         // Decode the JSON data
         $data = json_decode($json);
 
-        // Insert each tag into the database
+        // Insert or update each tag in the database
         foreach ($data as $tag) {
-            $taxonomy = Taxonomy::create([
-                'name' => $tag->name,
-                'description' => $tag->description,
-                'icon' => $tag->icon,
-            ]);
+            $taxonomy = Taxonomy::updateOrCreate(
+                ['name' => $tag->name],
+                [
+                    'description' => $tag->description,
+                    'icon' => $tag->icon,
+                ]
+            );
 
             if ($tag->tag == 'accessibility') {
-                TagAccessibility::create(['taxonomy_id' => $taxonomy->id]);
+                TagAccessibility::updateOrCreate(['taxonomy_id' => $taxonomy->id]);
             } elseif ($tag->tag == 'categorie') {
-                TagCategorie::create(['taxonomy_id' => $taxonomy->id]);
+                TagCategorie::updateOrCreate(['taxonomy_id' => $taxonomy->id]);
             }
         }
     }
