@@ -4,6 +4,7 @@ import './utils/LocalStorageUser.js';
 import { getUserAccessToken } from './utils/UserAccessToken.js';
 import { UserLocalStorage } from '@/classes/UserLocalStorage.js';
 
+
 // Create an instance of UserLocalStorage
 const userLocalStorage = new UserLocalStorage();
 // Call initializeUserLocalStorage

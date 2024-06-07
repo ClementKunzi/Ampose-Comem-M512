@@ -1,5 +1,6 @@
 <script setup>
 import { ref, onMounted, computed } from 'vue';
+import { useRouter, useRoute } from 'vue-router';
 import SearchBar from '../../components/TheSearch.vue';
 
 import "leaflet/dist/leaflet.css"
@@ -20,23 +21,17 @@ import { storeItinerary, storeItineraryById } from '../../stores/StoreItinerary.
 const itineraries = async () => {
   return await storeItineraries.itineraries;
 };
+const route = useRoute();
+const router = useRouter();
 
 // Declare itinerariesOnMap as a ref
-const itinerariesOnMap = [
-{
-      id: 1,
-      name: "Lausanne - Renens",
-      description: "Lausanne - Renens",
-      markers: [
-        [46.784937, 6.637402],
-        [46.788490, 6.643284],
-        [46.780901, 6.643649]
-      ]
-    },
+let itinerariesOnMap = [
+
+ 
 ];
 
 // Function to resolve data and push each item into itinerariesOnMap
-const resolveData = async () => {
+const resolveData = async () => { 
   const resolvedValue = await itineraries();
   resolvedValue.forEach(item => {
     itinerariesOnMap.push(
@@ -44,25 +39,17 @@ const resolveData = async () => {
         id: item.id,
         name: item.name,
         description: item.description,
-        markers: item.markers}
+        markers: item.markers.map(marker => [marker[0], marker[1]])}
     );
   });
-  console.log('itinerariesOnMap', itinerariesOnMap.value);
-};
+  console.log('itinerariesOnMap', itinerariesOnMap);
 
-// Call resolveData when the component is mounted
-onMounted(async () => {
-  await resolveData();
-});
-
-
-
-onMounted(() => {
   console.log('Populated itinerariesOnMap:', itinerariesOnMap);
   let map = L.map('map').setView([46.5794109, 5.3376684], 8);
   let mapInfoContainer = document.getElementById('map-info');
   let mapInfoTitle = document.getElementById('map-infoTitle');
   let mapInfoDesc = document.getElementById('map-infoDesc');
+  let mapInfoBtn = document.getElementById('map-infoBtn');  
 
   // add a tile layer to add to our map
   L.tileLayer('http://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png', {
@@ -90,6 +77,9 @@ onMounted(() => {
     let waypoints = itinerary.markers.map(marker => L.latLng(marker[0], marker[1]));
     mapInfoTitle.textContent = itinerary.name;
     mapInfoDesc.textContent = itinerary.description;
+    mapInfoBtn.addEventListener('click', () => {
+    router.push(`/itinerary/${itinerary.id}`);
+  });
     mapInfoContainer.classList.remove('hidden');
 
     // Remove other markers from the map
@@ -151,6 +141,17 @@ onMounted(() => {
   // console.log(waypoints);
 
   L.Control.geocoder().addTo(map);
+};
+
+// Call resolveData when the component is mounted
+onMounted(async () => {
+  await resolveData();
+});
+
+
+
+onMounted(() => {
+  
 
 
 });
@@ -168,7 +169,7 @@ onMounted(() => {
     <div id="map-info" class="hidden fixed bottom-3 left-1/2 translate-x-[-50%] z-50 w-[calc(100%-2rem)] min-h-24 bg-tv-eggshell p-4 rounded-3xl shadow-tv flex flex-col">
       <p id="map-infoTitle" class="h3">lolilol</p>
       <p id="map-infoDesc">asfjhasdifosdafjiasfd</p>
-      <button class="btn mt-4 self-center">Voir le parcours</button>
+      <button id="map-infoBtn" class="btn mt-4 self-center">Voir le parcours</button>
     </div>
   </div>
 

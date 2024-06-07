@@ -11,6 +11,7 @@ const formFields = reactive({
     image: '',
     category: '',
     accessibility: '',
+    estimated_time: '',
     duration: '',
     difficulty: '',
     description: '',
@@ -48,6 +49,10 @@ const formFields = reactive({
                 <label for="name">Description</label>
                 <textarea name="description" rows="5" v-model="formFields.description"
                     placeholder="Description"></textarea>
+            </div>
+            <div>
+                <label for="name">Temps estimé</label>
+                <input id="name" v-model="formFields.estimated_time" type="time" placeholder="Temps estimé en minutes" />
             </div>
             <button type="submit" class="btn self-center btn-itineraryMain pointer-events-none absolute z-[-10]">Ajouter les étapes</button>
         </div>

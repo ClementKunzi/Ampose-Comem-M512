@@ -7,7 +7,7 @@ import { isDesktop } from  '../utils/Breakpoints.js';
 
 <template> 
     <nav
-    v-if="$route.meta.requireNav && !isDesktop.value"
+    v-if="isDesktop.value"
     class="
     z-50 fixed bottom-4 left-4 
     bg-tv-wine w-[calc(100%-2rem)] rounded-full

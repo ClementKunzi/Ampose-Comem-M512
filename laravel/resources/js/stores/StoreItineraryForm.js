@@ -1,6 +1,7 @@
 // store.js
 import { reactive } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
+import { ApiPostItineraries } from '../utils/apiCalls/ApiPostItinerary';
 
 export const storeItineraryForm = reactive({
     main: reactive({
@@ -8,6 +9,7 @@ export const storeItineraryForm = reactive({
         image: '',
         category: '',
         accessibility: '',
+        estimated_time: '',
         duration: '',
         difficulty: '',
         description: '',
@@ -25,33 +27,7 @@ export const storeItineraryForm = reactive({
             description: data.description,
         };
         console.log(this.main);
-    },
-
-    updateStep(data) {
-        if (this.steps.length === 0) {
-            this.steps.push(data);
-            console.log('1 ', this.steps);
-            return;
-        }
-
-        // Iterate through the steps array
-        this.steps.forEach((step, index) => {
-            console.log(step);
-            // Check if the current step's id matches the data.id
-            if ((step.id) == data.id) {
-                // Replace the step at the current index with the new data
-                // this.steps[index] = data;
-                step = data;
-                console.log('2 ', this.steps);
-                return; // Exit the loop after replacing the step
-            } else if (data.id >= this.steps.length) {
-                // If no matching id was found, push the new data to the end of the array
-                this.steps.push(data);
-                console.log('3 ', this.steps);
-            }
-        });
-
-
+        sendForm();
     },
 
     addStep(data) {
@@ -62,6 +38,35 @@ export const storeItineraryForm = reactive({
     displayData() {
         console.log(this.main);
         console.log(this.steps);
+    },
+
+    sendForm() {
+        const data = new FormData();
+        data.append('name', this.main.name);
+        data.append('description', this.main.description);
+        data.append('type', 'Communauté');
+        data.append('length', '');
+        data.append('estimated_time', this.main.estimated_time);
+        data.append('difficulty', this.main.difficulty);
+        data.append('source', 'Source Value');
+        data.append('image', fs.createReadStream('/path/to/file')); // Assuming you're using Node.js for server-side code
+        data.append('image_description', 'Image Description');
+
+        // Adding steps
+        data.append('steps[0][name]', this.steps[0].name);
+        data.append('steps[0][description]', this.steps[0].description);
+        data.append('steps[0][address]', 'Step Address');
+        data.append('steps[0][latitude]', 'Latitude Value');
+        data.append('steps[0][longitude]', 'Longitude Value');
+        data.append('steps[0][order]', 'Order Value');
+        data.append('steps[0][external_link]', 'External Link Value');
+        data.append('steps[0][stepImage]', fs.createReadStream('/path/to/step/image')); // File read stream for step image
+
+        // Adding tags
+        data.append('tagCategories[0]', 'Tag Category Value');
+        data.append('tagAccessibilities[0]', 'Tag Accessibility Value');
+
+        console.log('data', data);
     }
 });
 

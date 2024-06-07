@@ -12,12 +12,13 @@ function toggleVisibility() {
 }
 
 function triggerStepForms() {
+  console.log('triggerStepForms');
   const btnNewItinerary = document.querySelector('.btn-itineraryMain');
   const btnElementsNodeList = document.querySelectorAll('#btn-itineraryStep');
     const btnElementsArray = Array.from(btnElementsNodeList);
     btnElementsArray.forEach(element => {
       element.click();
-      // console.log(element.innerHTML);
+      
     });
     btnNewItinerary.click();
 }
