@@ -22,6 +22,7 @@ Once repo is cloned
 2. create .env file
 3. Generate application key : php artisan key:generate
 4. Migrate DB : php artisan migrate:fresh --seed
-5. Instal Vite and Vue : npm install
-6. Run Backend : php artisan serve
-7. Run frontend : npm run dev
+5. php artisan storage:link
+6. Instal Vite and Vue : npm install
+7. Run Backend : php artisan serve
+8. Run frontend : npm run dev
