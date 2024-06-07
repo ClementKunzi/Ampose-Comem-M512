@@ -78,7 +78,8 @@ onMounted(() => {
 
             // Create a new marker at the geocoded location
             var latLng = e.geocode.center;
-            geocodeMarker = L.marker(latLng).addTo(map);
+            marker = L.marker(latLng).addTo(map);
+            console.log('geocodeMarker', marker);
             // marker = L.marker(latLng);
         }).addTo(map);
 
