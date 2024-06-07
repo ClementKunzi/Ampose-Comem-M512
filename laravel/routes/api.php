@@ -6,9 +6,9 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\Api\ImageController;
 use App\Http\Controllers\Api\ItineraryTypeController;
 use App\Http\Controllers\Api\ItinerarySourceController;
-use App\Http\Controllers\API\TagAccessibilityController;
-use App\Http\Controllers\API\TagCategorieController;
-use App\Http\Controllers\API\ItineraryDifficultyController;
+use App\Http\Controllers\Api\TagAccessibilityController;
+use App\Http\Controllers\Api\TagCategorieController;
+use App\Http\Controllers\Api\ItineraryDifficultyController;
 use App\Models\TagAccessibility;
 use App\Models\TagCategorie;
 

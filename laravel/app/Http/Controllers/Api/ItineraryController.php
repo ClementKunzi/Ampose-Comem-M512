@@ -134,7 +134,21 @@ class ItineraryController extends Controller
 
             // Commit the transaction
             DB::commit();
+            /*
+            // 1. Générer le PDF
+            $pdf = \PDF::loadView('itineraries.summary', ['itinerary' => $itinerary]);
 
+            // 2. Définir le nom du fichier PDF
+            $pdfFileName = 'itinerary-summary-' . $itinerary->id . '.pdf';
+
+            // 3. Sauvegarder le PDF dans le système de fichiers
+            Storage::disk('public')->put('itineraries/pdf/' . $pdfFileName, $pdf->output());
+
+            // 4. Sauvegarder le chemin du PDF dans la base de données si nécessaire
+            // Par exemple, vous pouvez ajouter une colonne `pdf_url` à votre table `itineraries`
+            $itinerary->pdf_url = 'itineraries/pdf/' . $pdfFileName;
+            $itinerary->save();
+*/
             // Load related models and hide specific attributes
             $itinerary->load('steps', 'tagCategorie.taxonomy', 'tagAccessibility.taxonomy', 'user');
             $itinerary->makeHidden('created_at', 'user_id', 'image_id', 'tag_categorie_id', 'tag_accessibility_id', 'positive_drop', 'negative_drop', 'length', 'updated_at');
