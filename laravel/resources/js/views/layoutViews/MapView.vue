@@ -18,35 +18,47 @@ import { storeItinerary, storeItineraryById } from '../../stores/StoreItinerary.
 
 // https://docs.graphhopper.com/#operation/getRoute
 const itineraries = async () => {
-  await storeItineraries.itineraries;
-  return storeItineraries.itineraries;
-}
-
-let itinerariesFirstMarker = (itineraries) => {
-  let newArray = [];
-  for (let i = 0; i < itineraries.length; i++) {
-  newArray.push({
-    id: itineraries[i].id,
-    description: itineraries[i].description,
-    latLng: [itineraries[i].first_step_latitude, itineraries[i].first_step_longitude]
-  });
-}
-  return newArray;
+  return await storeItineraries.itineraries;
 };
 
-async function resolveData(values) {
-  const resolvedValue = await values;
-  // console.log('resolvedValue', resolvedValue[0]);
-  // Now you can work with resolvedValue directly
-  return itinerariesFirstMarker(resolvedValue)
-}
-resolveData(itineraries());
+// Declare itinerariesOnMap as a ref
+const itinerariesOnMap = [
+{
+      id: 1,
+      name: "Lausanne - Renens",
+      description: "Lausanne - Renens",
+      markers: [
+        [46.784937, 6.637402],
+        [46.788490, 6.643284],
+        [46.780901, 6.643649]
+      ]
+    },
+];
 
+// Function to resolve data and push each item into itinerariesOnMap
+const resolveData = async () => {
+  const resolvedValue = await itineraries();
+  resolvedValue.forEach(item => {
+    itinerariesOnMap.push(
+      {
+        id: item.id,
+        name: item.name,
+        description: item.description,
+        markers: item.markers}
+    );
+  });
+  console.log('itinerariesOnMap', itinerariesOnMap.value);
+};
+
+// Call resolveData when the component is mounted
+onMounted(async () => {
+  await resolveData();
+});
 
 
 
 onMounted(() => {
-  
+  console.log('Populated itinerariesOnMap:', itinerariesOnMap);
   let map = L.map('map').setView([46.5794109, 5.3376684], 8);
   let mapInfoContainer = document.getElementById('map-info');
   let mapInfoTitle = document.getElementById('map-infoTitle');
@@ -59,27 +71,6 @@ onMounted(() => {
 
   // Declare a marker
   // let marker = L.marker([46.78, 6.6442309]).addTo(map);
-  let itineraries = [
-    {
-      id: 1,
-      name: "Lausanne - Renens",
-      description: "Lausanne - Renens",
-      markers: [
-        [46.784937, 6.637402],
-        [46.788490, 6.643284],
-        [46.780901, 6.643649]
-      ]
-    },
-    {
-      id: 2,
-      name: "Nyon - Morges",
-      description: "Nyon - Morges",
-      markers: [
-        [46.777229, 6.640679],
-        [46.7779608, 6.6306562]
-      ]
-    },
-  ];
 
 
   let filterStartMarker = (itineraries) => {
@@ -108,7 +99,7 @@ onMounted(() => {
     // Remove the routing control from the map on click
     let onMapClick = (e) => {
       map.removeControl(control);
-      addMarkersToMap(firstMarkers, itineraries);
+      addMarkersToMap(firstMarkers, itinerariesOnMap);
       mapInfoContainer.classList.add('hidden');
     }
     // Attach the click event listener to the map
@@ -133,10 +124,10 @@ onMounted(() => {
 
 
 
-  let firstMarkers = filterStartMarker(itineraries);
+  let firstMarkers = filterStartMarker(itinerariesOnMap);
   let markersOnMap = [];
 
-  addMarkersToMap(firstMarkers, itineraries);  
+  addMarkersToMap(firstMarkers, itinerariesOnMap);  
 
   let control = L.Routing.control({
     // router: new L.Routing.GraphHopper(orsToken),
