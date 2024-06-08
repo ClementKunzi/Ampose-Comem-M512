@@ -2,6 +2,8 @@
 import { reactive } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 import { ApiPostItineraries } from '../utils/apiCalls/ApiPostItinerary';
+import { UserLocalStorage } from '../classes/UserLocalStorage';
+const currentUser = new UserLocalStorage();
 
 export const storeItineraryForm = reactive({
     main: reactive({
@@ -9,10 +11,13 @@ export const storeItineraryForm = reactive({
         image: '',
         category: '',
         accessibility: '',
-        estimated_time: '',
-        duration: '',
+        estimated_time: '',        
         difficulty: '',
         description: '',
+        source: '',
+        type:'',
+        length: '',
+        pdf_url: '',        
     }),
     steps: reactive([]),
 
@@ -22,12 +27,14 @@ export const storeItineraryForm = reactive({
             image: data.image,
             category: data.category,
             accessibility: data.accessibility,
-            duration: data.duration,
+            estimated_time: data.estimated_time,
             difficulty: data.difficulty,
             description: data.description,
+            source: 'Communauté',
+            length: 10,
         };
         console.log(this.main);
-        sendForm();
+        this.sendForm();
     },
 
     addStep(data) {
@@ -36,37 +43,44 @@ export const storeItineraryForm = reactive({
     },
 
     displayData() {
-        console.log(this.main);
-        console.log(this.steps);
+        console.log("Main; ", this.main);
+        console.log("Step; ", this.steps);
     },
 
     sendForm() {
         const data = new FormData();
+        
         data.append('name', this.main.name);
         data.append('description', this.main.description);
-        data.append('type', 'Communauté');
-        data.append('length', '');
+        data.append('type', 'Point A / B');
+        data.append('length', this.main.length);
         data.append('estimated_time', this.main.estimated_time);
         data.append('difficulty', this.main.difficulty);
-        data.append('source', 'Source Value');
-        data.append('image', fs.createReadStream('/path/to/file')); // Assuming you're using Node.js for server-side code
+        data.append('source', this.main.source);
+        data.append('image', this.main.image); // Assuming you're using Node.js for server-side code
         data.append('image_description', 'Image Description');
+        data.append('pdf_url', 'https://r.mtdv.me/videos/HUcHKsy3Lw');
 
         // Adding steps
-        data.append('steps[0][name]', this.steps[0].name);
-        data.append('steps[0][description]', this.steps[0].description);
-        data.append('steps[0][address]', 'Step Address');
-        data.append('steps[0][latitude]', 'Latitude Value');
-        data.append('steps[0][longitude]', 'Longitude Value');
-        data.append('steps[0][order]', 'Order Value');
-        data.append('steps[0][external_link]', 'External Link Value');
-        data.append('steps[0][stepImage]', fs.createReadStream('/path/to/step/image')); // File read stream for step image
+        for (let i = 0; i < this.steps.length; i++) {
+            data.append(`steps[${i}][name]`, this.steps[0].name);
+            data.append(`steps[${i}][description]`, this.steps[0].description);
+            data.append(`steps[${i}][address]`, 'Step Address');
+            data.append(`steps[${i}][latitude]`, this.steps[0].coordinate[0]._value);
+            data.append(`steps[${i}][longitude]`, this.steps[0].coordinate[1]._value);
+            data.append(`steps[${i}][order]`, 'Order Value');
+            data.append(`steps[${i}][external_link]`, 'External Link Value');
+            data.append(`steps[${i}][stepImage]`, this.steps[0].image);
+            data.append(`steps[${i}][image_description]`,this.steps[0].image_description);
+            data.append(`steps[${i}][order]`, i);
+            // Adding tags
+            data.append(`tagCategories[${i}]`, 'Tag Category Value');
+            data.append(`tagAccessibilities[${i}]`, 'Tag Accessibility Value');
+        }
 
-        // Adding tags
-        data.append('tagCategories[0]', 'Tag Category Value');
-        data.append('tagAccessibilities[0]', 'Tag Accessibility Value');
 
-        console.log('data', data);
+        console.log(data);
+        ApiPostItineraries(data);
     }
 });
 

@@ -23,11 +23,20 @@ let markerLng = ref(null);
 
 
 const formFields = reactive({
+    // id: props.index,
+    // name: '',
+    // image: '',
+    // image_description: '',
+    // coordinate: [markerLat, markerLng],
+    // description: '',
+    // link: '',
     id: props.index,
-    name: '',
+    name: 'Cool',
     image: '',
+    image_description: 'Jolie description',
     coordinate: [markerLat, markerLng],
-    link: '',
+    description: 'Jolie description les amis.',
+    link: 'https://cool.io',
 });
 
 const updateImage = (event) => {
@@ -121,7 +130,10 @@ onMounted(() => {
             <div>
                 <label for="name">Image de l'étape</label>
                 <input type="file" name="img" @change="updateImage" ref="imageInput" accept="image/*" />
-
+            </div>
+            <div>
+                <label for="name">Description de l'image</label>
+                <input id="name" v-model="formFields.image_description" type="text" placeholder="Que voit-on sur cette image?" />
             </div>
             <div>
                 <label for="coordinate">Coordonnées</label>
