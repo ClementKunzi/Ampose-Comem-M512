@@ -1,9 +1,8 @@
 import axios from 'axios';
 import { UserLocalStorage } from '../../classes/UserLocalStorage';
-
 const userLocalStorage = new UserLocalStorage();
 
-const logOut = async () => {
+const logOut = async () => {  
     try {
         const response = await axios.get('http://localhost:8000/api/auth/logout', {
             headers: {
@@ -12,10 +11,8 @@ const logOut = async () => {
         });
         console.log('Response:', response.data);        
         userLocalStorage.clearAccessToken();
-
-        return response.data;
-        // unsetUserAccessToken()
-        // Handle success (e.g., redirecting to another page)
+                
+        return response.data;        
     } catch (error) {
         console.error('Error:', error.response ? error.response.data : error.message);
         return error.response ? error.response.data : error.message;
@@ -42,21 +39,7 @@ const logIn = async (emailValue, passwordValue) => {
         userLocalStorage.setId(userData.id)
         userLocalStorage.setUserName(userData.username)
         userLocalStorage.setFirstName(userData.first_name)
-        userLocalStorage.setLastName(userData.last_name)
-
-        // const localStorageBuilder = UserLocalStorage.getInstance();
-        // localStorageBuilder.initializeUserLocalStorage()            
-        //     .setEmail(userData.email)
-        //     .setId(userData.id)
-        //     .setUserName(userData.username)
-        //     .setFirstName(userData.first_name)
-        //     .setLastName(userData.last_name)
-        //     .save();
-
-        // console.log(JSON.parse(localStorage.getItem('terraVaud')));
-
-
-
+        userLocalStorage.setLastName(userData.last_name)       
 
         // Handle success (e.g., redirecting to another page)
     } catch (error) {
@@ -65,8 +48,8 @@ const logIn = async (emailValue, passwordValue) => {
     }
 };
 
-const register = async (usernameValue, lastNameValue, firstNameValue, emailValue, passwordValue) => {
-  
+const register = async (usernameValue, userImageValue, lastNameValue, firstNameValue, emailValue, passwordValue) => {
+  console.log('userImageValue', userImageValue);
     try {
         const response = await axios.post('http://localhost:8000/api/auth/register', {
           username: usernameValue,
@@ -74,6 +57,7 @@ const register = async (usernameValue, lastNameValue, firstNameValue, emailValue
             first_name: firstNameValue,
             email: emailValue,
             password: passwordValue,
+            profile_picture: userImageValue
         });
 
         console.log('Response:', response.data);

@@ -66,14 +66,16 @@ const routes = [
     name: 'Map',
     component: MapView,
     meta: {      
-      requireNav: true,
-      requiresAuth: true,
+      requireNav: true,      
     },
   },
   {
     path: '/create',
     name: 'ItineraryCreationView',
-    component: ItineraryCreationView,    
+    component: ItineraryCreationView,   
+    meta: {
+      requiresAuth: true,
+    }, 
   },
   {
     path: '/create/steps',
@@ -130,11 +132,14 @@ const routes = [
     path: '/user/profile',
     name: 'user.view',
     component: UserView,
+    meta: {
+      requiresAuth: true,
+    }
   },
   {
     path: '/user/auth',
     name: 'user.auth.view',
-    component: UserAuthView,
+    component: UserAuthView,    
   },
   {
     path: '/user/edit',

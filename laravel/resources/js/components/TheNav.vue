@@ -1,19 +1,17 @@
 <script setup>
 import { onMounted, ref } from 'vue';
 import { Home, Users, Map, Plus, Bookmark } from 'lucide-vue-next';
-import { isDesktop } from  '../utils/Breakpoints.js';
+import { isDesktop } from '../utils/Breakpoints.js';
 
 </script>
 
-<template> 
-    <nav
-    v-if="$route.meta.requireNav && !isDesktop.value"
-    class="
+<template>
+    <nav v-if="$route.meta.requireNav && !isDesktop.value" class="
     z-50 fixed bottom-4 left-4 
-    bg-tv-wine w-[calc(100%-2rem)] rounded-full
+    bg-tv-wine w-[calc(100%-2rem)] rounded-full shadow-tv
     pt-3 pb-4 px-8
     flex justify-between
-    text-tv-eggshell text-[.8rem]">          
+    text-tv-eggshell text-[.8rem]">
         <router-link class="flex flex-col items-center" aria-label="Accueil" to="/">
             <Home stroke="#f5f5f5" :size="30" />
             <span aria-hidden="true">Accueil</span>
@@ -38,7 +36,9 @@ import { isDesktop } from  '../utils/Breakpoints.js';
 </template>
 
 <style scoped>
-nav a:not(.router-link-active) {
-    opacity: .6;
+nav {
+    a:not(.router-link-active) {
+        opacity: .6;
+    }
 }
 </style>
