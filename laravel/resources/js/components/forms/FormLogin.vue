@@ -1,5 +1,8 @@
 <template>
-    <form @submit.prevent="logIn(formFields[0].value, formFields[1].value)">
+    <form @submit.prevent="() => {
+        logIn(formFields[0].value, formFields[1].value);
+        $router.go(-1);
+    }">
         <div class="flex flex-col gap-6">
             <div v-for="(field, index) in formFields" :key="index">
                 <label :for="field.name">{{ field.label }}</label>

@@ -24,8 +24,7 @@ if (getUserAccessToken() !== null) {
 <!-- Example of using Vue Router in a component -->
 <template>
     <TheHeader />
-    <TheHeaderDesktop />
-    <main class="grow flex flex-col">
+    <main class="grow flex flex-col w-full max-w-[1240px]">
 
         <router-view />
     </main>

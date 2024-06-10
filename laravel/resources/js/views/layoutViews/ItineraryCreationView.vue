@@ -34,6 +34,7 @@ export default {
     return {
       accordionItems: [
         { title: 'Item 1', content: 'Content 1' },
+        { title: 'Item 2', content: 'Content 2' },
       ],
     };
   },
@@ -42,7 +43,17 @@ export default {
       const newIndex = this.accordionItems.length;
       this.accordionItems.push({ title: `Item ${newIndex + 1}`, content: `Content ${newIndex + 1}` });
     },
+    removeAccordionItem(index) {
+      this.accordionItems.splice(index, 1);
+    },
   },
+  watch: {
+    // Watching the length of accordionItems array
+    'accordionItems.length': function(newLength, oldLength) {
+      console.log(`Length of accordionItems changed from ${oldLength} to ${newLength}`);
+      // You can add any additional logic here that should run when the length changes
+    }
+  }
 };
 </script>
 
@@ -63,10 +74,10 @@ export default {
           <ArrowLeft aria-hidden="true" :size="32" />              
       </button>
     <h1 class="h3 pb-4 text-tv-wine text-center">Etapes</h1 class="h3">
-    <accordion ref="childFormRef">
-      <accordion-item ref="childFormRef" v-for="(item, index) in accordionItems" :key="index" :title="item.title" :content="item.content"
+    <accordion>
+      <accordion-item v-for="(item, index) in accordionItems" :key="index" :title="item.title" :content="item.content"
         :index="index"
-         />
+         ><button @click="removeAccordionItem" class="link mt-[-3.5rem] mb-4 mr-4 self-end">Supprimer cette étape</button></accordion-item>
     </accordion>
 
     <div class="mt-4 flex justify-center items-center gap-2">
@@ -80,7 +91,7 @@ export default {
           <Plus aria-hidden="true" :size="32" />
         </div>
         
-      </button>
+      </button>      
     </div>
     <div class="flex justify-center mt-auto">
       <button @click="triggerStepForms" class="btn mt-6">Finaliser le parcours</button>

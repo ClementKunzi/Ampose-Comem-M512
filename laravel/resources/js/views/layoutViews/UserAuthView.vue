@@ -27,7 +27,7 @@ function toggleVisibility() {
           <CircleX aria-hidden="true" :size="32" />              
       </button>  
   </div>
-  <div class="p-4 flex flex-col justify-center grow bg-tv-wine text-tv-eggshell">
+  <div class="p-4 flex flex-col justify-center grow bg-tv-wine text-tv-eggshell lg:w-full">
     <div class="grow flex flex-col justify-center">
       <h1 class="h2 text-center">{{ isVisible ? 'Se connecter' : 'S\'inscrire' }}</h1>
       <FormLogin v-show="isVisible" />

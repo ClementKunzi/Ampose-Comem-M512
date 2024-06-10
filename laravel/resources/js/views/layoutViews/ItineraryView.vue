@@ -51,6 +51,15 @@ onMounted(() => {
 
   let waypoints = coordinates.map(coord => L.latLng(coord[0], coord[1]));
 
+  var customIcon = L.icon({
+    iconUrl: '/images/map/marker.png',
+    iconSize: [38, 38], // size of the icon
+    shadowSize: [50, 64], // size of the shadow
+    iconAnchor: [19, 38], // point of the icon which will correspond to marker's location
+    // shadowAnchor: [4, 62],  // the same for the shadow
+    // popupAnchor:  [-3, -76] // point from which the popup should open relative to the iconAnchor
+  });
+
   let control = L.Routing.control({
     // router: new L.Routing.GraphHopper(orsToken),
     waypoints,
@@ -66,6 +75,23 @@ onMounted(() => {
           stepAccess(i)
           hideMarker(i)
         });;
+    },
+    createMarker: function(i, waypoint, n) {
+        return L.marker(waypoint.latLng, {
+            draggable: false,
+            bounceOnAdd: false,
+            bounceOnAddOptions: {
+                duration: 1000,
+                height: 800,
+                function() {
+                    // Optional: Open a popup when the marker bounces
+                }
+            },
+            icon: customIcon // Use the custom icon defined earlier
+        });
+    },
+    lineOptions: {
+        styles: [{color: '#754043', opacity: .8, weight: 3}] // Set the color of the route line
     },
     // geocoder: L.Control.Geocoder.nominatim(),
     addWaypoints: false,
@@ -88,10 +114,11 @@ onMounted(() => {
 
 <template>
 
+  <div class="md:mr-[15%] md:ml-[15%]">
   <div>
     <div v-if="routeItinerary" :style="{ 'background-image': 'url(storage/images/' + itinerary.image.url + ')' }"
-      class="bg-center w-screen h-[250px] p-4 flex">
-      <button class="mr-auto bg-tv-eggshell rounded-full w-[28px] h-[28px] flex justify-center items-center"
+      class="bg-center w-full h-[250px] p-4 flex">
+      <button @click="$router.go(-1)" class="mr-auto bg-tv-eggshell rounded-full w-[28px] h-[28px] flex justify-center items-center"
         aria-label="Retour">
         <CircleX aria-hidden="true" stroke="#754043" :size="18" />
       </button>
@@ -188,7 +215,7 @@ onMounted(() => {
     <div class="mb-16">
       <h3 class="text-tv-wine">Parcours</h3>
       <div :class="{'map-step':!routeItinerary}">
-        <div id="map" class="map-pageLayout map-noUi"></div>
+        <div id="map" class="map-pageLayout map-noUi map-noSearch"></div>
       </div>
     </div>
     <div v-if="routeItinerary" class="text-tv-wine">
@@ -253,6 +280,6 @@ onMounted(() => {
       </div>
     </div>
   </div>
-
+</div>
 
 </template>

@@ -31,9 +31,14 @@
     z-index: 0;
     position: absolute;
     top: 0;
-    left: 0;
+    left: 50%;
+    transform: translateX(-50%);
     width: 100vw;
     height: 100vh;
+    @media(min-width: 1200px) {
+      width: 1200px;
+      height: 100%;
+    }
   }
 
   .map-pageLayout {
@@ -43,12 +48,19 @@
   .map-noUi {
     .leaflet-routing-container {
       display: none;
-      opacity: .5 !important;
     }
   }
 
-  .map-norouteInstructions {
-    .leaflet-routing-container {
+  
+
+  .map-noSearch {
+    .leaflet-right {
+      display: none;
+    }
+  }
+
+  .map-noZoom {
+    .leaflet-left {
       display: none;
     }
   }

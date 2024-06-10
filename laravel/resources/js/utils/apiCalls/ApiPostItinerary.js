@@ -5,7 +5,7 @@ const userLocalStorage = new UserLocalStorage(); // Initialize your user token m
 
 const ApiPostItineraries = async (data) => {
     try {
-        const response = await axios.post('http://terravaud.ch/api/itinareries/add', data, {
+        const response = await axios.post('http://localhost:8000/api/itineraries/add', data, {
             headers: {
                 'Content-Type': 'multipart/form-data',
                 Authorization: `Bearer ${userLocalStorage.getAccessToken()}`, // Assuming you have a way to retrieve the access token

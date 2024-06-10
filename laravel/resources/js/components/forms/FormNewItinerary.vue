@@ -6,15 +6,25 @@ import { storeItineraryForm } from '../../stores/StoreItineraryForm';
 
 const router = useRouter();
 
+const updateImage = (event) => {
+    formFields.image = event.target.files[0];
+};
+
 const formFields = reactive({
-    name: '',
+    // name: '',
+    // image: '',
+    // category: '',
+    // accessibility: '',
+    // estimated_time: '',    
+    // difficulty: '',
+    // description: '',
+    name: 'Jean',
     image: '',
-    category: '',
-    accessibility: '',
-    estimated_time: '',
-    duration: '',
-    difficulty: '',
-    description: '',
+    category: 'architecture',
+    accessibility: 'Pentu',
+    estimated_time: 35,    
+    difficulty: 'mordérée',
+    description: 'Jolie description les amis.',
 });
 
 </script>
@@ -28,7 +38,8 @@ const formFields = reactive({
             </div>
             <div>
                 <label for="name">Image</label>
-                <input type="file" name="img" v-on:change="formFields.description" accept="image/*" />
+                <input type="file" name="img" @change="updateImage" ref="imageInput" accept="image/*" />
+
             </div>
             <div>
                 <label for="category">Catégories</label>
@@ -52,7 +63,7 @@ const formFields = reactive({
             </div>
             <div>
                 <label for="name">Temps estimé</label>
-                <input id="name" v-model="formFields.estimated_time" type="time" placeholder="Temps estimé en minutes" />
+                <input id="name" v-model="formFields.estimated_time" type="number" placeholder="Temps estimé en minutes" />
             </div>
             <button type="submit" class="btn self-center btn-itineraryMain pointer-events-none absolute z-[-10]">Ajouter les étapes</button>
         </div>

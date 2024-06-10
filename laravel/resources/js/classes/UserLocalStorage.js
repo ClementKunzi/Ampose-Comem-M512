@@ -88,6 +88,10 @@ export class UserLocalStorage {
         localStorage.setItem('terraVaud', JSON.stringify(this.terraVaud));
     }
 
+    getUserId() {
+        return this.terraVaud.userData.id;
+    }
+
     async getUserDataFromApi() {
         try {
             const accessToken = this.getAccessToken();
