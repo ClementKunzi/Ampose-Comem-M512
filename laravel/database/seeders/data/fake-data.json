@@ -9,8 +9,14 @@
         "estimated_time": 45,
         "difficulty": "modéré",
         "source": "Officiel",
-        "category": "Architectural",
-        "accessibility": "Accessible aux fauteuils roulants",
+        "category": [
+            "Architectural",
+            "Artistique"
+        ],
+        "accessibility": [
+            "Accessible aux fauteuils roulants",
+            "Faisable en vélo, Convient aux enfants"
+        ],
         "image": {
             "url": "/itinerary_image/tour-theatrale-de-lausanne.jpg",
             "alt_attr": "Image montrant un théâtre à Lausanne"
@@ -36,7 +42,7 @@
                 "order": 2,
                 "external_link": "https://www.opera-lausanne.ch/",
                 "stepImage": "/image_step/tour-theatrale-de-lausanne/step2.jpg",
-                "image_description": "Image for step 1 of the itinerary 'Tour théâtral proche de Lausanne'"
+                "image_description": "Image for step 2 of the itinerary 'Tour théâtral proche de Lausanne'"
             },
             {
                 "name": "Théâtre de l'Octogone",
@@ -93,9 +99,16 @@
         "negative_drop": 400,
         "estimated_time": 90,
         "difficulty": "difficile",
-        "source": "Communautaire",
-        "category": "Architectural",
-        "accessibility": "Accessible aux fauteuils roulants",
+        "source": "Communauté",
+        "category": [
+            "Naturel",
+            "Botanique"
+        ],
+        "accessibility": [
+            "Faisable en vélo",
+            "Animaux Acceptés",
+            "Nocturne"
+        ],
         "image": {
             "url": "/itinerary_image/sortie-en-foret-au-coeur-de-chalet-a-gobet.jpg",
             "alt_attr": "Image montrant une forêt au Chalet a Gobet"
@@ -168,8 +181,14 @@
         "estimated_time": 100,
         "difficulty": "facile",
         "source": "Officiel",
-        "category": "Architectural",
-        "accessibility": "Accessible aux fauteuils roulants",
+        "category": [
+            "Industriel",
+            "Historique"
+        ],
+        "accessibility": [
+            "Accessible aux fauteuils roulants",
+            "Convient aux enfants"
+        ],
         "image": {
             "url": "/itinerary_image/balade-mecanique-de-sainte-croix.jpg",
             "alt_attr": "Intérieur mécanique d'un musée à sainte-croix"
@@ -230,9 +249,14 @@
         "negative_drop": 200,
         "estimated_time": 80,
         "difficulty": "facile",
-        "source": "Communautaire",
-        "category": "Architectural",
-        "accessibility": "Accessible aux fauteuils roulants",
+        "source": "Communauté",
+        "category": [
+            "Botanique"
+        ],
+        "accessibility": [
+            "Accessible aux fauteuils roulants",
+            "Convient aux enfants, Animaux Acceptés"
+        ],
         "image": {
             "url": "/itinerary_image/balade-botanique-dans-la-ville-de-lausanne.jpg",
             "alt_attr": "Image for Itinerary 4"
@@ -304,9 +328,14 @@
         "negative_drop": 600,
         "estimated_time": 120,
         "difficulty": "difficile",
-        "source": "Communautaire",
-        "category": "Architectural",
-        "accessibility": "Accessible aux fauteuils roulants",
+        "source": "Communauté",
+        "category": [
+            "Gastronomique",
+            "Artistique"
+        ],
+        "accessibility": [
+            "Convient aux enfants"
+        ],
         "image": {
             "url": "/itinerary_image/parcours-historique-de-la-ville-de-lausanne.jpg",
             "alt_attr": "Image montrant une vue sur Montreux et le lac Léman"
@@ -390,8 +419,13 @@
         "estimated_time": 75,
         "difficulty": "difficile",
         "source": "Officiel",
-        "category": "Architectural",
-        "accessibility": "Accessible aux fauteuils roulants",
+        "category": [
+            "Historique",
+            "Religieux"
+        ],
+        "accessibility": [
+            "Accessible aux fauteuils roulants"
+        ],
         "image": {
             "url": "/itinerary_image/parcours-historique-de-la-ville-de-lausanne.jpg",
             "alt_attr": "Image montrant la vieille ville de Lausanne"
@@ -475,8 +509,14 @@
         "estimated_time": 45,
         "difficulty": "modéré",
         "source": "Officiel",
-        "category": "Architectural",
-        "accessibility": "Accessible aux fauteuils roulants",
+        "category": [
+            "Historique",
+            "Religieux"
+        ],
+        "accessibility": [
+            "Accessible aux fauteuils roulants",
+            "Convient aux enfants"
+        ],
         "image": {
             "url": "/itinerary_image/vevey-a-travers-les-ages.jpg",
             "alt_attr": "image montrant Vevey à travers les âges"
@@ -570,9 +610,15 @@
         "negative_drop": 250,
         "estimated_time": 85,
         "difficulty": "facile",
-        "source": "Communautaire",
-        "category": "Architectural",
-        "accessibility": "Accessible aux fauteuils roulants",
+        "source": "Communauté",
+        "category": [
+            "Artistique",
+            "Littéraire"
+        ],
+        "accessibility": [
+            "Accessible aux fauteuils roulants",
+            "Convient aux enfants"
+        ],
         "image": {
             "url": "/itinerary_image/balade-des-arts-a-vevey.jpg",
             "alt_attr": "Image montrant une galerie d'art à Vevey"
@@ -644,9 +690,14 @@
         "negative_drop": 500,
         "estimated_time": 180,
         "difficulty": "modéré",
-        "source": "Communautaire",
-        "category": "Architectural",
-        "accessibility": "Accessible aux fauteuils roulants",
+        "source": "Communauté",
+        "category": [
+            "Naturel"
+        ],
+        "accessibility": [
+            "Faisable en vélo",
+            "Nocturne"
+        ],
         "image": {
             "url": "/itinerary_image/decouverte-autour-du-lac-leman.jpg",
             "alt_attr": "Image montrant le lac léman"
@@ -719,8 +770,14 @@
         "estimated_time": 150,
         "difficulty": "difficile",
         "source": "Officiel",
-        "category": "Architectural",
-        "accessibility": "Accessible aux fauteuils roulants",
+        "category": [
+            "Historique",
+            "Oenologique"
+        ],
+        "accessibility": [
+            "Accessible aux fauteuils roulants",
+            "Faisable en vélo"
+        ],
         "image": {
             "url": "/itinerary_image/parcours-des-vignobles-et-de-lhistoire-du-lavaux.jpg",
             "alt_attr": "Image de vignes et des montagnes en arrière-plan"

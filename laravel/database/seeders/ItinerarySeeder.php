@@ -66,27 +66,30 @@ class ItinerarySeeder extends Seeder
                 'image_id' => $image->id,
             ]);
 
-            if (isset($item['category'])) {
-                $categoryName = $item['category'];
-                $taxonomy = Taxonomy::where('name', $categoryName)->first();
-                if ($taxonomy) {
-                    $tagCategorie = TagCategorie::where('taxonomy_id', $taxonomy->id)->first();
-                    if ($tagCategorie) {
-                        $itinerary->tagCategorie()->attach($tagCategorie->id);
+            if (isset($item['category']) && is_array($item['category'])) {
+                foreach ($item['category'] as $categoryName) {
+                    $taxonomy = Taxonomy::where('name', $categoryName)->first();
+                    if ($taxonomy) {
+                        $tagCategorie = TagCategorie::where('taxonomy_id', $taxonomy->id)->first();
+                        if ($tagCategorie) {
+                            $itinerary->tagCategorie()->attach($tagCategorie->id);
+                        }
                     }
                 }
             }
 
-            if (isset($item['accessibility'])) {
-                $accessibilityName = $item['accessibility'];
-                $taxonomy = Taxonomy::where('name', $accessibilityName)->first();
-                if ($taxonomy) {
-                    $tagAccessibility = TagAccessibility::where('taxonomy_id', $taxonomy->id)->first();
-                    if ($tagAccessibility) {
-                        $itinerary->tagAccessibility()->attach($tagAccessibility->id);
+            if (isset($item['accessibility']) && is_array($item['accessibility'])) {
+                foreach ($item['accessibility'] as $accessibilityName) {
+                    $taxonomy = Taxonomy::where('name', $accessibilityName)->first();
+                    if ($taxonomy) {
+                        $tagAccessibility = TagAccessibility::where('taxonomy_id', $taxonomy->id)->first();
+                        if ($tagAccessibility) {
+                            $itinerary->tagAccessibility()->attach($tagAccessibility->id);
+                        }
                     }
                 }
             }
+
 
 
 
