@@ -32,7 +32,7 @@ export default {
     <SearchBar />
     <router-view />
     <h2 class="h3 text-tv-wine"> {{ $route.meta.title }}</h2>
-    <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+    <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3 mb-24">
       <router-link v-for="itinerary in itineraries" :key="itinerary.id" :to="`/itinerary/${itinerary.id}`">
         <CardItinerary :itinerary="itinerary" :image="itinerary.image.url" />
       </router-link>
