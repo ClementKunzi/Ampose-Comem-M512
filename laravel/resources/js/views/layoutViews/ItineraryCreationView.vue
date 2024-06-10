@@ -75,7 +75,7 @@ export default {
       </button>
     <h1 class="h3 pb-4 text-tv-wine text-center">Etapes</h1 class="h3">
     <accordion>
-      <accordion-item v-for="(item, index) in accordionItems" :key="index" :title="item.title" :content="item.content"
+      <accordion-item v-for="(item, index) in accordionItems" :key="index" :title="item.title" :content="item.content" :itemLength="accordionItems.length"
         :index="index"
          ><button @click="removeAccordionItem" class="link mt-[-3.5rem] mb-4 mr-4 self-end">Supprimer cette étape</button></accordion-item>
     </accordion>

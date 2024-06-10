@@ -8,7 +8,7 @@
                     <!-- <img class="object-cover h-full" :src="imageUrl" alt=""> -->
                 </div>
                 <div class="p-4 text-tv-wine grow text-left">
-                    <h3 class="body-medium-base">Etape {{ index + 1 }}</h3>
+                    <h3 class="body-medium-base">Etape {{ index + 1 }}</h3>                                      
                     <h2 class="body-bold-xl">{{stepName ? stepName : 'Nom de l\'étape'}}</h2>                    
                 </div>
 
@@ -22,7 +22,7 @@
 
             </div>        
     </div>
-    <slot v-if="index > 1 && isActive"></slot>
+    <slot v-if="itemLength > 2 && isActive"></slot>
 </template>
 
 <script setup>
@@ -34,6 +34,7 @@ const props = defineProps({
     content: String,
     index: Number,
     isActive: Boolean,
+    itemLength: Number,
 });
 
 const stepName = ref(null);

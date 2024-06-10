@@ -49,15 +49,29 @@ const logIn = async (emailValue, passwordValue) => {
 };
 
 const register = async (usernameValue, userImageValue, lastNameValue, firstNameValue, emailValue, passwordValue) => {
-  console.log('userImageValue', userImageValue);
+    console.log('userImageValue', userImageValue);
+    const data = new FormData();
+    data.append('username', usernameValue);
+    data.append('last_name', lastNameValue);
+    data.append('first_name', firstNameValue);
+    data.append('email', emailValue);
+    data.append('password', passwordValue);
+    data.append('profile_picture', userImageValue);
+
+    console.log('data', data);
+
     try {
-        const response = await axios.post('http://localhost:8000/api/auth/register', {
-          username: usernameValue,
-            last_name: lastNameValue,
-            first_name: firstNameValue,
-            email: emailValue,
-            password: passwordValue,
-            profile_picture: userImageValue
+        const response = await axios.post('http://localhost:8000/api/auth/register', data, {
+            headers: {
+                'Content-Type': 'multipart/form-data',
+            }
+        //   username: usernameValue,
+        //     last_name: lastNameValue,
+        //     first_name: firstNameValue,
+        //     email: emailValue,
+        //     password: passwordValue,
+        //     profile_picture: userImageValue
+        
         });
 
         console.log('Response:', response.data);

@@ -12,11 +12,11 @@
     <div class="flex flex-col gap-6">
       <div v-for="(field, index) in formFields" :key="index">
         <label :for="field.name">{{ field.label }}</label>
-        <input :id="field.name" :name="field.name" v-model.type="field.value" :type="field.type"
-          :accept="field.type === 'file' ? 'image/*' : ''" :placeholder="field.placeholder" />
+        <input v-if="field.type === 'file'" :id="field.name" :name="field.name" v-model.type="field.value" :type="field.type" accept="image/*" @change="updateImage" :placeholder="field.placeholder" />
+        <input v-else :id="field.name" :name="field.name" v-model.type="field.value" :type="field.type" :placeholder="field.placeholder" />
 
       </div>
-      <button type="submit" class="btn self-center">S'inscire</button>
+      <button type="submit" class="btn self-center">S'inscrire</button>
     </div>
   </form>
 
@@ -36,7 +36,9 @@ const formFields = [
   { name: 'password', label: 'Password', value: '12345678', type: 'password', isValid: true },
 ];
 
-
+const updateImage = (event) => {
+    formFields[1] = event.target.files[0];
+};
 
 
 </script>
