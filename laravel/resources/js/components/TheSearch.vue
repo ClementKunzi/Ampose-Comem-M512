@@ -10,36 +10,37 @@ const categories = computed(() => storeCategories.categories);
 const { setSelectedCategoryIds } = useSelectedCategoryStore();
 
 const selectedCategory = ref([]);
+const searchQuery = ref(''); // Déclaration de searchQuery comme une ref
 
-// Modifier la méthode pour gérer l'ajout/suppression de catégories
+const emit = defineEmits(['updateSearch']);
+
+watch(searchQuery, (newValue) => {
+  emit('updateSearch', newValue);
+});
+
 const handleCategoryClick = (categoryId) => {
   if (selectedCategory.value[0] === categoryId || categoryId === null) {
-    // Si la même catégorie est sélectionnée ou si `null` est passé, réinitialiser la sélection
     selectedCategory.value = [];
   } else {
-    // Sinon, remplacer par la nouvelle catégorie sélectionnée
     selectedCategory.value = [categoryId];
   }
   console.log("Catégories sélectionnées:", selectedCategory.value);
 };
 
 watch(selectedCategory, (newVal) => {
-  // Vérifier si le tableau est vide
   if (newVal.length === 0) {
-    // Si oui, envoyer `null`
     setSelectedCategoryIds(null);
   } else {
-    // Sinon, envoyer les IDs des catégories sélectionnées
     setSelectedCategoryIds(newVal);
   }
-  console.log("Catégories sélectionnées IDs:", newVal.length > 0 ? newVal : null);
+  console.log("Catégories sélectionnées IDs:", newVal.length > 0? newVal : null);
 });
 </script>
 
 <template>
     <div class="sticky z-50 top-4 mb-9">
         <div class="mb-2 flex justify-between gap-2">
-            <input class="btn grow" type="text" v-model="input" placeholder="Rechercher" />
+            <input id="searchInput" class="btn grow" type="text" v-model="searchQuery" placeholder="Rechercher" />
             <Filters />
             <router-link aria-label="Profile utilisateur" to="/user/profile">
               <div class="max-w-12 h-full">

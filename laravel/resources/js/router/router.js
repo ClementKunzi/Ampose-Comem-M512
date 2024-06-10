@@ -50,7 +50,7 @@ const routes = [
         meta: {
             title: 'Tous les sentiers de la commu',
             requireNav: true,
-            sourceItinerary: 'Communautaire'
+            sourceItinerary: 'Communauté'
         },
 
         /*children: [
