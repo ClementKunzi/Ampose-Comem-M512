@@ -3,7 +3,8 @@ import { computed, ref, watch } from 'vue'
 import Filters from '@/components/TheFilters.vue'
 import { storeCategories } from '../stores/StoreItineraryCategories.js'
 import { useSelectedCategoryStore } from '../stores/StoreSelectedCategories.js'
-
+import { UserLocalStorage } from '../classes/UserLocalStorage.js'
+const currentUser = new UserLocalStorage()
 const categories = computed(() => storeCategories.categories);
 
 const { setSelectedCategoryIds } = useSelectedCategoryStore();
@@ -41,7 +42,9 @@ watch(selectedCategory, (newVal) => {
             <input class="btn grow" type="text" v-model="input" placeholder="Rechercher" />
             <Filters />
             <router-link aria-label="Profile utilisateur" to="/user/profile">
-                <img class="max-w-12 rounded-full" src="https://loremflickr.com/300/300" alt="">
+              <div class="max-w-12 h-full">
+                <img class="h-full rounded-full object-cover" :src="currentUser.getUserImageProfile()" alt="">
+              </div>               
             </router-link>
         </div>
 

@@ -20,7 +20,7 @@ const formFields = reactive({
     // description: '',
     name: 'Jean',
     image: '',
-    category: 'architecture',
+    category: 'Architectural',
     accessibility: 'Pentu',
     estimated_time: 35,    
     difficulty: 'mordérée',

@@ -3,17 +3,12 @@ import { CircleX, Pencil, LogOut, User } from 'lucide-vue-next';
 import CardItinerary from '../../components/CardItinerary.vue';
 import { storeItineraries } from '../../stores/StoreItineraries.js';
 import { onMounted, ref } from 'vue';
-import { getLocalStorageUser } from '../../utils/LocalStorageUser';
-import { getUserAccessToken, unsetUserAccessToken } from '../../utils/UserAccessToken.js';
 import { UserLocalStorage } from '@/classes/UserLocalStorage.js';
 import { logOut } from '../../utils/apiCalls/apiCalls.js';
 import axios from 'axios';
 
 const user = new UserLocalStorage();
-const userImage = ref('/images/placeholder-profile.jpg')
-// const userImage = () => {
-//   return user.getUserAccessToken() ? 'https://lorem' : '/images/placeholder-landscape.jpg';
-// };
+const userImage = ref(user.getUserImageProfile());
 
 onMounted(() => {
 
@@ -49,7 +44,9 @@ export default {
       </router-link>
     </div>
     <div class="mb-1 flex justify-center">
-      <img class="max-w-40 rounded-full" :src="userImage" alt="">
+      <div class="max-w-40 max-h-40 h-40 w-40">
+        <img class="h-full w-full rounded-full object-cover" :src="userImage" alt="">
+      </div>
     </div>
     <div class="mb-12 text-center">
       <h1 class="h2 ">{{ user.getUserName() }}</h1>

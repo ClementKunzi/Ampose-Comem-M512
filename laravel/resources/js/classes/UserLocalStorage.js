@@ -50,6 +50,11 @@ export class UserLocalStorage {
         localStorage.setItem('terraVaud', JSON.stringify(this.terraVaud));
     }
 
+    clearLocalStorage() {
+        localStorage.removeItem('terraVaud');
+    
+    }
+
     setEmail(value) {
         this.terraVaud.userData = this.terraVaud.userData || {};
         this.terraVaud.userData.email = value; // Use the passed value to set the email
@@ -86,6 +91,16 @@ export class UserLocalStorage {
         this.terraVaud.userData = this.terraVaud.userData || {};
         this.terraVaud.userData.id = value; // Use the passed value to set the email
         localStorage.setItem('terraVaud', JSON.stringify(this.terraVaud));
+    }
+
+    setImageProfile(value) {
+        this.terraVaud.userData = this.terraVaud.userData || {};
+        this.terraVaud.userData.profile_picture = value;
+        localStorage.setItem('terraVaud', JSON.stringify(this.terraVaud));
+    }
+
+    getUserImageProfile() {
+        return (this.getAccessToken()) ? 'storage/' + this.terraVaud.userData.profile_picture : '/images/placeholder-profile.jpg';
     }
 
     getUserId() {

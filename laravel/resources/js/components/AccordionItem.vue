@@ -1,5 +1,5 @@
 <template>    
-    <div class="accordion-item border-2 border-solid border-tv-wine rounded-3xl overflow-hidden flex flex-col"
+    <div class="accordion-item border-2 border-solid border-tv-wine rounded-3xl overflow-hidden flex flex-col shadow-tv"
         :class="{ active: isActive }">
         <button @click="toggleActive" class="rounded-3xl overflow-hidden">
             <div class="flex">

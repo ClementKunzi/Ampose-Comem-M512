@@ -11,6 +11,8 @@ const logOut = async () => {
         });
         console.log('Response:', response.data);        
         userLocalStorage.clearAccessToken();
+        userLocalStorage.clearLocalStorage();
+        userLocalStorage.initializeUserLocalStorage();
                 
         return response.data;        
     } catch (error) {
@@ -39,7 +41,8 @@ const logIn = async (emailValue, passwordValue) => {
         userLocalStorage.setId(userData.id)
         userLocalStorage.setUserName(userData.username)
         userLocalStorage.setFirstName(userData.first_name)
-        userLocalStorage.setLastName(userData.last_name)       
+        userLocalStorage.setLastName(userData.last_name) 
+        userLocalStorage.setImageProfile(userData.profile_picture)      
 
         // Handle success (e.g., redirecting to another page)
     } catch (error) {

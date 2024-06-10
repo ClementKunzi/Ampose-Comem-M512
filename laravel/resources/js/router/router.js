@@ -66,7 +66,6 @@ const routes = [
         component: MapView,
         meta: {
             requireNav: true,
-            requiresAuth: true,
         },
     },
     {
@@ -129,6 +128,9 @@ const routes = [
         path: '/user/profile',
         name: 'user.view',
         component: UserView,
+        meta: {
+            requiresAuth: true,
+        }
     },
     {
         path: '/user/auth',
