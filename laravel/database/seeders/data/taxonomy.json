@@ -1,115 +1,98 @@
 [
-{
-    "tag": "accessibility",
-    "name": "Convient aux enfants",
-    "description": "Sentiers sécurisés et faciles, idéaux pour les familles avec de jeunes enfants.",
-    "icon": "/icons/bebe.svg"
-},
-
-{
-    "tag": "accessibility",
-    "name": "Accessible au fauteuil roulant",
-    "description": "Parcours adaptés pour les personnes à mobilité réduite, sans obstacles et avec des surfaces appropriées.",
-    "icon": "/icons/chaiseroulante.svg"
-},
-
-{
-    "tag": "accessibility",
-    "name": "Faisable en vélo",
-    "description": "Sentiers permettant l'accès et la pratique du vélo, avec des pistes bien entretenues.",
-    "icon": "/icons/velo.svg"
-},
-
-{
-    "tag": "accessibility",
-    "name": "Nocturne",
-    "description": "Sentiers praticables la nuit, souvent éclairés ou sécurisés pour une exploration après la tombée de la nuit.",
-    "icon": "/icons/lune.svg"
-},
-
-{
-    "tag": "accessibility",
-    "name": "Animaux Acceptés",
-    "description": "Parcours où les animaux de compagnie sont les bienvenus, avec des zones adaptées pour eux.",
-    "icon": "/icons/chien.svg"
-},
-
-{
-    "tag": "categorie",
-    "name": "Architectural",
-    "description": "Parcours mettant en avant les édifices et monuments architecturaux significatifs.",
-    "icon": "/icons/architectural.svg"
-},
-
-
-{
-    "tag": "categorie",
-    "name": "Gastronomique",
-    "description": "Sentiers centrés sur la gastronomie locale, incluant visites de restaurants, marchés et dégustations.",
-    "icon": "/icons/gastronomique.svg"
-},
-
-{
-    "tag": "categorie",
-    "name": "Gastronomique",
-    "description": "Sentiers centrés sur la gastronomie locale, incluant visites de restaurants, marchés et dégustations.",
-    "icon": "/icons/gastronomique.svg"
-},
-
-{
-    "tag": "categorie",
-    "name": "Historique",
-    "description": "Parcours retraçant des événements historiques marquants et des sites patrimoniaux.",
-    "icon": "/icons/historique.svg"
-},
-
-{
-    "tag": "categorie",
-    "name": "Naturel",
-    "description": "Balades à travers les paysages naturels, parcs et réserves du canton.",
-    "icon": "/icons/naturel.svg"
-},
-
-{
-    "tag": "categorie",
-    "name": "Artistique",
-    "description": "Sentiers dédiés à l'art, incluant des musées, galeries et œuvres d'art public.",
-    "icon": "/icons/artistique.svg"
-},
-
-{
-    "tag": "categorie",
-    "name": "Littéraire",
-    "description": "Parcours inspirés par des œuvres littéraires ou des écrivains locaux.",
-    "icon": "/icons/litteraire.svg"
-},
-{
-    "tag": "categorie",
-    "name": "Religieux",
-    "description": "Balades autour des lieux de culte, églises, abbayes et sites religieux.",
-    "icon": "/icons/religieux.svg"
-},
-{
-    "tag": "categorie",
-    "name": "Industriel",
-    "description": "Exploration des anciens sites industriels, usines et technologies locales.",
-    "icon": "/icons/industriel.svg"
-},
-
-{
-    "tag": "categorie",
-    "name": "Botanique",
-    "description": "Sentiers à travers jardins botaniques, parcs fleuris et réserves de biodiversité.",
-    "icon": "/icons/botanique.svg"
-},
-
-{
-    "tag": "categorie",
-    "name": "Oenologique",
-    "description": "Parcours à travers les vignobles et caves, avec dégustation de vins locaux.",
-    "icon": "/icons/oenologique.svg"
-}
-
-
-
+    {
+        "tag": "accessibility",
+        "name": "Convient aux enfants",
+        "description": "Sentiers sécurisés et faciles, idéaux pour les familles avec de jeunes enfants.",
+        "icon": "/icons/bebe.svg"
+    },
+    {
+        "tag": "accessibility",
+        "name": "Accessible au fauteuil roulant",
+        "description": "Parcours adaptés pour les personnes à mobilité réduite, sans obstacles et avec des surfaces appropriées.",
+        "icon": "/icons/chaiseroulante.svg"
+    },
+    {
+        "tag": "accessibility",
+        "name": "Faisable en vélo",
+        "description": "Sentiers permettant l'accès et la pratique du vélo, avec des pistes bien entretenues.",
+        "icon": "/icons/velo.svg"
+    },
+    {
+        "tag": "accessibility",
+        "name": "Nocturne",
+        "description": "Sentiers praticables la nuit, souvent éclairés ou sécurisés pour une exploration après la tombée de la nuit.",
+        "icon": "/icons/lune.svg"
+    },
+    {
+        "tag": "accessibility",
+        "name": "Animaux Acceptés",
+        "description": "Parcours où les animaux de compagnie sont les bienvenus, avec des zones adaptées pour eux.",
+        "icon": "/icons/chien.svg"
+    },
+    {
+        "tag": "categorie",
+        "name": "Architectural",
+        "description": "Parcours mettant en avant les édifices et monuments architecturaux significatifs.",
+        "icon": "/icons/architectural.svg"
+    },
+    {
+        "tag": "categorie",
+        "name": "Gastronomique",
+        "description": "Sentiers centrés sur la gastronomie locale, incluant visites de restaurants, marchés et dégustations.",
+        "icon": "/icons/gastronomique.svg"
+    },
+    {
+        "tag": "categorie",
+        "name": "Gastronomique",
+        "description": "Sentiers centrés sur la gastronomie locale, incluant visites de restaurants, marchés et dégustations.",
+        "icon": "/icons/gastronomique.svg"
+    },
+    {
+        "tag": "categorie",
+        "name": "Historique",
+        "description": "Parcours retraçant des événements historiques marquants et des sites patrimoniaux.",
+        "icon": "/icons/historique.svg"
+    },
+    {
+        "tag": "categorie",
+        "name": "Naturel",
+        "description": "Balades à travers les paysages naturels, parcs et réserves du canton.",
+        "icon": "/icons/naturel.svg"
+    },
+    {
+        "tag": "categorie",
+        "name": "Artistique",
+        "description": "Sentiers dédiés à l'art, incluant des musées, galeries et œuvres d'art public.",
+        "icon": "/icons/artistique.svg"
+    },
+    {
+        "tag": "categorie",
+        "name": "Littéraire",
+        "description": "Parcours inspirés par des œuvres littéraires ou des écrivains locaux.",
+        "icon": "/icons/litteraire.svg"
+    },
+    {
+        "tag": "categorie",
+        "name": "Religieux",
+        "description": "Balades autour des lieux de culte, églises, abbayes et sites religieux.",
+        "icon": "/icons/religieux.svg"
+    },
+    {
+        "tag": "categorie",
+        "name": "Industriel",
+        "description": "Exploration des anciens sites industriels, usines et technologies locales.",
+        "icon": "/icons/industriel.svg"
+    },
+    {
+        "tag": "categorie",
+        "name": "Botanique",
+        "description": "Sentiers à travers jardins botaniques, parcs fleuris et réserves de biodiversité.",
+        "icon": "/icons/botanique.svg"
+    },
+    {
+        "tag": "categorie",
+        "name": "Oenologique",
+        "description": "Parcours à travers les vignobles et caves, avec dégustation de vins locaux.",
+        "icon": "/icons/oenologique.svg"
+    }
 ]

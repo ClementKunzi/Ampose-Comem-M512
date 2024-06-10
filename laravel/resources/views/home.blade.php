@@ -5,14 +5,14 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Vaud Cul'</title>
+    <title>Terra Vaud</title>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 
 </head>
 
 <body>
-    <div id="app" class="layout min-h-screen flex flex-col font-sans bg-tv-eggshell">
-        <h1>Vaud Cul'</h1>
+    <div id="app" class="layout min-h-screen flex flex-col lg:items-center font-sans bg-tv-eggshell">
+        <h1>Terra Vaud</h1>
         <app></app>
     </div>
 </body>

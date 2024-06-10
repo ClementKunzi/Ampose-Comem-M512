@@ -30,17 +30,24 @@ class ItineraryController extends Controller
             $itinerary->makeHidden(['created_at', 'updated_at']);
             $itinerary->user->makeHidden(['id', 'last_name', 'first_name', 'email', 'password', 'email_verified_at', 'email_verification', 'last_login', 'number_path_added',  'created_at', 'updated_at']);
             $itinerary->image->makeHidden(['id', 'created_at', 'updated_at']);
-            $itinerary->tagCategorie->makeHidden(['id', 'created_at', 'updated_at']);
-            $itinerary->tagAccessibility->makeHidden(['id', 'created_at', 'updated_at']);
-            $itinerary->append('formatted_updated_at');
+            $itinerary->tagCategorie->each(function ($tagCategorie) {
+                $tagCategorie->makeHidden(['created_at', 'updated_at', 'color', 'taxonomy_id', 'pivot']);
+                if ($tagCategorie->taxonomy) {
+                    $tagCategorie->taxonomy->makeHidden(['id', 'created_at', 'updated_at']);
+                }
+            });
+            $itinerary->tagAccessibility->each(function ($tagAccessibility) {
+                $tagAccessibility->makeHidden(['created_at', 'updated_at', 'taxonomy_id', 'pivot']);
+                if ($tagAccessibility->taxonomy) {
+                    $tagAccessibility->taxonomy->makeHidden(['id', 'created_at', 'updated_at']);
+                }
+            });
 
-
-            if ($itinerary->steps->isNotEmpty()) {
-                $firstStep = $itinerary->steps->first();
-                $itinerary->setAttribute('first_step_latitude', $firstStep->latitude);
-                $itinerary->setAttribute('first_step_longitude', $firstStep->longitude);
+            $markers = [];
+            foreach ($itinerary->steps as $step) {
+                $markers[] = [$step->latitude, $step->longitude];
             }
-
+            $itinerary->setAttribute('markers', $markers);
             unset($itinerary->steps);
             return $itinerary;
         });
@@ -58,10 +65,12 @@ class ItineraryController extends Controller
             $validatedData = $request->validated();
 
             $imageFile = $request->file('image');
-            $imagePath = $imageFile->store('images', 'public');
+            $extension = $imageFile->getClientOriginalExtension();
+            $newFilename = time() . '_' . uniqid() . '.' . $extension;
+            $imagePath = $imageFile->storeAs('images', $newFilename, 'public');
 
             $image = Image::create([
-                'url' => $imagePath,
+                'url' => $newFilename,
                 'alt_attr' => $request->input('image_description'),
             ]);
             $validatedData['image_id'] = $image->id;
@@ -135,18 +144,32 @@ class ItineraryController extends Controller
 
             // Commit the transaction
             DB::commit();
+            /*
+            // 1. Générer le PDF
+            $pdf = \PDF::loadView('itineraries.summary', ['itinerary' => $itinerary]);
 
+            // 2. Définir le nom du fichier PDF
+            $pdfFileName = 'itinerary-summary-' . $itinerary->id . '.pdf';
+
+            // 3. Sauvegarder le PDF dans le système de fichiers
+            Storage::disk('public')->put('itineraries/pdf/' . $pdfFileName, $pdf->output());
+
+            // 4. Sauvegarder le chemin du PDF dans la base de données si nécessaire
+            // Par exemple, vous pouvez ajouter une colonne `pdf_url` à votre table `itineraries`
+            $itinerary->pdf_url = 'itineraries/pdf/' . $pdfFileName;
+            $itinerary->save();
+*/
             // Load related models and hide specific attributes
             $itinerary->load('steps', 'tagCategorie.taxonomy', 'tagAccessibility.taxonomy', 'user');
-            $itinerary->makeHidden('created_at', 'user_id', 'image_id', 'tag_categorie_id', 'tag_accessibility_id', 'positive_drop', 'negative_drop', 'length', 'updated_at');
+            $itinerary->makeHidden('created_at', 'user_id', 'image_id', 'positive_drop', 'negative_drop', 'length', 'updated_at');
             $itinerary->user->makeHidden('id', 'last_name', 'first_name', 'email', 'password', 'email_verified_at', 'email_verification', 'last_login', 'number_path_added', 'created_at', 'updated_at');
             $itinerary->image->makeHidden('id', 'created_at', 'updated_at');
-            $itinerary->tagCategorie->makeHidden(['created_at', 'updated_at', 'pivot', 'taxonomy_id']);
             foreach ($itinerary->tagCategorie as $tagCategorie) {
+                $tagCategorie->makeHidden(['created_at', 'updated_at', 'pivot', 'taxonomy_id', 'color']);
                 $tagCategorie->taxonomy->makeHidden(['id', 'created_at', 'updated_at']);
             }
-            $itinerary->tagAccessibility->makeHidden(['created_at', 'updated_at', 'pivot', 'taxonomy_id']);
             foreach ($itinerary->tagAccessibility as $tagAccessibility) {
+                $tagAccessibility->makeHidden(['created_at', 'updated_at', 'pivot', 'taxonomy_id']);
                 $tagAccessibility->taxonomy->makeHidden(['id', 'created_at', 'updated_at']);
             }
             $itinerary->append('formatted_updated_at');
@@ -191,7 +214,7 @@ class ItineraryController extends Controller
             $itinerary->makeHidden('created_at', 'user_id', 'image_id', 'tag_categorie_id', 'tag_accessibility_id', 'positive_drop', 'negative_drop', 'length', 'updated_at');
             $itinerary->user->makeHidden('id', 'last_name', 'first_name', 'email', 'password', 'email_verified_at', 'email_verification', 'last_login', 'number_path_added', 'created_at', 'updated_at');
             $itinerary->image->makeHidden('id', 'created_at', 'updated_at');
-            $itinerary->tagCategorie->makeHidden(['created_at', 'updated_at', 'pivot', 'taxonomy_id']);
+            $itinerary->tagCategorie->makeHidden(['created_at', 'updated_at', 'pivot', 'taxonomy_id', 'color']);
             foreach ($itinerary->tagCategorie as $tagCategorie) {
                 $tagCategorie->taxonomy->makeHidden(['id', 'created_at', 'updated_at']);
             }

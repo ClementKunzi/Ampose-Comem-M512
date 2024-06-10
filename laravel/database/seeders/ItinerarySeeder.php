@@ -6,6 +6,9 @@ use Illuminate\Database\Seeder;
 use App\Models\Itinerary;
 use App\Models\Step;
 use App\Models\Image;
+use App\Models\TagAccessibility;
+use App\Models\TagCategorie;
+use App\Models\Taxonomy;
 use App\Models\User;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
@@ -62,6 +65,28 @@ class ItinerarySeeder extends Seeder
                 'user_id' => $item['source'] === 'officiel' ? $cantonVaudId : $otherUserIds[array_rand($otherUserIds)],
                 'image_id' => $image->id,
             ]);
+
+            if (isset($item['category'])) {
+                $categoryName = $item['category'];
+                $taxonomy = Taxonomy::where('name', $categoryName)->first();
+                if ($taxonomy) {
+                    $tagCategorie = TagCategorie::where('taxonomy_id', $taxonomy->id)->first();
+                    if ($tagCategorie) {
+                        $itinerary->tagCategorie()->attach($tagCategorie->id);
+                    }
+                }
+            }
+
+            if (isset($item['accessibility'])) {
+                $accessibilityName = $item['accessibility'];
+                $taxonomy = Taxonomy::where('name', $accessibilityName)->first();
+                if ($taxonomy) {
+                    $tagAccessibility = TagAccessibility::where('taxonomy_id', $taxonomy->id)->first();
+                    if ($tagAccessibility) {
+                        $itinerary->tagAccessibility()->attach($tagAccessibility->id);
+                    }
+                }
+            }
 
 
 

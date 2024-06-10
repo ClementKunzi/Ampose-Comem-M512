@@ -14,7 +14,7 @@ function toggleVisibility() {
 
 <template>  
   <div v-show="isVisible" class="min-h-[400px] bg-no-repeat bg-cover bg-center p-4"
-    style="background-image: url(https://loremflickr.com/500/500)">
+    style="background-image: url(/images/login.jpg)">
     <button @click="$router.go(-1)"
         class="mr-auto btn-iconContainer" aria-label="Retour">        
           <CircleX aria-hidden="true" :size="32" />              
@@ -27,7 +27,7 @@ function toggleVisibility() {
           <CircleX aria-hidden="true" :size="32" />              
       </button>  
   </div>
-  <div class="p-4 flex flex-col justify-center grow bg-tv-wine text-tv-eggshell">
+  <div class="p-4 flex flex-col justify-center grow bg-tv-wine text-tv-eggshell lg:w-full">
     <div class="grow flex flex-col justify-center">
       <h1 class="h2 text-center">{{ isVisible ? 'Se connecter' : 'S\'inscrire' }}</h1>
       <FormLogin v-show="isVisible" />

@@ -1,7 +1,8 @@
 <script setup>
-import { ref, reactive, watch, onMounted, defineProps } from 'vue';
+import { ref, reactive, watch, onMounted, defineProps, defineEmits } from 'vue';
 import axios from 'axios';
 import { useRouter } from 'vue-router';
+import { storeItineraryForm } from '../../stores/StoreItineraryForm';
 
 import "leaflet/dist/leaflet.css"
 import * as L from 'leaflet';
@@ -10,28 +11,74 @@ import 'leaflet-routing-machine/dist/leaflet-routing-machine.css';
 
 const props = defineProps({
     isActive: Boolean,
+    index: Number,
 });
+
+// const emits = defineEmits(['submit-form-fields']);
 
 const router = useRouter();
+let markerLat = ref(null);
+let markerLng = ref(null);
+const emits = defineEmits(['updateName, updateImage']);
 
 const formFields = reactive({
-    name: '',
+    // id: props.index,
+    // name: '',
+    // image: '',
+    // image_description: '',
+    // coordinate: [markerLat, markerLng],
+    // description: '',
+    // link: '',
+    id: props.index,
+    name: 'Cool',
     image: '',
-    coordinate: '',
-    link: '',
+    image_description: 'Jolie description',
+    coordinate: [markerLat, markerLng],
+    description: 'Jolie description les amis.',
+    link: 'https://cool.io',
 });
 
-const submitForm = () => {
-    // router.push('/create/steps');
+watch(() => formFields.name, (newValue, oldValue) => {
+    emits('updateName', newValue); // Correctly use emits to emit the updated name value to the parent component
+});
+watch(() => formFields.image, (newValue, oldValue) => {
+    emits('updateImage', newValue); // Correctly use emits to emit the updated image value to the parent component
+});
+
+const updateImage = (event) => {
+    formFields.image = event.target.files[0];
+};
+
+const removeStep = () => {
+    console.log('event', event.target);
+    event.target.closest('.accordion-item').remove();
+
 }
+
+// Example method to simulate form submission or any other action that updates formFields
+// const updateFormField = (field, value) => {
+//     formFields[field] = value;
+    
+// };
+
+// Call updateFormField wherever you need to update a field in formFields
 
 let mapInitialized = false;
 const mapContainerRef = ref(null);
 let marker;
 let geocodeMarker;
-
+var customIcon = L.icon({
+    iconUrl: '/images/map/marker.png',
+    iconSize: [38, 38], // size of the icon
+    shadowSize: [50, 64], // size of the shadow
+    iconAnchor: [19, 38], // point of the icon which will correspond to marker's location
+    // shadowAnchor: [4, 62],  // the same for the shadow
+    // popupAnchor:  [-3, -76] // point from which the popup should open relative to the iconAnchor
+  });
 
 onMounted(() => {
+
+   
 
     // Watcher for isActive changes
     watch(() => props.isActive, (newValue, oldValue) => {
@@ -61,7 +108,10 @@ onMounted(() => {
 
             // Create a new marker at the geocoded location
             var latLng = e.geocode.center;
-            geocodeMarker = L.marker(latLng).addTo(map);
+            e.geocode.icon = customIcon;
+            console.log('latLng', latLng);            
+            marker = L.marker([latLng.lat, latLng.lng], {icon: customIcon}).addTo(map);
+            console.log('geocodeMarker', marker);
             // marker = L.marker(latLng);
         }).addTo(map);
 
@@ -79,7 +129,9 @@ onMounted(() => {
             }
 
             // Add a new marker at the clicked location
-            marker = L.marker(e.latlng).addTo(map);
+           marker = L.marker([e.latlng.lat, e.latlng.lng], {icon: customIcon}).addTo(map);
+            markerLat.value = e.latlng.lat;
+            markerLng.value = e.latlng.lng;
             console.log('marker', marker);
         });
 
@@ -92,7 +144,7 @@ onMounted(() => {
 </script>
 
 <template>
-    <form @submit.prevent="submitForm">
+    <form @submit.prevent="storeItineraryForm.addStep(formFields)" enctype="multipart/form-data">
         <div class="flex flex-col gap-6">
             <div>
                 <label for="name">Nom de l'étape</label>
@@ -100,14 +152,17 @@ onMounted(() => {
             </div>
             <div>
                 <label for="name">Image de l'étape</label>
-                <input type="file" name="img" v-on:change="formFields.image" accept="image/*" />
-
+                <input type="file" name="img" @change="updateImage" ref="imageInput" accept="image/*" />
+            </div>
+            <div>
+                <label for="name">Description de l'image</label>
+                <input id="name" v-model="formFields.image_description" type="text" placeholder="Que voit-on sur cette image?" />
             </div>
             <div>
                 <label for="coordinate">Coordonnées</label>
                 <input id="coordinate" class="opacity-0 pointer-events-none mb-[-48px]" v-model="formFields.coordinate"
                     type="text" placeholder="Rechercher une adresse" />
-                <div ref="mapContainerRef" id="map" class="map-pageLayout map-norouteInstructions"></div>
+                <div ref="mapContainerRef" id="map" class="map-pageLayout map-norouteInstructions map-noZoom map-markerPicker"></div>
             </div>
             <div>
                 <label for="description">Description</label>
@@ -117,8 +172,9 @@ onMounted(() => {
             <div>
                 <label for="link">Lien utile:</label>
                 <input id="link" v-model="formFields.link" type="text" placeholder="https://cool.io" />
-            </div>
-            <!-- <button type="submit" class="btn self-center">Submit</button> -->
+            </div>            
+            <button type="submit" id="btn-itineraryStep" class="btn self-center z-[-10] w-0
+            h-0 absolute">Submit</button>
         </div>
     </form>
 </template>

@@ -1,5 +1,5 @@
 <script setup>
- import { ArrowLeft, Plus } from 'lucide-vue-next';
+ import { ArrowLeft, Plus, Watch } from 'lucide-vue-next';
 </script>
 <script>
 import AccordionItem from '@/components/AccordionItem.vue';
@@ -21,7 +21,7 @@ export default {
     addAccordionItem() {
       const newIndex = this.accordionItems.length;
       this.accordionItems.push({ title: `Item ${newIndex + 1}`, content: `Content ${newIndex + 1}` });
-    },
+    },    
   },
 };
 </script>

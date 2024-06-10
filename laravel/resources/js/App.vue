@@ -4,6 +4,7 @@ import './utils/LocalStorageUser.js';
 import { getUserAccessToken } from './utils/UserAccessToken.js';
 import { UserLocalStorage } from '@/classes/UserLocalStorage.js';
 
+
 // Create an instance of UserLocalStorage
 const userLocalStorage = new UserLocalStorage();
 // Call initializeUserLocalStorage
@@ -22,7 +23,7 @@ if (getUserAccessToken() !== null) {
 <!-- Example of using Vue Router in a component -->
 <template>
     <TheHeader />
-    <main class="grow flex flex-col">
+    <main class="grow flex flex-col w-full max-w-[1240px]">
 
         <router-view />
     </main>

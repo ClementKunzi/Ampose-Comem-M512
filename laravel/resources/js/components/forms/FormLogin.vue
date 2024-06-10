@@ -1,5 +1,8 @@
 <template>
-    <form @submit.prevent="logIn(formFields[0].value, formFields[1].value)">
+    <form @submit.prevent="() => {
+        logIn(formFields[0].value, formFields[1].value);
+        $router.go(-1);
+    }">
         <div class="flex flex-col gap-6">
             <div v-for="(field, index) in formFields" :key="index">
                 <label :for="field.name">{{ field.label }}</label>
@@ -16,7 +19,7 @@
 <script setup>
 import { ref, defineExpose } from 'vue'; // Import defineExpose
 import axios from 'axios';
-import {logIn} from '@/utils/apiCalls.js';
+import {logIn} from '@/utils/apiCalls/apiCalls.js';
 import { UserLocalStorage } from '@/classes/UserLocalStorage.js';
 
 

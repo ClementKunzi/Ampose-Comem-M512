@@ -8,6 +8,7 @@ use App\Models\Taxonomy;
 use App\Models\TagAccessibility;
 use App\Models\TagCategorie;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Storage;
 
 class TagSeeder extends Seeder
 {
@@ -24,18 +25,27 @@ class TagSeeder extends Seeder
         // Decode the JSON data
         $data = json_decode($json);
 
-        // Insert each tag into the database
+        // Insert or update each tag in the database
         foreach ($data as $tag) {
-            $taxonomy = Taxonomy::create([
-                'name' => $tag->name,
-                'description' => $tag->description,
-                'icon' => $tag->icon,
-            ]);
+            $iconPath = base_path('database/seeders/data/' . $tag->icon);
+            $iconContent = file_get_contents($iconPath);
+            $imageExtension = pathinfo($tag->icon, PATHINFO_EXTENSION); // Correction ici
+            $imageName = time() . '_' . uniqid() . '.' . $imageExtension;
+            $path = 'public/icons/' . $imageName; // Chemin corrigé
+
+            Storage::put($path, $iconContent);
+            $taxonomy = Taxonomy::updateOrCreate(
+                ['name' => $tag->name],
+                [
+                    'description' => $tag->description,
+                    'icon' => $imageName,
+                ]
+            );
 
             if ($tag->tag == 'accessibility') {
-                TagAccessibility::create(['taxonomy_id' => $taxonomy->id]);
+                TagAccessibility::updateOrCreate(['taxonomy_id' => $taxonomy->id]);
             } elseif ($tag->tag == 'categorie') {
-                TagCategorie::create(['taxonomy_id' => $taxonomy->id]);
+                TagCategorie::updateOrCreate(['taxonomy_id' => $taxonomy->id]);
             }
         }
     }
