@@ -16,15 +16,14 @@ const props = defineProps({
     :style="{ backgroundImage: 'url(storage/images/' + itinerary.image.url + ')' }">
             <div class="flex justify-between z-10">
             <ul class="flex gap-3">
-                <li class="bg-tv-eggshell rounded-full w-[28px] h-[28px] flex justify-center items-center"
-                    aria-label="Nom catégorie">
-                    <Bookmark aria-hidden="true" stroke="#754043" :size="18" />
+                <li v-for="tag in props.itinerary.tag_categorie" :key="tag.id" class="bg-tv-eggshell rounded-full w-[28px] h-[28px] flex justify-center items-center" aria-label="tag.taxonomy.name">
+                    <img :src="`storage/icons/${tag.taxonomy.icon}`" :alt="tag.taxonomy.description" :size="15">
                 </li>
 
-                <li class="bg-tv-eggshell rounded-full w-[28px] h-[28px] flex justify-center items-center"
+                <!--<li class="bg-tv-eggshell rounded-full w-[28px] h-[28px] flex justify-center items-center"
                     aria-label="Nom catégorie">
                     <Bookmark aria-hidden="true" stroke="#754043" :size="18" />
-                </li>
+                </li>-->
             </ul>
             <div class="flex gap-2">
                 <div class="flex items-center gap-1">

@@ -21,9 +21,14 @@ const itineraries = computed(() => {
   const { selectedCategoryIds } = useSelectedCategoryStore();
   const categoryIds = selectedCategoryIds.value || [];
 
+  const { selectedAccessibilityIds } = useSelectedAccessibilityStore();
+  const accessibilityIds = selectedAccessibilityIds.value || [];
+
+
   return storeItineraries.itineraries.filter(itinerary =>
     (!sourceFilter || itinerary.source === sourceFilter) &&
     (categoryIds.length === 0 || itinerary.tag_categorie.some(tag => categoryIds.includes(tag.id))) &&
+    (accessibilityIds.length === 0 || itinerary.tag_accessibility.some(tag => accessibilityIds.includes(tag.id))) &&
     itinerary.name.toLowerCase().includes(searchQuery.value.toLowerCase())
   );
 });

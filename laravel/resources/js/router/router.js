@@ -66,7 +66,7 @@ const routes = [
         component: MapView,
         meta: {
             requireNav: true,
-            requiresAuth: true,
+            //requiresAuth: true,
         },
     },
     {
