@@ -1,5 +1,6 @@
 <script setup>
 import TheHeader from './components/TheHeader.vue';
+import TheHeaderDesktop from './components/TheHeaderDesktop.vue';
 import './utils/LocalStorageUser.js';
 import { getUserAccessToken } from './utils/UserAccessToken.js';
 import { UserLocalStorage } from '@/classes/UserLocalStorage.js';
@@ -23,6 +24,7 @@ if (getUserAccessToken() !== null) {
 <!-- Example of using Vue Router in a component -->
 <template>
     <TheHeader />
+    <TheHeaderDesktop />
     <main class="grow flex flex-col">
 
         <router-view />
