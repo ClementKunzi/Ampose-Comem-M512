@@ -19,161 +19,162 @@ import { showMarker } from '../utils/MarkersVisibility.js';
 
 // Function to check if the user is authenticated
 function isAuthenticated() {
-  // Example: Check for an accessToken in localStorage
-  return getUserAccessToken();
+    // Example: Check for an accessToken in localStorage
+    return getUserAccessToken();
 }
 
 const routes = [
-  {
-    path: '/',
-    name: 'Home',
-    component: HomeView,
-    meta: {
-      title: 'Tous les sentiers',
-      requireNav: true,
-    },
+    {
+        path: '/',
+        name: 'Home',
+        component: HomeView,
+        meta: {
+            title: 'Tous les sentiers',
+            requireNav: true,
+            sourceItinerary: 'Officiel'
+        },
 
-    children: [
-      {
-        path: '',
-        component: HomeViewContent,
-      },
-      // {
-      //   path: 'itinerary/:id',
-      //   name: 'home.itinerary.view',
-      //   component: ItineraryView,
-      // },
-    ],
-  },
-  {
-    path: '/community',
-    name: 'Community',
-    component: HomeView,
-    meta: {
-      title: 'Tous les sentiers de la commu',
-      requireNav: true,
-    },
+        /*children: [
+            {
+                path: '',
+                component: HomeViewContent,
+            },
+            // {
+            //   path: 'itinerary/:id',
+            //   name: 'home.itinerary.view',
+            //   component: ItineraryView,
+            // },
+        ],*/    },
+    {
+        path: '/community',
+        name: 'Community',
+        component: HomeView,
+        meta: {
+            title: 'Tous les sentiers de la commu',
+            requireNav: true,
+            sourceItinerary: 'Communautaire'
+        },
 
-    children: [
-      {
-        path: '',
-        component: CommunityViewContent,
-      },      
-    ],
-  },
-  {
-    path: '/map',
-    name: 'Map',
-    component: MapView,
-    meta: {      
-      requireNav: true,
-      requiresAuth: true,
+        /*children: [
+            {
+                path: '',
+                component: CommunityViewContent,
+            },
+        ],*/
     },
-  },
-  {
-    path: '/create',
-    name: 'ItineraryCreationView',
-    component: ItineraryCreationView,    
-  },
-  {
-    path: '/create/steps',
-    name: 'ItineraryCreationStepView',
-    component: ItineraryCreationStepView,    
-  },
-  {
-    path: '/favoris',
-    name: 'Bookmarks',
-    component: BookmarkView,
-    meta: {
-      title: 'Mes favoris',
-      requireNav: true,
-      requiresAuth: true,
+    {
+        path: '/map',
+        name: 'Map',
+        component: MapView,
+        meta: {
+            requireNav: true,
+            requiresAuth: true,
+        },
     },
-  },
-  {
-    path: '/itinerary/:id',
-    name: 'itinerary.view',
-    component: ItineraryView,
-    beforeEnter: async (to, from, next) => {
-      const itineraryId = to.params.id;
-      
-      try {
-        storeItineraryById(itineraryId);
-        console.log('Itinerary data fetched:', storeItineraryById(itineraryId));
-        window.addEventListener('popstate', function(event) {
-          // Trigger showMarker function when navigating back
-          showMarker();
-      });
-      
-        next(); // Proceed to the route
-      } catch (error) {
-        console.error('Failed to fetch itinerary data:', error);
-        next(false);
-      }
+    {
+        path: '/create',
+        name: 'ItineraryCreationView',
+        component: ItineraryCreationView,
     },
-    children: [
-      {
-        path: 'step/:stepId',
-        name: 'itinerary.step.view',
-        // component: StepView,
-        // You can also use props to pass route params as props to the component
-        props: true
-      }
-    ],
-  },
-  // {
-  //   path: '/itinerary/:id/step/:stepId',
-  //   name: 'itinerary.step.view',
-  //   component: ItineraryView,
-  // },
-  {
-    path: '/user/profile',
-    name: 'user.view',
-    component: UserView,
-  },
-  {
-    path: '/user/auth',
-    name: 'user.auth.view',
-    component: UserAuthView,
-  },
-  {
-    path: '/user/edit',
-    name: 'user.edit.view',
-    component: UserEditView,
-  },
-  {
-    path: '/onboarding',
-    name: 'onboarding.view',
-    component: OnboardingView,
-  },
+    {
+        path: '/create/steps',
+        name: 'ItineraryCreationStepView',
+        component: ItineraryCreationStepView,
+    },
+    {
+        path: '/favoris',
+        name: 'Bookmarks',
+        component: BookmarkView,
+        meta: {
+            title: 'Mes favoris',
+            requireNav: true,
+            requiresAuth: true,
+        },
+    },
+    {
+        path: '/itinerary/:id',
+        name: 'itinerary.view',
+        component: ItineraryView,
+        beforeEnter: async (to, from, next) => {
+            const itineraryId = to.params.id;
+
+            try {
+                storeItineraryById(itineraryId);
+                console.log('Itinerary data fetched:', storeItineraryById(itineraryId));
+                window.addEventListener('popstate', function (event) {
+                    // Trigger showMarker function when navigating back
+                    showMarker();
+                });
+
+                next(); // Proceed to the route
+            } catch (error) {
+                console.error('Failed to fetch itinerary data:', error);
+                next(false);
+            }
+        },
+        children: [
+            {
+                path: 'step/:stepId',
+                name: 'itinerary.step.view',
+                // component: StepView,
+                // You can also use props to pass route params as props to the component
+                props: true
+            }
+        ],
+    },
+    // {
+    //   path: '/itinerary/:id/step/:stepId',
+    //   name: 'itinerary.step.view',
+    //   component: ItineraryView,
+    // },
+    {
+        path: '/user/profile',
+        name: 'user.view',
+        component: UserView,
+    },
+    {
+        path: '/user/auth',
+        name: 'user.auth.view',
+        component: UserAuthView,
+    },
+    {
+        path: '/user/edit',
+        name: 'user.edit.view',
+        component: UserEditView,
+    },
+    {
+        path: '/onboarding',
+        name: 'onboarding.view',
+        component: OnboardingView,
+    },
 ];
 
 const router = createRouter({
-  history: createWebHashHistory(),
-  routes,
+    history: createWebHashHistory(),
+    routes,
 });
 
 const route = useRoute();
 
 // authentified user redirection
 router.beforeEach((to, from, next) => {
-  // Check if the route requires authentication
-  const requiresAuth = to.matched.some(record => record.meta.requiresAuth);
-  
-  // If the route requires auth and the user is not authenticated,
-  // redirect to the login page.
-  if (requiresAuth &&!isAuthenticated()) {
-      next('/user/auth'); // Redirect to login page
-  } else if (
-      // If the user is already authenticated and tries to access the login page,
-      // redirect them to the home page or another suitable page.
-      to.path === '/user/auth' && isAuthenticated()
-  ) {
-      next('/');
-  } else {
-      // Proceed with the route transition
-      next();
-  }
+    // Check if the route requires authentication
+    const requiresAuth = to.matched.some(record => record.meta.requiresAuth);
+
+    // If the route requires auth and the user is not authenticated,
+    // redirect to the login page.
+    if (requiresAuth && !isAuthenticated()) {
+        next('/user/auth'); // Redirect to login page
+    } else if (
+        // If the user is already authenticated and tries to access the login page,
+        // redirect them to the home page or another suitable page.
+        to.path === '/user/auth' && isAuthenticated()
+    ) {
+        next('/');
+    } else {
+        // Proceed with the route transition
+        next();
+    }
 });
 
 
@@ -184,4 +185,4 @@ router.beforeEach((to, from, next) => {
 //   }
 // }), { immediate: true };
 
-  export default router;
+export default router;

@@ -1,6 +1,6 @@
 [
     {
-        "name": "Tour théatrale proche de Lausanne",
+        "name": "Tour théâtral proche de Lausanne",
         "description": "Découvrez les lieux de création et de diffusion théâtrale de Lausanne, en suivant ce parcours qui vous emmènera à travers les différents théâtres de la ville.",
         "type": "boucle",
         "length": 10.5,
@@ -8,7 +8,9 @@
         "negative_drop": 300,
         "estimated_time": 45,
         "difficulty": "modéré",
-        "source": "officiel",
+        "source": "Officiel",
+        "category": "Architectural",
+        "accessibility": "Accessible aux fauteuils roulants",
         "image": {
             "url": "/itinerary_image/tour-theatrale-de-lausanne.jpg",
             "alt_attr": "Image montrant un théâtre à Lausanne"
@@ -16,14 +18,14 @@
         "steps": [
             {
                 "name": "Théâtre de Vidy",
-                "description": "Commencez votre balade au Théâtre de Vidy, un lieu de création et de diffusion théâtrale situé au bord du lac Léman.",
+                "description": "Commencez votre balade au Théâtre de Vidy, un lieu de création et de diffusion théâtral situé au bord du lac Léman.",
                 "address": "Avenue Emile Jaques-Dalcroze 5, 1007 Lausanne, Suisse",
                 "latitude": 46.512857105594044,
                 "longitude": 6.610835110872302,
                 "order": 1,
                 "external_link": "https://vidy.ch/",
                 "stepImage": "/image_step/tour-theatrale-de-lausanne/step1.jpg",
-                "image_description": "Image for step 1 of the itinerary 'Tour théatrale proche de Lausanne'"
+                "image_description": "Image for step 1 of the itinerary 'Tour théâtral proche de Lausanne'"
             },
             {
                 "name": "Opéra de Lausanne",
@@ -34,29 +36,29 @@
                 "order": 2,
                 "external_link": "https://www.opera-lausanne.ch/",
                 "stepImage": "/image_step/tour-theatrale-de-lausanne/step2.jpg",
-                "image_description": "Image for step 1 of the itinerary 'Tour théatrale proche de Lausanne'"
+                "image_description": "Image for step 1 of the itinerary 'Tour théâtral proche de Lausanne'"
             },
             {
                 "name": "Théâtre de l'Octogone",
-                "description": "Visitez le Théâtre de l'Octogone, un lieu de création et de diffusion théâtrale situé dans le quartier de la Pontaise.",
+                "description": "Visitez le Théâtre de l'Octogone, un lieu de création et de diffusion théâtral situé dans le quartier de la Pontaise.",
                 "address": "Avenue de Lavaux 41, 1009 Pully, Suisse",
                 "latitude": 46.51210127917652,
                 "longitude": 6.66080271406898,
                 "order": 3,
                 "external_link": "https://www.theatre-octogone.ch/",
                 "stepImage": "/image_step/tour-theatrale-de-lausanne/step3.jpg",
-                "image_description": "Image for step 3 of the itinerary 'Tour théatrale proche de Lausanne'"
+                "image_description": "Image for step 3 of the itinerary 'Tour théâtral proche de Lausanne'"
             },
             {
                 "name": "Théâtre de l'Échandole",
-                "description": "Explorez le Théâtre de l'Échandole, un lieu de création et de diffusion théâtrale situé dans le quartier du Flon.",
+                "description": "Explorez le Théâtre de l'Échandole, un lieu de création et de diffusion théâtral situé dans le quartier du Flon.",
                 "address": "Place de l'Europe 1, 1003 Lausanne, Suisse",
                 "latitude": 46.778231943912694,
                 "longitude": 6.641499308507065,
                 "order": 4,
                 "external_link": "",
                 "stepImage": "/image_step/tour-theatrale-de-lausanne/step4.jpg",
-                "image_description": "Image for step 4 of the itinerary 'Tour théatrale proche de Lausanne'"
+                "image_description": "Image for step 4 of the itinerary 'Tour théâtral proche de Lausanne'"
             },
             {
                 "name": "Arsenic – Centre d'art scenique contemporain",
@@ -67,23 +69,23 @@
                 "order": 5,
                 "external_link": "https://arsenic.ch/",
                 "stepImage": "/image_step/tour-theatrale-de-lausanne/step5.jpg",
-                "image_description": "Image for step 5 of the itinerary 'Tour théatrale proche de Lausanne'"
+                "image_description": "Image for step 5 of the itinerary 'Tour théâtral proche de Lausanne'"
             },
             {
                 "name": "Théâtre de Vidy",
-                "description": "Commencez votre balade au Théâtre de Vidy, un lieu de création et de diffusion théâtrale situé au bord du lac Léman.",
+                "description": "Commencez votre balade au Théâtre de Vidy, un lieu de création et de diffusion théâtral situé au bord du lac Léman.",
                 "address": "Avenue Emile Jaques-Dalcroze 5, 1007 Lausanne, Suisse",
                 "latitude": 46.512857105594044,
                 "longitude": 6.610835110872302,
                 "order": 6,
                 "external_link": "https://vidy.ch/",
                 "stepImage": "/image_step/tour-theatrale-de-lausanne/step6.jpg",
-                "image_description": "Image for step 6 of the itinerary 'Tour théatrale proche de Lausanne'"
+                "image_description": "Image for step 6 of the itinerary 'Tour théâtral proche de Lausanne'"
             }
         ]
     },
     {
-        "name": "Sortie en forêt au coeur de chalet à Gobet",
+        "name": "Sortie en forêt au coeur du Chalet à Gobet",
         "description": "Découvrez la nature préservée de Lausanne en suivant ce parcours qui vous emmènera à travers les forêts et les étangs de la région.",
         "type": "boucle",
         "length": 20.0,
@@ -91,33 +93,35 @@
         "negative_drop": 400,
         "estimated_time": 90,
         "difficulty": "difficile",
-        "source": "communautaire",
+        "source": "Communautaire",
+        "category": "Architectural",
+        "accessibility": "Accessible aux fauteuils roulants",
         "image": {
             "url": "/itinerary_image/sortie-en-foret-au-coeur-de-chalet-a-gobet.jpg",
-            "alt_attr": "Image montrant une forêt au chalet a gobet"
+            "alt_attr": "Image montrant une forêt au Chalet a Gobet"
         },
         "steps": [
             {
-                "name": "Parking chalet à gobet",
-                "description": "Commencez votre balade au Parking chalet à Gobet, un point de départ idéal pour explorer les espaces verts de Lausanne.",
+                "name": "Parking du Chalet à Gobet",
+                "description": "Commencez votre balade au Parking du Chalet à Gobet, un point de départ idéal pour explorer les espaces verts de Lausanne.",
                 "address": "Rte de Cojonnex 64, 1000 Lausanne",
                 "latitude": 46.56460405927906,
                 "longitude": 6.690367452591765,
                 "order": 1,
                 "external_link": "",
                 "stepImage": "/image_step/sortie-en-foret-au-coeur-de-chalet-a-gobet/step1.jpg",
-                "image_description": "Image for step 1 of the itinerary 'Sortie en forêt au coeur de chalet à Gobet'"
+                "image_description": "Image for step 1 of the itinerary 'Sortie en forêt au coeur du Chalet à Gobet'"
             },
             {
                 "name": "Parcours Vita chalet à Gobet",
-                "description": "Découvrez le Parcours Vita chalet à Gobet, un parcours de santé qui vous permet de vous entraîner en pleine nature.",
+                "description": "Découvrez le Parcours Vita du Chalet à Gobet, un parcours de santé qui vous permet de vous entraîner en pleine nature.",
                 "address": "Rte de Cojonnex 95, 1000 Lausanne",
                 "latitude": 46.56537294030099,
                 "longitude": 6.68906831180062,
                 "order": 2,
                 "external_link": "",
                 "stepImage": "/image_step/sortie-en-foret-au-coeur-de-chalet-a-gobet/step2.jpg",
-                "image_description": "Image for step 2 of the itinerary 'Sortie en forêt au coeur de chalet à Gobet'"
+                "image_description": "Image for step 2 of the itinerary 'Sortie en forêt au coeur du Chalet à Gobet'"
             },
             {
                 "name": "Cabane scout de Sauvabelin",
@@ -128,29 +132,29 @@
                 "order": 3,
                 "external_link": "",
                 "stepImage": "/image_step/sortie-en-foret-au-coeur-de-chalet-a-gobet/step3.jpg",
-                "image_description": "Image for step 3 of the itinerary 'Sortie en forêt au coeur de chalet à Gobet'"
+                "image_description": "Image for step 3 of the itinerary 'Sortie en forêt au coeur du chalet à Gobet'"
             },
             {
                 "name": "Étang de la Bressonne",
-                "description": "Explorez l'Étang de la Bressonne, un espace naturel préservé offrant une faune et une flore riches.",
+                "description": "Explorez l'Étang de la Bressonne, un espace naturel préservé offrant une faune et une flore riche.",
                 "address": "Route du Chalet-à-Gobet, 1052 Le Mont-sur-Lausanne",
                 "latitude": 46.57302933498894,
                 "longitude": 6.700484367156292,
                 "order": 4,
                 "external_link": "",
                 "stepImage": "/image_step/sortie-en-foret-au-coeur-de-chalet-a-gobet/step4.jpeg",
-                "image_description": "Image for step 4 of the itinerary 'Sortie en forêt au coeur de chalet à Gobet'"
+                "image_description": "Image for step 4 of the itinerary 'Sortie en forêt au coeur du chalet à Gobet'"
             },
             {
                 "name": "Parking chalet à gobet",
-                "description": "Terminez votre balade en revenant au Parking chalet à Gobet, où vous pourrez vous détendre après une journée en pleine nature.",
+                "description": "Terminez votre balade en revenant au Parking du Chalet à Gobet, où vous pourrez vous détendre après une journée en pleine nature.",
                 "address": "Rte de Cojonnex 64, 1000 Lausanne",
                 "latitude": 46.56460405927906,
                 "longitude": 6.690367452591765,
                 "order": 5,
                 "external_link": "",
                 "stepImage": "/image_step/sortie-en-foret-au-coeur-de-chalet-a-gobet/step5.jpg",
-                "image_description": "Image for step 5 of the itinerary 'Sortie en forêt au coeur de chalet à Gobet'"
+                "image_description": "Image for step 5 of the itinerary 'Sortie en forêt au coeur du chalet à Gobet'"
             }
         ]
     },
@@ -163,7 +167,9 @@
         "negative_drop": 50,
         "estimated_time": 100,
         "difficulty": "facile",
-        "source": "officiel",
+        "source": "Officiel",
+        "category": "Architectural",
+        "accessibility": "Accessible aux fauteuils roulants",
         "image": {
             "url": "/itinerary_image/balade-mecanique-de-sainte-croix.jpg",
             "alt_attr": "Intérieur mécanique d'un musée à sainte-croix"
@@ -224,7 +230,9 @@
         "negative_drop": 200,
         "estimated_time": 80,
         "difficulty": "facile",
-        "source": "communautaire",
+        "source": "Communautaire",
+        "category": "Architectural",
+        "accessibility": "Accessible aux fauteuils roulants",
         "image": {
             "url": "/itinerary_image/balade-botanique-dans-la-ville-de-lausanne.jpg",
             "alt_attr": "Image for Itinerary 4"
@@ -296,7 +304,9 @@
         "negative_drop": 600,
         "estimated_time": 120,
         "difficulty": "difficile",
-        "source": "communautaire",
+        "source": "Communautaire",
+        "category": "Architectural",
+        "accessibility": "Accessible aux fauteuils roulants",
         "image": {
             "url": "/itinerary_image/parcours-historique-de-la-ville-de-lausanne.jpg",
             "alt_attr": "Image montrant une vue sur Montreux et le lac Léman"
@@ -379,7 +389,9 @@
         "negative_drop": 700,
         "estimated_time": 75,
         "difficulty": "difficile",
-        "source": "officiel",
+        "source": "Officiel",
+        "category": "Architectural",
+        "accessibility": "Accessible aux fauteuils roulants",
         "image": {
             "url": "/itinerary_image/parcours-historique-de-la-ville-de-lausanne.jpg",
             "alt_attr": "Image montrant la vieille ville de Lausanne"
@@ -462,7 +474,9 @@
         "negative_drop": 150,
         "estimated_time": 45,
         "difficulty": "modéré",
-        "source": "officiel",
+        "source": "Officiel",
+        "category": "Architectural",
+        "accessibility": "Accessible aux fauteuils roulants",
         "image": {
             "url": "/itinerary_image/vevey-a-travers-les-ages.jpg",
             "alt_attr": "image montrant Vevey à travers les âges"
@@ -556,7 +570,9 @@
         "negative_drop": 250,
         "estimated_time": 85,
         "difficulty": "facile",
-        "source": "communautaire",
+        "source": "Communautaire",
+        "category": "Architectural",
+        "accessibility": "Accessible aux fauteuils roulants",
         "image": {
             "url": "/itinerary_image/balade-des-arts-a-vevey.jpg",
             "alt_attr": "Image montrant une galerie d'art à Vevey"
@@ -628,7 +644,9 @@
         "negative_drop": 500,
         "estimated_time": 180,
         "difficulty": "modéré",
-        "source": "communautaire",
+        "source": "Communautaire",
+        "category": "Architectural",
+        "accessibility": "Accessible aux fauteuils roulants",
         "image": {
             "url": "/itinerary_image/decouverte-autour-du-lac-leman.jpg",
             "alt_attr": "Image montrant le lac léman"
@@ -700,7 +718,9 @@
         "negative_drop": 900,
         "estimated_time": 150,
         "difficulty": "difficile",
-        "source": "officiel",
+        "source": "Officiel",
+        "category": "Architectural",
+        "accessibility": "Accessible aux fauteuils roulants",
         "image": {
             "url": "/itinerary_image/parcours-des-vignobles-et-de-lhistoire-du-lavaux.jpg",
             "alt_attr": "Image de vignes et des montagnes en arrière-plan"

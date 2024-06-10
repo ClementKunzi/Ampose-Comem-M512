@@ -30,10 +30,18 @@ class ItineraryController extends Controller
             $itinerary->makeHidden(['created_at', 'updated_at']);
             $itinerary->user->makeHidden(['id', 'last_name', 'first_name', 'email', 'password', 'email_verified_at', 'email_verification', 'last_login', 'number_path_added',  'created_at', 'updated_at']);
             $itinerary->image->makeHidden(['id', 'created_at', 'updated_at']);
-            $itinerary->tagCategorie->makeHidden(['id', 'created_at', 'updated_at']);
-            $itinerary->tagAccessibility->makeHidden(['id', 'created_at', 'updated_at']);
-            $itinerary->append('formatted_updated_at');
-
+            $itinerary->tagCategorie->each(function ($tagCategorie) {
+                $tagCategorie->makeHidden(['created_at', 'updated_at', 'color', 'taxonomy_id', 'pivot']);
+                if ($tagCategorie->taxonomy) {
+                    $tagCategorie->taxonomy->makeHidden(['id', 'created_at', 'updated_at']);
+                }
+            });
+            $itinerary->tagAccessibility->each(function ($tagAccessibility) {
+                $tagAccessibility->makeHidden(['created_at', 'updated_at', 'taxonomy_id', 'pivot']);
+                if ($tagAccessibility->taxonomy) {
+                    $tagAccessibility->taxonomy->makeHidden(['id', 'created_at', 'updated_at']);
+                }
+            });
 
             $markers = [];
             foreach ($itinerary->steps as $step) {
@@ -57,10 +65,12 @@ class ItineraryController extends Controller
             $validatedData = $request->validated();
 
             $imageFile = $request->file('image');
-            $imagePath = $imageFile->store('images', 'public');
+            $extension = $imageFile->getClientOriginalExtension();
+            $newFilename = time() . '_' . uniqid() . '.' . $extension;
+            $imagePath = $imageFile->storeAs('images', $newFilename, 'public');
 
             $image = Image::create([
-                'url' => $imagePath,
+                'url' => $newFilename,
                 'alt_attr' => $request->input('image_description'),
             ]);
             $validatedData['image_id'] = $image->id;
@@ -151,15 +161,15 @@ class ItineraryController extends Controller
 */
             // Load related models and hide specific attributes
             $itinerary->load('steps', 'tagCategorie.taxonomy', 'tagAccessibility.taxonomy', 'user');
-            $itinerary->makeHidden('created_at', 'user_id', 'image_id', 'tag_categorie_id', 'tag_accessibility_id', 'positive_drop', 'negative_drop', 'length', 'updated_at');
+            $itinerary->makeHidden('created_at', 'user_id', 'image_id', 'positive_drop', 'negative_drop', 'length', 'updated_at');
             $itinerary->user->makeHidden('id', 'last_name', 'first_name', 'email', 'password', 'email_verified_at', 'email_verification', 'last_login', 'number_path_added', 'created_at', 'updated_at');
             $itinerary->image->makeHidden('id', 'created_at', 'updated_at');
-            $itinerary->tagCategorie->makeHidden(['created_at', 'updated_at', 'pivot', 'taxonomy_id']);
             foreach ($itinerary->tagCategorie as $tagCategorie) {
+                $tagCategorie->makeHidden(['created_at', 'updated_at', 'pivot', 'taxonomy_id', 'color']);
                 $tagCategorie->taxonomy->makeHidden(['id', 'created_at', 'updated_at']);
             }
-            $itinerary->tagAccessibility->makeHidden(['created_at', 'updated_at', 'pivot', 'taxonomy_id']);
             foreach ($itinerary->tagAccessibility as $tagAccessibility) {
+                $tagAccessibility->makeHidden(['created_at', 'updated_at', 'pivot', 'taxonomy_id']);
                 $tagAccessibility->taxonomy->makeHidden(['id', 'created_at', 'updated_at']);
             }
             $itinerary->append('formatted_updated_at');
@@ -204,7 +214,7 @@ class ItineraryController extends Controller
             $itinerary->makeHidden('created_at', 'user_id', 'image_id', 'tag_categorie_id', 'tag_accessibility_id', 'positive_drop', 'negative_drop', 'length', 'updated_at');
             $itinerary->user->makeHidden('id', 'last_name', 'first_name', 'email', 'password', 'email_verified_at', 'email_verification', 'last_login', 'number_path_added', 'created_at', 'updated_at');
             $itinerary->image->makeHidden('id', 'created_at', 'updated_at');
-            $itinerary->tagCategorie->makeHidden(['created_at', 'updated_at', 'pivot', 'taxonomy_id']);
+            $itinerary->tagCategorie->makeHidden(['created_at', 'updated_at', 'pivot', 'taxonomy_id', 'color']);
             foreach ($itinerary->tagCategorie as $tagCategorie) {
                 $tagCategorie->taxonomy->makeHidden(['id', 'created_at', 'updated_at']);
             }

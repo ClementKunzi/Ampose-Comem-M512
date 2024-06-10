@@ -2,25 +2,40 @@
 import { onMounted, ref } from 'vue';
 import SearchBar from '../../components/TheSearch.vue';
 import axios from 'axios';
+import CardItinerary from '../../components/CardItinerary.vue';
+import { storeItineraries } from '../../stores/StoreItineraries.js';
+
 
 const data = ref(null); // Create a reactive data property
 
 onMounted(async () => {
-  // try {
-  //   const response = await axios.get('https://data.sbb.ch/api/explore/v2.1/catalog/datasets/stadtefahrplan/records?limit=20');
-  //   data.value = response.data;
-  //   console.log('data', + data) // Update the data property
-  // } catch (error) {
-  //   console.error(error);
-  // }
 });
+</script>
+
+<script>
+
+export default {
+  name: 'Itineraries',
+  computed: {
+    itineraries() {
+        const sourceFilter = this.$route.meta.sourceItinerary;
+
+        return storeItineraries.itineraries.filter(itinerary => itinerary.source === sourceFilter);
+    },
+  },
+};
 </script>
 
 <template>
   <div class="p-4">
-    <!-- <div>Data: {{ data }}</div> -->
+
     <SearchBar />
     <router-view />
+    <h2 class="h3 text-tv-wine"> {{ $route.meta.title }}</h2>
+
+<router-link v-for="itinerary in itineraries" :key="itinerary.id" :to="`/itinerary/${itinerary.id}`">
+  <CardItinerary :itinerary="itinerary" :image="itinerary.image.url" />
+</router-link>
   </div>
 
 </template>
