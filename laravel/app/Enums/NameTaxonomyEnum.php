@@ -17,7 +17,7 @@ final class NameTaxonomyEnum extends Enum
     const botany = 'Botanique';
     const oenological = 'Oenologique';
     const suitable_for_children = 'Convient aux enfants';
-    const weelchair_accessible = 'Accessible aux fauteuils roulants';
+    const weelchair_accessible = 'Accessible au fauteuil roulant';
     const doable_by_bike = 'Faisable à vélo';
     const nocturne = 'Nocturne';
     const pets_allowed = 'Animaux autorisés';

@@ -110,6 +110,8 @@ onMounted(() => {
 
 });
 
+
+console.log(itinerary);
 </script>
 
 <template>
@@ -137,7 +139,7 @@ onMounted(() => {
   <div class="p-4">
     <ul class="mt-[-2rem] flex gap-3">
         <li v-for="tag in itinerary.tag_categorie" :key="tag.id" class="bg-tv-eggshell rounded-full w-[28px] h-[28px] flex justify-center items-center" aria-label="tag.taxonomy.name">
-                    <img :src="`storage/icons/${tag.taxonomy.icon}`" :alt="tag.taxonomy.description" :size="15">
+                    <img :src="`storage/icons/${tag.taxonomy.icon}`" :alt="tag.taxonomy.description" style="width: 20px; height: 20px;">
                 </li>
     </ul>
 
@@ -216,7 +218,7 @@ onMounted(() => {
       <h3>Accessibilité</h3>
       <ul class="flex flex-col gap-3">
         <li v-for="tag in itinerary.tag_accessibility" :key="tag.id" class="flex items-center gap-1">
-                    <img :src="`storage/icons/${tag.taxonomy.icon}`" :alt="tag.taxonomy.description" :size="15">
+                    <img :src="`storage/icons/${tag.taxonomy.icon}`" :alt="tag.taxonomy.description" >
                     <p>{{ tag.taxonomy.name }}</p>
                 </li>
       </ul>

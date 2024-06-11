@@ -17,7 +17,7 @@ const props = defineProps({
             <div class="flex justify-between z-10">
             <ul class="flex gap-3">
                 <li v-for="tag in props.itinerary.tag_categorie" :key="tag.id" class="bg-tv-eggshell rounded-full w-[28px] h-[28px] flex justify-center items-center" aria-label="tag.taxonomy.name">
-                    <img :src="`storage/icons/${tag.taxonomy.icon}`" :alt="tag.taxonomy.description" :size="15">
+                    <img :src="`storage/icons/${tag.taxonomy.icon}`" :alt="tag.taxonomy.description" style="width: 20px; height: 20px;">
                 </li>
 
                 <!--<li class="bg-tv-eggshell rounded-full w-[28px] h-[28px] flex justify-center items-center"
