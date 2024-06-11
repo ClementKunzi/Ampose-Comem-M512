@@ -1,5 +1,6 @@
+
 <script setup>
-import { computed, onMounted, ref } from 'vue';
+import { computed, onMounted, ref, watch } from 'vue';
 import SearchBar from '../../components/TheSearch.vue';
 import axios from 'axios';
 import CardItinerary from '../../components/CardItinerary.vue';
@@ -8,9 +9,18 @@ import { useSelectedCategoryStore } from '../../stores/StoreSelectedCategories.j
 import { useSelectedAccessibilityStore } from '../../stores/StoreSelectedAccessibility.js';
 import { useRoute } from 'vue-router';
 
-const route = useRoute();
 
+
+const route = useRoute();
 const searchQuery = ref('');
+
+
+// Dans HomeView
+const handleSearchUpdate = (newValue) => {
+  // Mettre à jour la variable réactive ou effectuer d'autres actions
+    searchQuery.value = newValue;
+};
+
 
 const itineraries = computed(() => {
   let sourceFilter = '';
@@ -24,24 +34,24 @@ const itineraries = computed(() => {
   const { selectedAccessibilityIds } = useSelectedAccessibilityStore();
   const accessibilityIds = selectedAccessibilityIds.value || [];
 
-
   return storeItineraries.itineraries.filter(itinerary =>
     (!sourceFilter || itinerary.source === sourceFilter) &&
     (categoryIds.length === 0 || itinerary.tag_categorie.some(tag => categoryIds.includes(tag.id))) &&
     (accessibilityIds.length === 0 || itinerary.tag_accessibility.some(tag => accessibilityIds.includes(tag.id))) &&
-    itinerary.name.toLowerCase().includes(searchQuery.value.toLowerCase())
+    (searchQuery.value === '' || itinerary.name.toLowerCase().includes(searchQuery.value.toLowerCase()) || itinerary.description.toLowerCase().includes(searchQuery.value.toLowerCase()) || itinerary.image.alt_attr.toLowerCase().includes(searchQuery.value.toLowerCase()) || itinerary.difficulty.toLowerCase().includes(searchQuery.value.toLowerCase()) || itinerary.type.toString().includes(searchQuery.value.toLowerCase()))
   );
 });
-
 onMounted(async () => {
   // Logique de montage ici, si nécessaire
 });
+
+console.log(itineraries);
 </script>
 
 
 <template>
   <div class="p-4">
-    <SearchBar v-model="searchQuery" />
+    <SearchBar :onSearchUpdate="handleSearchUpdate" />
 
     <router-view />
     <h2 class="h3 text-tv-wine"> {{ $route.meta.title }}</h2>

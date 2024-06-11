@@ -18,13 +18,16 @@ watch(selectedCategoryIds, (newVal) => {
   selectedCategory.value = newVal ? [...newVal] : [];
 }, { immediate: true });
 
-const searchQuery = ref('');
-
-const emit = defineEmits(['updateSearch']);
-
-watch(searchQuery, (newValue) => {
-  emit('updateSearch', newValue);
+// Dans SearchBar
+const props = defineProps({
+  onSearchUpdate: Function,
 });
+
+let searchValue = ref('');
+
+const updateSearch = () => {
+  props.onSearchUpdate(searchValue.value);
+};
 
 const handleCategoryClick = (categoryId, selectAllCondition = false) => {
   if (selectAllCondition) {
@@ -52,13 +55,14 @@ const handleCategoryClick = (categoryId, selectAllCondition = false) => {
     <div class="sticky z-50 top-4 mb-9">
         <div class="mb-2 flex justify-between gap-2 md:justify-center">
           <div class="relative grow md:max-w-md">
-            <input id="searchInput" class="btn w-full" type="text" v-model="searchQuery" placeholder="Rechercher" />
+            <input id="searchInput" class="btn w-full" type="text" v-model="searchValue" placeholder="Rechercher" @input="updateSearch" />
+
             <Filters />
           </div>
             <router-link v-if="!isDesktop.value" aria-label="Profile utilisateur" to="/user/profile">
               <div class="max-w-12 h-full">
                 <img class="h-full rounded-full object-cover" :src="currentUser.getUserImageProfile()" alt="">
-              </div>               
+              </div>
             </router-link>
         </div>
 
