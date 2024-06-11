@@ -148,30 +148,30 @@ onMounted(() => {
         <div class="flex flex-col gap-6">
             <div>
                 <label for="name">Nom de l'étape</label>
-                <input id="name" v-model="formFields.name" type="text" placeholder="Nom de l'étape" />
+                <input id="name" v-model="formFields.name" type="text" placeholder="Nom de l'étape" required />
             </div>
             <div>
                 <label for="name">Image de l'étape</label>
-                <input type="file" name="img" @change="updateImage" ref="imageInput" accept="image/*" />
+                <input type="file" name="img" @change="updateImage" ref="imageInput" accept="image/*" required />
             </div>
             <div>
                 <label for="name">Description de l'image</label>
-                <input id="name" v-model="formFields.image_description" type="text" placeholder="Que voit-on sur cette image?" />
+                <input id="name" v-model="formFields.image_description" type="text" placeholder="Que voit-on sur cette image?" required />
             </div>
             <div>
                 <label for="coordinate">Coordonnées</label>
                 <input id="coordinate" class="opacity-0 pointer-events-none mb-[-48px]" v-model="formFields.coordinate"
-                    type="text" placeholder="Rechercher une adresse" />
+                    type="text" placeholder="Rechercher une adresse" required />
                 <div ref="mapContainerRef" id="map" class="map-pageLayout map-norouteInstructions map-noZoom map-markerPicker"></div>
             </div>
             <div>
                 <label for="description">Description</label>
                 <textarea name="description" rows="5" v-model="formFields.description"
-                    placeholder="Description"></textarea>
+                    placeholder="Description" required ></textarea>
             </div>
             <div>
                 <label for="link">Lien utile:</label>
-                <input id="link" v-model="formFields.link" type="text" placeholder="https://cool.io" />
+                <input id="link" v-model="formFields.link" type="text" placeholder="https://cool.io" required />
             </div>            
             <button type="submit" id="btn-itineraryStep" class="btn self-center z-[-10] w-0
             h-0 absolute">Submit</button>
