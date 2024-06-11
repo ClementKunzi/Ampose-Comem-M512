@@ -4,6 +4,11 @@ import { useRoute, useRouter } from 'vue-router';
 import { Bookmark, CircleX, Share, Download, Star, MapPin, Footprints, Route, Clock, Mountain, Accessibility, TriangleAlert, SquareArrowOutUpRight } from 'lucide-vue-next';
 import { hideMarker } from '../../utils/MarkersVisibility.js';
 
+//gestion  des favoris
+import  ManageFavorite  from '../../utils/ManageFavorite.js'; 
+import { getFavorites } from '../../stores/StoreFavoriteIcon.js';
+import { toggleFavorite } from '../../stores/StoreFavoriteIcon.js';
+
 import "leaflet/dist/leaflet.css"
 import * as L from 'leaflet';
 import 'leaflet-routing-machine';
@@ -25,11 +30,22 @@ const step = computed(() => storeItinerary.itinerary.data.steps[stepId.value]);
 
 
 
+//gestion des favoris
+const props = defineProps({
+  itinerary: Object,
+});
+
+const isFavorite = computed(() => getFavorites().some(favorite => favorite.itinerary_id === props.itinerary.id));
 
 const emit = defineEmits(['requireNav']);
 
 const stepAccess = (id) => {
   router.push(`${route.fullPath}/step/${id+1}`);
+}
+
+const changeFavorite = (itineraryId) => {
+  toggleFavorite(itineraryId);
+  ManageFavorite(itineraryId);
 }
 
 hideMarker(stepId);
@@ -126,10 +142,16 @@ onMounted(() => {
         aria-label="Télécharger">
         <Share aria-hidden="true" stroke="#754043" :size="18" />
       </button>
-      <button class="bg-tv-eggshell rounded-full w-[28px] h-[28px] flex justify-center items-center"
-        aria-label="Ajouter aux favoris">
-        <Bookmark aria-hidden="true" stroke="#754043" :size="18" />
-      </button>
+      <button 
+  class="bg-tv-eggshell rounded-full w-[28px] h-[28px] flex justify-center items-center"
+  :aria-label="isFavorite? 'Supprimer des favoris' : 'Ajouter aux favoris'"
+  @click="changeFavorite(itinerary.id)"
+>
+  <Bookmark 
+    :stroke="isFavorite? '#000000' : '#754043'" 
+    :size="18" 
+  />
+</button>
     </div>
     <div v-else :style="{ 'background-image': 'url(storage/images/' + step.images[0].url + ')' }"
       class="bg-center w-screen h-[250px] p-4 flex"></div>

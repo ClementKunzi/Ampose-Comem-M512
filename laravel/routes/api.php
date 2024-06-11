@@ -75,6 +75,7 @@ Route::group(['prefix' => 'auth'], function () {
 
 Route::group(['prefix' => 'favorites'], function () {
     Route::group(['middleware' => 'auth:sanctum'], function () {
+        Route::get('/{userId}', [FavoriteController::class, 'show']);
         Route::post('/', [FavoriteController::class, 'store']);
         Route::delete('/{id}', [FavoriteController::class, 'destroy']);
     });

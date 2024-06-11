@@ -5,10 +5,25 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller; 
 use Illuminate\Http\Request;
 use App\Models\Favorite; 
+use Illuminate\Http\Response;
 
 class FavoriteController extends Controller
 {
 
+    public function show(int $userId)
+    {
+        $favorites = Favorite::where('user_id', $userId)->get();
+        $favorites->makeHidden("created_at");
+        $favorites->makeHidden("updated_at");
+
+        if ($favorites->isEmpty()) {
+            return $this->sendSuccess($favorites, 'Favorites retrieved successfully', Response::HTTP_OK);
+        }
+
+        return $this->sendSuccess($favorites, 'Favorites retrieved successfully', Response::HTTP_OK);
+    
+    }
+    
     public function store(Request $request)
     {
         $request->validate([
