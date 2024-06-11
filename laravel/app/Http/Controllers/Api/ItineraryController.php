@@ -15,6 +15,9 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use App\Models\TagCategorie;
 use App\Models\TagAccessibility;
+use TCPDF;
+
+
 
 class ItineraryController extends Controller
 {
@@ -142,23 +145,56 @@ class ItineraryController extends Controller
                 }
             }
 
-            // Commit the transaction
-            DB::commit();
-            /*
-            // 1. Générer le PDF
-            $pdf = \PDF::loadView('itineraries.summary', ['itinerary' => $itinerary]);
 
-            // 2. Définir le nom du fichier PDF
+
+            // Récupérer les données actuelles de l'itinéraire
+            $updatedItineraryData = $itinerary;
+
             $pdfFileName = 'itinerary-summary-' . $itinerary->id . '.pdf';
 
-            // 3. Sauvegarder le PDF dans le système de fichiers
-            Storage::disk('public')->put('itineraries/pdf/' . $pdfFileName, $pdf->output());
+            // Chemin de destination dans le disque public
+            $pdfPath = storage_path('app/public') . '/itineraries/pdf/' . $pdfFileName;
 
-            // 4. Sauvegarder le chemin du PDF dans la base de données si nécessaire
-            // Par exemple, vous pouvez ajouter une colonne `pdf_url` à votre table `itineraries`
-            $itinerary->pdf_url = 'itineraries/pdf/' . $pdfFileName;
+            // Générer le contenu HTML de la vue
+            $htmlContent = view('itineraries.summary', ['itinerary' => $updatedItineraryData])->render();
+
+            // Initialiser TCPDF
+            $pdf = new TCPDF(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);
+            $pdf->SetCreator(PDF_CREATOR);
+            $pdf->SetAuthor('Votre Nom');
+            $pdf->SetTitle('Résumé Itinéraire');
+            $pdf->SetSubject('Exemple TCPDF');
+            $pdf->SetKeywords('TCPDF, PDF, itinéraire, résumé, exemple');
+
+            // Ajouter une page
+            $pdf->AddPage();
+
+            // Changer la police
+            $pdf->SetFont('helvetica', '', 12);
+
+            // Ajouter le contenu HTML à la page
+            $pdf->writeHTML($htmlContent, true, false, true, false, '');
+
+            // Convertir le PDF en une chaîne
+            $pdfContent = $pdf->Output('', 'S'); // 'S' pour obtenir le contenu sous forme de chaîne
+
+            // Vérifier si le dossier existe et le créer si nécessaire
+            $directory = dirname($pdfPath);
+            if (!file_exists($directory)) {
+                mkdir($directory, 0755, true);
+            }
+
+            // Écrire le contenu du PDF dans un fichier sur le disque de stockage
+            file_put_contents($pdfPath, $pdfContent);
+
+            // Mettre à jour le chemin du PDF dans la base de données
+            $itinerary->pdf_url =  basename($pdfPath); // Assurez-vous que le chemin est correctement formé pour une URL
             $itinerary->save();
-*/
+
+            // Commit the transaction
+            DB::commit();
+
+
             // Load related models and hide specific attributes
             $itinerary->load('steps', 'tagCategorie.taxonomy', 'tagAccessibility.taxonomy', 'user');
             $itinerary->makeHidden('created_at', 'user_id', 'image_id', 'positive_drop', 'negative_drop', 'length', 'updated_at');

@@ -14,5 +14,4 @@ async function initializeItineraries() {
         console.error("Erreur lors du chargement des itinéraires:", error);
     }
 }
-
 initializeItineraries();
