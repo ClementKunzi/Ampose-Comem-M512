@@ -15,7 +15,6 @@ export function useUserStore() {
   };
 
   const setErrors = (errorData) => {
-    console.log('Setting errors:', errorData);
     errors.value = errorData;
   };
 
@@ -25,7 +24,6 @@ export function useUserStore() {
 
   // Validation du pseudo
   const validateUsername = (username) => {
-    console.log('Validating username:', username);
     const regex = /^\d+$/;
     if (regex.test(username)) {
       setErrors({ userName: ["Le nom d'utilisateur ne peut pas être composé uniquement de chiffres."] });
@@ -36,7 +34,6 @@ export function useUserStore() {
 
   // Validation de la longueur du mot de passe
   const validatePasswordLength = (password) => {
-    console.log('Validating password length:', password);
     if (password.length < 8) {
       setErrors({ password: ["Le mot de passe doit contenir au moins 8 caractères."] });
       return false;
@@ -47,7 +44,6 @@ export function useUserStore() {
 
   // Validation de la taille du fichier
   const validateFileSize = (file, maxSize = 2 * 1024 * 1024) => {
-    console.log('Validating file size:', file);
     if (file.size > maxSize) {
       setErrors({ userImage: ["La taille du fichier dépasse la limite autorisée de 2MB."] });
       return false;
