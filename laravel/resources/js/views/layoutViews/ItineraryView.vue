@@ -8,6 +8,7 @@ import { hideMarker } from '../../utils/MarkersVisibility.js';
 import  ManageFavorite  from '../../utils/ManageFavorite.js'; 
 import { getFavorites } from '../../stores/StoreFavoriteIcon.js';
 import { toggleFavorite } from '../../stores/StoreFavoriteIcon.js';
+import { getFavoritesFromId } from '../../stores/StoreFavoriteIcon.js';
 
 import "leaflet/dist/leaflet.css"
 import * as L from 'leaflet';
@@ -35,7 +36,11 @@ const props = defineProps({
   itinerary: Object,
 });
 
-const isFavorite = computed(() => getFavorites().some(favorite => favorite.itinerary_id === props.itinerary.id));
+const isFavorite = computed(() => getFavorites().some(favorite => favorite.itinerary_id === props.itinerary?.id));
+
+const isFavoriteById = computed(() => {
+  return getFavorites().some(favorite => favorite.itinerary_id === itineraryId.value);
+});
 
 const emit = defineEmits(['requireNav']);
 
@@ -43,18 +48,45 @@ const stepAccess = (id) => {
   router.push(`${route.fullPath}/step/${id+1}`);
 }
 
-const changeFavorite = (itineraryId) => {
-  toggleFavorite(itineraryId);
-  ManageFavorite(itineraryId);
-}
+const itineraryId = ref(props.itinerary?.id);
 
+const bookmarkIconRef = ref(null);
+
+// Définition de isFavoriteState comme une ref
+const isFavoriteState = ref(isFavorite.value); // Initialisation avec la valeur actuelle de isFavorite
+
+// Exposition de la ref pour qu'elle soit accessible depuis le template
+defineExpose({ bookmarkIconRef, isFavoriteState });
+
+
+const changeFavorite = (itineraryId) => {
+  console.log(itineraryId);
+  if (getFavorites().some(favorite => favorite.itinerary_id === itineraryId)) {
+    //console.log("l'itinéraire existe");
+    //toggleFavorite(itineraryId);
+    ManageFavorite(itineraryId);
+    isFavoriteState.value = false;
+  } else {
+    //console.log("l'itinéraire n'existe pas");
+    //toggleFavorite(itineraryId);
+    ManageFavorite(itineraryId);
+    isFavoriteState.value = true;
+  }
+};
+
+
+
+const fillFavorite = (itineraryId) => {
+  console.log(props.itinerary?.id);
+  console.log(itineraryId);
+  getFavoritesFromId(itineraryId);
+};
 hideMarker(stepId);
 
 onMounted(() => {
+
   let coordinates = steps.value.map(step => [step.latitude, step.longitude]);
   let stepTitles = steps.value.map(step => step.name);
-
-
 
   const orsToken = '1894ebf9-bfe5-4ab1-80b2-e8ccf733ab5e';
   var map = L.map('map', {
@@ -124,7 +156,15 @@ onMounted(() => {
 
   L.Control.geocoder().addTo(map);
 
-});
+  if (props.itinerary) {
+    itineraryId.value = props.itinerary.id;
+  }
+
+  fillFavorite();
+
+
+})
+;
 
 </script>
 
@@ -144,11 +184,12 @@ onMounted(() => {
       </button>
       <button 
   class="bg-tv-eggshell rounded-full w-[28px] h-[28px] flex justify-center items-center"
-  :aria-label="isFavorite? 'Supprimer des favoris' : 'Ajouter aux favoris'"
+  :aria-label="isFavoriteState? 'Supprimer des favoris' : 'Ajouter aux favoris'"
   @click="changeFavorite(itinerary.id)"
 >
   <Bookmark 
-    :stroke="isFavorite? '#000000' : '#754043'" 
+    :fill="isFavoriteState? 'transparent' : '#754043'" 
+    stroke="#754043"
     :size="18" 
   />
 </button>

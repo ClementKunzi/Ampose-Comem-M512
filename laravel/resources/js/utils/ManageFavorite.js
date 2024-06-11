@@ -27,10 +27,12 @@ async function ManageFavorite(itinerary_id) {
             //console.log(favoriteId[0]);
             // Gestion du cas où l\'itinéraire est déjà en favoris
             // Par exemple, afficher un message à l'utilisateur
+            console.log("favoris retiré")
             const deleteFavorite = await ApiDeleteFavorite(favoriteId[0])
         } else {
             //console.log('L\'itinéraire n\'est pas en favoris.');
             // Si l'itinéraire n'est pas en favoris, l'ajoutez-le
+            console.log("favoris ajouté")
             const newFavorite = await ApiPostFavorite({itinerary_id});
         }
         setFavorites(favorites);
