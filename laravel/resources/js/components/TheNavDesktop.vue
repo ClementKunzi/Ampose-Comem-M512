@@ -18,13 +18,13 @@ import { Menu } from 'lucide-vue-next';
           <nav class="hidden md:flex space-x-8 md:flex-row">
             <a href="#"><img src="/../../images/logo/logo-tv-brun.svg" alt=""></a>
 
-            <router-link class="hover:text-754043" aria-label="Accueil" to="/">
+            <router-link class="hover:text-[#754043]" aria-label="Accueil" to="/">
               <span aria-hidden="true">Accueil</span>
             </router-link>
-            <router-link class="hover:text-754043" aria-label="Parcours de la communauté" to="/community">
+            <router-link class="hover:text-[#754043]" aria-label="Parcours de la communauté" to="/community">
               <span aria-hidden="true">Communauté</span>
             </router-link>
-            <router-link class="hover:text-754043" aria-label="Carte des parcours" to="/map">
+            <router-link class="hover:text-[#754043]" aria-label="Carte des parcours" to="/map">
               <span aria-hidden="true">Carte</span>
             </router-link>
           </nav>

@@ -1,5 +1,5 @@
 <script setup>
-import { CircleX } from 'lucide-vue-next';
+import { X } from 'lucide-vue-next';
 import FormLogin from '@/components/forms/FormLogin.vue';
 
 import { ref } from 'vue';
@@ -17,7 +17,7 @@ function toggleVisibility() {
     style="background-image: url(https://loremflickr.com/500/500)">
     <button @click="$router.go(-1)"
         class="mr-auto btn-iconContainer" aria-label="Retour">        
-          <CircleX aria-hidden="true" :size="32" />              
+          <X aria-hidden="true" :size="32" />              
       </button>
   </div>
   <div v-show="!isVisible" class="min-h-[200px] bg-no-repeat bg-center  bg-tv-wine p-4"

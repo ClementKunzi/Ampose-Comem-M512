@@ -6,7 +6,7 @@ import { isDesktop } from  '../utils/Breakpoints.js';
 </script>
 
 <template>
-<header>
+<header class="w-full">
     <TheNavDesktop />
     
 

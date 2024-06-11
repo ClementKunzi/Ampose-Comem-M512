@@ -72,6 +72,10 @@
     @apply text-xl font-sans font-bold;
   }
 
+  .body-bold-2xl {
+    @apply text-2xl font-sans font-bold;
+  }
+
   .router-link-active {
     @apply relative 
     /* after:content-[''] after:w-1 after:h-1 after:bg-white after:inline-block after:rounded-full after:absolute after:left-[12.5px] after:bottom-[-9px]; */
