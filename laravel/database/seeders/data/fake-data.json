@@ -14,8 +14,9 @@
             "Artistique"
         ],
         "accessibility": [
-            "Accessible aux fauteuils roulants",
-            "Faisable en vélo, Convient aux enfants"
+            "Accessible au fauteuil roulant",
+            "Faisable en vélo",
+            "Convient aux enfants"
         ],
         "image": {
             "url": "/itinerary_image/tour-theatrale-de-lausanne.jpg",
@@ -186,7 +187,7 @@
             "Historique"
         ],
         "accessibility": [
-            "Accessible aux fauteuils roulants",
+            "Accessible au fauteuil roulant",
             "Convient aux enfants"
         ],
         "image": {
@@ -254,8 +255,9 @@
             "Botanique"
         ],
         "accessibility": [
-            "Accessible aux fauteuils roulants",
-            "Convient aux enfants, Animaux Acceptés"
+            "Accessible au fauteuil roulant",
+            "Convient aux enfants",
+            "Animaux Acceptés"
         ],
         "image": {
             "url": "/itinerary_image/balade-botanique-dans-la-ville-de-lausanne.jpg",
@@ -424,7 +426,7 @@
             "Religieux"
         ],
         "accessibility": [
-            "Accessible aux fauteuils roulants"
+            "Accessible au fauteuil roulant"
         ],
         "image": {
             "url": "/itinerary_image/parcours-historique-de-la-ville-de-lausanne.jpg",
@@ -514,7 +516,7 @@
             "Religieux"
         ],
         "accessibility": [
-            "Accessible aux fauteuils roulants",
+            "Accessible au fauteuil roulant",
             "Convient aux enfants"
         ],
         "image": {
@@ -616,7 +618,7 @@
             "Littéraire"
         ],
         "accessibility": [
-            "Accessible aux fauteuils roulants",
+            "Accessible au fauteuil roulant",
             "Convient aux enfants"
         ],
         "image": {
@@ -775,7 +777,7 @@
             "Oenologique"
         ],
         "accessibility": [
-            "Accessible aux fauteuils roulants",
+            "Accessible au fauteuil roulant",
             "Faisable en vélo"
         ],
         "image": {

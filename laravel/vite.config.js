@@ -4,6 +4,10 @@ import vue from '@vitejs/plugin-vue';
 import path from 'path';
 
 export default defineConfig({
+    esbuild: {
+        jsxInject: `import React from 'react'`,
+        target: ['chromeLatest', 'edgeLatest', 'es2020', 'firefoxLatest', 'safariLatest'], // Mettre à jour vers les dernières versions
+    },
     plugins: [
         laravel({
             input: [

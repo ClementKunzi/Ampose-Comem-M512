@@ -1,18 +1,18 @@
 // store.js
-import { reactive } from 'vue'; 
-
+import { reactive } from 'vue';
 import { ApiCallItineraries } from '../utils/apiCalls/ApiGetItineraries.js';
 
-// const cool = ApiCallItineraries();
-// console.log(cool);
-
 export const storeItineraries = reactive({
-  itineraries: [],
+    itineraries: [],
 });
 
-if(storeItineraries.itineraries.length === 0) {
-  storeItineraries.itineraries = await ApiCallItineraries();
+async function initializeItineraries() {
+    try {
+        const itineraries = await ApiCallItineraries();
+        storeItineraries.itineraries = itineraries;
+    } catch (error) {
+        console.error("Erreur lors du chargement des itinéraires:", error);
+    }
 }
 
-
-
+initializeItineraries();

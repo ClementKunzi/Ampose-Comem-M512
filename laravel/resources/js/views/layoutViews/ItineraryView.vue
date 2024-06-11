@@ -71,7 +71,7 @@ onMounted(() => {
       return L.marker(wp.latLng)
         .bindPopup(stepTitles[i]).on('click', function (e) {
           // Custom click event logic here
-          
+
           stepAccess(i)
           hideMarker(i)
         });;
@@ -98,7 +98,7 @@ onMounted(() => {
     draggableWaypoints: false,
     showInstructions: false,
   }).addTo(map);
-  
+
 
   // control.setWaypoints([46.778186, 6.641524], [46.778186, 6.641524]);
   // control.spliceWaypoints(0, 3)
@@ -110,6 +110,8 @@ onMounted(() => {
 
 });
 
+
+console.log(itinerary);
 </script>
 
 <template>
@@ -136,15 +138,9 @@ onMounted(() => {
   </div>
   <div class="p-4">
     <ul class="mt-[-2rem] flex gap-3">
-      <li class="bg-tv-eggshell rounded-full w-[28px] h-[28px] flex justify-center items-center"
-        aria-label="Nom catégorie">
-        <Bookmark aria-hidden="true" stroke="#754043" :size="18" />
-      </li>
-
-      <li class="bg-tv-eggshell rounded-full w-[28px] h-[28px] flex justify-center items-center"
-        aria-label="Nom catégorie">
-        <Bookmark aria-hidden="true" stroke="#754043" :size="18" />
-      </li>
+        <li v-for="tag in itinerary.tag_categorie" :key="tag.id" class="bg-tv-eggshell rounded-full w-[28px] h-[28px] flex justify-center items-center" aria-label="tag.taxonomy.name">
+                    <img :src="`storage/icons/${tag.taxonomy.icon}`" :alt="tag.taxonomy.description" style="width: 20px; height: 20px;">
+                </li>
     </ul>
 
     <div class="flex justify-between">
@@ -221,14 +217,10 @@ onMounted(() => {
     <div v-if="routeItinerary" class="text-tv-wine">
       <h3>Accessibilité</h3>
       <ul class="flex flex-col gap-3">
-        <li class="flex items-center gap-1">
-          <Accessibility aria-hidden="true" stroke="#754043" :size="18" />
-          <p>Accès en fauteuil roulant</p>
-        </li>
-        <li class="flex items-center gap-1">
-          <Accessibility aria-hidden="true" stroke="#754043" :size="18" />
-          <p>Accès en fauteuil roulant</p>
-        </li>
+        <li v-for="tag in itinerary.tag_accessibility" :key="tag.id" class="flex items-center gap-1">
+                    <img :src="`storage/icons/${tag.taxonomy.icon}`" :alt="tag.taxonomy.description" >
+                    <p>{{ tag.taxonomy.name }}</p>
+                </li>
       </ul>
     </div>
     <div v-if="routeItinerary" class="mb-16 justify-center">
