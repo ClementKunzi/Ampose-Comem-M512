@@ -9,6 +9,7 @@ import * as L from 'leaflet';
 import 'leaflet-routing-machine';
 import 'leaflet-routing-machine/dist/leaflet-routing-machine.css';
 import { storeItinerary } from '../../stores/StoreItinerary.js';
+import MapFullScreen from '../../components/MapFullScreen.vue';
 
 const route = useRoute();
 const router = useRouter();
@@ -31,94 +32,13 @@ const emit = defineEmits(['requireNav']);
 const stepAccess = (id) => {
   router.push(`${route.fullPath}/step/${id+1}`);
 }
-
-hideMarker(stepId);
-
-onMounted(() => {
-  let coordinates = steps.value.map(step => [step.latitude, step.longitude]);
-  let stepTitles = steps.value.map(step => step.name);
-
-
-
-  const orsToken = '1894ebf9-bfe5-4ab1-80b2-e8ccf733ab5e';
-  var map = L.map('map', {
-    scrollWheelZoom: false,
-  });
-
-  L.tileLayer('https://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png', {
-    attribution: '© OpenStreetMap contributors'
-  }).addTo(map);
-
-  let waypoints = coordinates.map(coord => L.latLng(coord[0], coord[1]));
-
-  var customIcon = L.icon({
-    iconUrl: '/images/map/marker.png',
-    iconSize: [38, 38], // size of the icon
-    shadowSize: [50, 64], // size of the shadow
-    iconAnchor: [19, 38], // point of the icon which will correspond to marker's location
-    // shadowAnchor: [4, 62],  // the same for the shadow
-    // popupAnchor:  [-3, -76] // point from which the popup should open relative to the iconAnchor
-  });
-
-  let control = L.Routing.control({
-    // router: new L.Routing.GraphHopper(orsToken),
-    waypoints,
-    serviceUrl: "http://routing.openstreetmap.de/routed-foot/route/v1",
-    language: 'fr',
-
-    routeWhileDragging: false,
-    createMarker: function (i, wp, nWps) {
-      return L.marker(wp.latLng)
-        .bindPopup(stepTitles[i]).on('click', function (e) {
-          // Custom click event logic here
-
-          stepAccess(i)
-          hideMarker(i)
-        });;
-    },
-    createMarker: function(i, waypoint, n) {
-        return L.marker(waypoint.latLng, {
-            draggable: false,
-            bounceOnAdd: false,
-            bounceOnAddOptions: {
-                duration: 1000,
-                height: 800,
-                function() {
-                    // Optional: Open a popup when the marker bounces
-                }
-            },
-            icon: customIcon // Use the custom icon defined earlier
-        });
-    },
-    lineOptions: {
-        styles: [{color: '#754043', opacity: .8, weight: 3}] // Set the color of the route line
-    },
-    // geocoder: L.Control.Geocoder.nominatim(),
-    addWaypoints: false,
-    draggableWaypoints: false,
-    showInstructions: false,
-  }).addTo(map);
-
-
-  // control.setWaypoints([46.778186, 6.641524], [46.778186, 6.641524]);
-  // control.spliceWaypoints(0, 3)
-  // control.setWaypoints(waypoints);
-
-  // control.setWaypoints([46.778186, 6.641524], [46.778186, 6.641524]);
-
-  L.Control.geocoder().addTo(map);
-
-});
-
-
-console.log(itinerary);
 </script>
 
 <template>
-
+  
   <div class="md:mr-[15%] md:ml-[15%]">
-  <div>
-    <div v-if="routeItinerary" :style="{ 'background-image': 'url(storage/images/' + itinerary.image.url + ')' }"
+  <div>   
+    <div v-if="routeItinerary" :style="{ 'background-image': 'url(storage/images/' + itinerary?.image.url + ')' }"
       class="bg-center w-full h-[250px] p-4 flex">
       <button @click="$router.go(-1)" class="mr-auto bg-tv-eggshell rounded-full w-[28px] h-[28px] flex justify-center items-center"
         aria-label="Retour">
@@ -138,7 +58,7 @@ console.log(itinerary);
   </div>
   <div class="p-4">
     <ul class="mt-[-2rem] flex gap-3">
-        <li v-for="tag in itinerary.tag_categorie" :key="tag.id" class="bg-tv-eggshell rounded-full w-[28px] h-[28px] flex justify-center items-center" aria-label="tag.taxonomy.name">
+        <li v-for="tag in itinerary?.tag_categorie" :key="tag.id" class="bg-tv-eggshell rounded-full w-[28px] h-[28px] flex justify-center items-center" aria-label="tag.taxonomy.name">
                     <img :src="`storage/icons/${tag.taxonomy.icon}`" :alt="tag.taxonomy.description" style="width: 20px; height: 20px;">
                 </li>
     </ul>
@@ -146,7 +66,7 @@ console.log(itinerary);
     <div class="flex justify-between">
       <h1 class="h3 text-tv-wine">
         <span v-if="routeItinerary">
-          {{ itinerary.name }}
+          {{ itinerary?.name }}
         </span>
         <span v-else>
           {{ step.name }}
@@ -166,7 +86,7 @@ console.log(itinerary);
       <div class="w-1 h-1 mt-[.3rem] bg-tv-wine rounded-full"></div>
       <div class="flex items-center gap-1 text-tv-wine">
         <Footprints stroke="#754043" :size="18" />
-        <p aria-label="Difficulté du parcours">{{ itinerary.difficulty }}</p>
+        <p aria-label="Difficulté du parcours">{{ itinerary?.difficulty }}</p>
       </div>
     </div>
     <div v-else class="flex items-center gap-2 mb-16 text-tv-wine">
@@ -189,7 +109,7 @@ console.log(itinerary);
           <p>Durée
           </p>
         </div>
-        <p><time>{{itinerary.estimated_time}}</time></p>
+        <p><time>{{itinerary?.estimated_time}}</time></p>
       </div>
 
       <div class="flex flex-col items-center flex-wrap">
@@ -205,7 +125,7 @@ console.log(itinerary);
 
     <div class="mb-16">
       <h3 class="text-tv-wine">Description</h3>
-      <p v-if="routeItinerary">{{ itinerary.description}}</p>
+      <p v-if="routeItinerary">{{ itinerary?.description}}</p>
       <p v-else>{{ step.description }}</p>
     </div>
     <div class="mb-16">
@@ -217,7 +137,7 @@ console.log(itinerary);
     <div v-if="routeItinerary" class="text-tv-wine">
       <h3>Accessibilité</h3>
       <ul class="flex flex-col gap-3">
-        <li v-for="tag in itinerary.tag_accessibility" :key="tag.id" class="flex items-center gap-1">
+        <li v-for="tag in itinerary?.tag_accessibility" :key="tag.id" class="flex items-center gap-1">
                     <img :src="`storage/icons/${tag.taxonomy.icon}`" :alt="tag.taxonomy.description" >
                     <p>{{ tag.taxonomy.name }}</p>
                 </li>
