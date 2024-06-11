@@ -4,11 +4,11 @@ import { reactive } from 'vue';
 
 export const isDesktop = reactive({});
 
-isDesktop.value = window.innerWidth > 1200;
+isDesktop.value = window.innerWidth > 768;
 
 // Function to update the internal state based on the current viewport width
 function updateVisibilityStatus() {
-    isDesktop.value = window.innerWidth > 1200;
+    isDesktop.value = window.innerWidth > 768;
 //   ccheckout onsole.log(isDesktop.value);
 }
 

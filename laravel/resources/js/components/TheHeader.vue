@@ -5,7 +5,7 @@ import TheNavDesktop from './TheNavDesktop.vue';
 </script>
 
 <template>
-<header>
+<header class="desktop-header w-full max-w-[1240px]">
     <TheNav />
     <TheNavDesktop />
 

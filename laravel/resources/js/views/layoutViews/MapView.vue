@@ -1,207 +1,151 @@
-<script setup>
-import { ref, onMounted, computed } from 'vue';
-import { useRouter, useRoute } from 'vue-router';
-import SearchBar from '../../components/TheSearch.vue';
-
-import "leaflet/dist/leaflet.css"
-import * as L from 'leaflet';
-import 'leaflet-routing-machine';
-import 'leaflet-routing-machine/dist/leaflet-routing-machine.css';
-import 'leaflet-control-geocoder/dist/Control.Geocoder.js';
-import 'leaflet-control-geocoder/dist/Control.Geocoder.css';
-import 'lrm-graphhopper';
-import { storeItineraries } from '../../stores/StoreItineraries.js';
-import { storeItinerary, storeItineraryById } from '../../stores/StoreItinerary.js';
-// https://medium.com/@smhabibjr/implement-an-interactive-map-in-the-vue-js-8a865010fb41
-
-// https://github.com/perliedman/lrm-graphhopper
-// const initialMap = ref(null);
-
-// https://docs.graphhopper.com/#operation/getRoute
-const itineraries = async () => {
-  return await storeItineraries.itineraries;
-};
-const route = useRoute();
-const router = useRouter();
-
-// Declare itinerariesOnMap as a ref
-let itinerariesOnMap = [
-
-
-];
-
-// Function to resolve data and push each item into itinerariesOnMap
-const resolveData = async () => {
-  const resolvedValue = await itineraries();
-  resolvedValue.forEach(item => {
-    itinerariesOnMap.push(
-      {
-        id: item.id,
-        name: item.name,
-        description: item.description,
-        markers: item.markers.map(marker => [marker[0], marker[1]])
-        // markers: item.markers.map(marker => L.marker([marker[0], marker[1]]))
-      }
-    );
-  });
-  
-
-  console.log('Populated itinerariesOnMap:', itinerariesOnMap);
-  let map = L.map('map').setView([46.5850967, 6.55], 8);
-  let mapInfoContainer = document.getElementById('map-info');
-  let mapInfoTitle = document.getElementById('map-infoTitle');
-  let mapInfoDesc = document.getElementById('map-infoDesc');
-  let mapInfoBtn = document.getElementById('map-infoBtn');
-
-  // add a tile layer to add to our map
-  L.tileLayer('http://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png', {
-    attribution: '© OpenStreetMap contributors'
-  }).addTo(map);
-
-  var customIcon = L.icon({
-    iconUrl: '/images/map/marker.png',
-    iconSize: [38, 38], // size of the icon
-    shadowSize: [50, 64], // size of the shadow
-    iconAnchor: [19, 38], // point of the icon which will correspond to marker's location
-    // shadowAnchor: [4, 62],  // the same for the shadow
-    // popupAnchor:  [-3, -76] // point from which the popup should open relative to the iconAnchor
-  });
-
-  // Declare a marker
-  // let marker = L.marker([46.78, 6.6442309]).addTo(map);
-
-
-  let filterStartMarker = (itineraries) => {
-    let newArray = [];
-    itineraries.forEach(element => {
-      newArray.push({
-        id: element.id,
-        description: element.description,
-        marker: element.markers[0]
-      });
-    });
-    return newArray;
-  };
-
-  let displayItineraryRoute = (markerData, itineraries) => {
-    let itinerary = itineraries.find(itinerary => itinerary.id === markerData.id);
-    let waypoints = itinerary.markers.map(marker => L.latLng(marker[0], marker[1])); 
-    // let waypoints = itinerary.markers.map(marker => L.marker([marker[0], marker[1]], {icon: customIcon})).map(marker => marker.getLatLng());
-    console.log(waypoints);      
-    mapInfoTitle.textContent = itinerary.name;
-    mapInfoDesc.textContent = itinerary.description;
-    mapInfoBtn.addEventListener('click', () => {
-      router.push(`/itinerary/${itinerary.id}`);
-    });
-    mapInfoContainer.classList.remove('hidden');    
-
-    // Remove other markers from the map
-    markersOnMap.forEach(marker => map.removeLayer(marker));
-    markersOnMap = [];
-
-    // Remove the routing control from the map on click
-    let onMapClick = (e) => {
-      map.removeControl(control);
-      addMarkersToMap(firstMarkers, itinerariesOnMap);
-      mapInfoContainer.classList.add('hidden');
-    }
-    // Attach the click event listener to the map
-    map.on('click', onMapClick);
-
-
-    let control = L.Routing.control({
-      waypoints,
-      createMarker: function(i, waypoint, n) {
-        return L.marker(waypoint.latLng, {
-            draggable: false,
-            bounceOnAdd: false,
-            bounceOnAddOptions: {
-                duration: 1000,
-                height: 800,
-                function() {
-                    // Optional: Open a popup when the marker bounces
-                }
-            },
-            icon: customIcon // Use the custom icon defined earlier
-        });
-    },
-    lineOptions: {
-        styles: [{color: '#754043', opacity: .8, weight: 3}] // Set the color of the route line
-    },
-      serviceUrl: "http://routing.openstreetmap.de/routed-foot/route/v1",
-      language: 'fr',
-    }).addTo(map);
-
-  };
-
-  let addMarkersToMap = (markers, itineraries) => {
-    markers.forEach(markerData => {
-      let marker = L.marker(markerData.marker, { icon: customIcon }).addTo(map);
-      markersOnMap.push(marker);
-      marker.on('click', () => displayItineraryRoute(markerData, itineraries));
-    });
-  };
-
-
-
-  let firstMarkers = filterStartMarker(itinerariesOnMap);
-  let markersOnMap = [];
-
-  addMarkersToMap(firstMarkers, itinerariesOnMap);
-
-  let control = L.Routing.control({
-    // router: new L.Routing.GraphHopper(orsToken),
-    serviceUrl: "https://routing.openstreetmap.de/routed-foot/route/v1",
-    language: 'fr',
-    // serviceUrl: `https://graphhopper.com/api/1/route?key=1894ebf9-bfe5-4ab1-80b2-e8ccf733ab5e`,
-    // waypoints: [
-    //   L.latLng(46.777933, 6.6442309),
-    //   L.latLng(46.7779608, 6.6306562)
-    // ],
-
-    routeWhileDragging: false,
-    geocoder: L.Control.Geocoder.nominatim(),
-    addWaypoints: false,
-    reverseWaypoints: false,
-    showInstructions: false,
-    profile: 'foot'
-  }).addTo(map);
-
-  // let waypoints = control.getWaypoints();
-  // console.log(waypoints);
-
-  L.Control.geocoder().addTo(map);
-};
-
-// Call resolveData when the component is mounted
-onMounted(async () => {
-  await resolveData();
-});
-
-
-
-onMounted(() => {
-
-
-
-});
-
-
-
-</script>
-
 <template>
   <div class="p-4">
-    <SearchBar />
-    <div id="map" class="map map-fullscreen map-noUi map-noZoom map-noSearch"></div>
-
-    <!-- {{ itinerary }} -->
-    <div id="map-info"
-      class="hidden fixed bottom-3 left-1/2 translate-x-[-50%] z-50 w-[calc(100%-2rem)] min-h-24 bg-tv-eggshell p-4 rounded-3xl shadow-tv flex flex-col">
-      <p id="map-infoTitle" class="h3">lolilol</p>
-      <p id="map-infoDesc">asfjhasdifosdafjiasfd</p>
-      <button id="map-infoBtn" class="btn mt-4 self-center">Voir le parcours</button>
-    </div>
+    <SearchBar v-model="searchQuery" />
+    
+    <div id="map" class="map-fullscreen map-noUi"></div>
+    <MapModal v-if="modalIsVisible" >
+      <template #title>Super Cool</template>
+      <template #desc>Cool</template>
+    </MapModal>
   </div>
-
+  
 </template>
+
+<script>
+import { ref, onMounted, reactive } from 'vue';
+
+import L from 'leaflet';
+import 'leaflet/dist/leaflet.css';
+import 'leaflet-routing-machine';
+import SearchBar from '../../components/TheSearch.vue';
+import MapModal from '../../components/MapModal.vue';
+import { storeMap } from '../../stores/storeMap.js';
+
+
+export default {
+  components: {
+    SearchBar,
+    MapModal, 
+  },
+  setup() {
+    const mapInstance = ref(null);
+    const routingControl = ref(null);
+    const modalIsVisible = ref(false);
+
+    function toggleModalVisibility() {
+    modalIsVisible.value =!modalIsVisible.value; // Toggle the visibility
+  }
+
+    // Data from itineraries API
+    const itineraries = ref([
+      [[51.505, -0.09], [51.51, -0.1], [51.52, -0.08]], // Itinerary 1
+      [[51.5, -0.1], [52.48, 13.40], [52.45, 13.35]], // Itinerary 2
+      [[51.51, -0.08], [50.5, 11.40], [50.45, 14.35]]
+    ]);
+
+    // Sotre the first points of each itineraries to use later as markers
+    const firstPointOfEachItineraries = ref(itineraries.value.map(itinerary => itinerary[0]));
+
+    // We set the const markers to use in map manipulation
+    // Is used later in onMounted to display markers on map
+    const initialMarkers = ref(firstPointOfEachItineraries.value);
+
+    const waypoints = ref([]);
+    const newWaypoints = ref([]);
+
+    // used to get the itinerary based on the clicked marker index
+    function getItineraryByIndex(index) {
+      return itineraries.value[index - 1];
+    }
+
+    onMounted(() => {     
+      // Create map instance
+      // mapInstance.value = L.map('map').setView(initialMarkers.value[0], 13);
+      mapInstance.value = L.map('map').setView(storeMap.setViewLondon, storeMap.ZoomDefault);
+      L.tileLayer('http://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png', {
+        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+      }).addTo(mapInstance.value);
+
+      // Create routing control (routing machine)
+      routingControl.value = L.Routing.control({        
+        serviceUrl: "http://routing.openstreetmap.de/routed-foot/route/v1",
+        language: 'fr',      
+      }).addTo(mapInstance.value);
+
+      // Display markers/first points from markers array
+      createMarkers();
+      // click event on the map to remove waypoints
+      clikOnMap();
+    });
+
+    function createMarkers() {
+      initialMarkers.value.forEach((marker, index) => {
+        
+        const singleMarker = L.marker(marker).addTo(mapInstance.value);
+        singleMarker.on('click', () => {
+          // Update the waypoints array with the new itinerary based on the clicked marker index
+          newWaypoints.value = getItineraryByIndex(index + 1).map(coords => L.latLng(...coords));
+          // alert(`Marker ${index + 1} clicked`);
+          displayWaypoints(newWaypoints);                          
+          toggleModalVisibility();              
+        });
+      });
+    }
+
+    // map click to remove waypoints and revert to initial markers
+    function clikOnMap() {
+      mapInstance.value.on('click', function (e) {
+        // alert(`You clicked the map at ${e.latlng}`);
+        modalIsVisible.value ? toggleModalVisibility() : null;
+        const map = mapInstance.value;
+
+        // Remove all overlays (including the route polyline)
+        map.eachLayer(function (layer) {
+          if (layer instanceof L.LayerGroup || layer instanceof L.FeatureGroup) {
+            layer.remove();
+          }
+        });   
+        // remove reamaining markers
+        mapInstance.value.eachLayer(function (layer) {
+        if (layer instanceof L.Marker) {
+          layer.remove();
+        }
+      });           
+        // Display markers/first points from markers array
+        createMarkers();
+      });
+
+    }
+
+    // Create a new instance of routing that will be used in the click event of the markers to display the new itinerary
+    function displayWaypoints(newWaypoints) {
+      // Remove existing markers
+      mapInstance.value.eachLayer(function (layer) {
+        if (layer instanceof L.Marker) {
+          layer.remove();
+        }
+      });
+
+      // Update the waypoints array
+      waypoints.value = newWaypoints.value;
+
+      // Re-initialize the routing control with the updated waypoints
+      // Note: Depending on your setup, you might need to destroy the existing routing control before re-initializing it.
+      routingControl.value = L.Routing.control({
+        waypoints: waypoints.value,
+        serviceUrl: "http://routing.openstreetmap.de/routed-foot/route/v1",
+        language: 'fr',
+      }).on('waypointcreated', function (e) {
+        const marker = L.marker(e.waypoint.latlng).addTo(mapInstance.value);
+        // Customize the marker as needed
+      }).addTo(mapInstance.value);
+    }
+
+    // setTimeout(() => {
+    //   displayWaypoints(newWaypoints);
+    // }, 2000);
+
+    return { mapInstance, initialMarkers, modalIsVisible };
+  },
+};
+</script>

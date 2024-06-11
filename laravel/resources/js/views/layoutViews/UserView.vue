@@ -36,12 +36,14 @@ export default {
       <button @click="$router.go(-1)" class="mr-auto btn-iconContainer" aria-label="Retour">
         <CircleX aria-hidden="true" :size="32" />
       </button>
-      <button @click="() => { logOut(), $router.push('/') }" class="btn-iconContainer" aria-label="Se déconnecter">
+      <div class="flex gap-4 md:flex-col">
+        <button @click="() => { logOut(), $router.push('/') }" class="btn-iconContainer" aria-label="Se déconnecter">
         <LogOut aria-hidden="true" :size="32" />
       </button>
       <router-link to="/user/edit" aria-label="Editer le profile" class="btn-iconContainer">
         <Pencil aria-hidden="true" :size="32" />
       </router-link>
+      </div>     
     </div>
     <div class="mb-1 flex justify-center">
       <div class="max-w-40 max-h-40 h-40 w-40">

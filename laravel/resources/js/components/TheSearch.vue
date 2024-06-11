@@ -4,6 +4,7 @@ import Filters from '@/components/TheFilters.vue';
 import { storeCategories } from '../stores/StoreItineraryCategories.js';
 import { useSelectedCategoryStore } from '../stores/StoreSelectedCategories.js';
 import { UserLocalStorage } from '../classes/UserLocalStorage.js'
+import { isDesktop } from '../utils/Breakpoints.js'
 const currentUser = new UserLocalStorage()
 
 const categories = computed(() => storeCategories.categories);
@@ -49,10 +50,12 @@ const handleCategoryClick = (categoryId, selectAllCondition = false) => {
 
 <template>
     <div class="sticky z-50 top-4 mb-9">
-        <div class="mb-2 flex justify-between gap-2">
-            <input id="searchInput" class="btn grow" type="text" v-model="searchQuery" placeholder="Rechercher" />
+        <div class="mb-2 flex justify-between gap-2 md:justify-center">
+          <div class="relative grow md:max-w-md">
+            <input id="searchInput" class="btn w-full" type="text" v-model="searchQuery" placeholder="Rechercher" />
             <Filters />
-            <router-link aria-label="Profile utilisateur" to="/user/profile">
+          </div>
+            <router-link v-if="!isDesktop.value" aria-label="Profile utilisateur" to="/user/profile">
               <div class="max-w-12 h-full">
                 <img class="h-full rounded-full object-cover" :src="currentUser.getUserImageProfile()" alt="">
               </div>               
@@ -60,7 +63,7 @@ const handleCategoryClick = (categoryId, selectAllCondition = false) => {
         </div>
 
         <div>
-            <ul class="overflow-scroll w-[calc(100%+2rem)] pl-4 ml-[-1rem] pb-4 mb-[-1rem] flex gap-1.5">
+            <ul v-if="!isDesktop.value" class="overflow-scroll w-[calc(100%+2rem)] pl-4 ml-[-1rem] pb-4 mb-[-1rem] flex gap-1.5">
                 <li class="shrink-0">
 <button @click="handleCategoryClick(null)" :class="{'active': selectedCategory.length === 0}" class="btn flex items-center gap-2">
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="black"

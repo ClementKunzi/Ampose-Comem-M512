@@ -1,6 +1,6 @@
 <script setup>
 import { ref, computed, watch, onMounted } from 'vue';
-import { Filter, CircleX } from 'lucide-vue-next';
+import { Filter, X } from 'lucide-vue-next';
 import { storeCategories } from '../stores/StoreItineraryCategories.js'
 import { useSelectedCategoryStore } from '../stores/StoreSelectedCategories.js'
 import { storeAccessibility } from '../stores/StoreAccessibility.js';
@@ -73,10 +73,10 @@ const isOneFilterSelected = computed(() => selectedCategory1.value.length > 0 ||
 
 <template>
     <button aria-label="menu de catégories" @click="isButtonClicked = !isButtonClicked"
-        class="absolute right-[74px] top-[16px]">
-        <Filter v-if="!isButtonClicked && !isFilterSelected" stroke="#754144" :size="16" />
-        <Filter v-if="!isButtonClicked && isFilterSelected" fill="#754144" stroke=none :size="16" />
-        <CircleX v-if="isButtonClicked" stroke="#754144" :size="16" />
+        class="absolute right-5 top-[16px]">
+        <Filter v-if="!isButtonClicked && !isFilterSelected" stroke="#754144" :size="20" />
+        <Filter v-if="!isButtonClicked && isFilterSelected" fill="#754144" stroke=none :size="20" />
+        <X v-if="isButtonClicked" stroke="#754144" :size="20" />
     </button>
     <div v-if="isButtonClicked"
         class="absolute top-14 left-0 p-6 w-full bg-tv-eggshell rounded-3xl border-2 border-solid border-tv-wine text-tv-wine flex flex-col gap-6">
