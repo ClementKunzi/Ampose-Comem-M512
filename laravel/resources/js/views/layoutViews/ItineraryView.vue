@@ -188,7 +188,7 @@ onMounted(() => {
   @click="changeFavorite(itinerary.id)"
 >
   <Bookmark 
-    :fill="isFavoriteState? 'transparent' : '#754043'" 
+    :fill="isFavoriteState? '#754043' : 'transparent'" 
     stroke="#754043"
     :size="18" 
   />
