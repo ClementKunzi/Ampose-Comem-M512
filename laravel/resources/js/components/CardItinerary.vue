@@ -2,6 +2,14 @@
 import { defineProps, defineEmits } from 'vue';
 import { Bookmark, Star } from 'lucide-vue-next';
 import ManageFavorite from '../utils/ManageFavorite.js';
+import { getLocalStorageUser } from '../utils/LocalStorageUser.js';
+
+// Function to check if user is logged in
+const isLoggedIn = () => {
+  const user = getLocalStorageUser();
+  return user && user.userConnexion && user.userConnexion.accessToken !== null;
+};
+
 
 const props = defineProps({
   itinerary: Object,

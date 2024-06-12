@@ -5,13 +5,14 @@ import { useRoute, useRouter } from 'vue-router';
 import { Bookmark, Share, Download, Star, MapPin, Footprints, Route, Clock, Mountain, Accessibility, TriangleAlert, SquareArrowOutUpRight, ChevronDown, ChevronUp, X } from 'lucide-vue-next';
 import { hideMarker } from "../../utils/MarkersVisibility.js";
 
-//gestion  des favoris
-import  ManageFavorite  from '../../utils/ManageFavorite.js'; 
+//gestion des favoris
+import ManageFavorite from '../../utils/ManageFavorite.js'; 
 import { getFavorites } from '../../stores/StoreFavoriteIcon.js';
-import { toggleFavorite } from '../../stores/StoreFavoriteIcon.js';
 import { getFavoritesFromId } from '../../stores/StoreFavoriteIcon.js';
+import { getLocalStorageUser } from '../../utils/LocalStorageUser';
+import { ApiGetFavorites } from '../../utils/apiCalls/ApiGetFavorites';
 
-import "leaflet/dist/leaflet.css"
+import "leaflet/dist/leaflet.css";
 import * as L from 'leaflet';
 import 'leaflet-routing-machine';
 import 'leaflet-routing-machine/dist/leaflet-routing-machine.css';
@@ -33,10 +34,6 @@ const props = defineProps({
 });
 
 const isFavorite = computed(() => getFavorites().some(favorite => favorite.itinerary_id === props.itinerary?.id));
-
-const isFavoriteById = computed(() => {
-  return getFavorites().some(favorite => favorite.itinerary_id === itineraryId.value);
-});
 
 
 const itinerary = computed(() => storeItinerary.itinerary.data);
@@ -84,11 +81,7 @@ const changeFavorite = (itineraryId) => {
   }
 };
 
-
-
 const fillFavorite = (itineraryId) => {
-  console.log(props.itinerary?.id);
-  console.log(itineraryId);
   getFavoritesFromId(itineraryId);
 };
 hideMarker(stepId);
@@ -325,3 +318,4 @@ const buttonText = ref('Afficher plus de commentaires');
   
 
 </template>
+
