@@ -26,6 +26,19 @@
 import { ref, defineExpose } from 'vue'; // Import defineExpose
 import axios from 'axios';
 import { register } from '@/utils/apiCalls/apiCalls.js';
+import { useRouter } from 'vue-router';
+
+
+const router = useRouter();
+
+const submitForm = async () => {
+  // Existing registration logic...
+  if (response.data.success) { // Assuming the API returns a success flag
+    router.push('/dashboard'); // Redirect to dashboard or desired page
+    emit('registerSuccess');
+  }
+};
+
 
 const formFields = [
   { name: 'userName', label: 'Nom d\'utilisateur', value: 'Jimbo', type: 'text', placeholder: 'Username', isValid: true },

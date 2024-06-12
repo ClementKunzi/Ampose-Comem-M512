@@ -1,7 +1,8 @@
 <script setup>
-import { ref } from 'vue';
+import { ref, onMounted } from 'vue';
 import { useRouter } from 'vue-router';
 import { MapPinned, Castle, Route, Smile, Droplet, TriangleAlert } from 'lucide-vue-next';
+import Cookies from 'js-cookie';
 
 const currentStep = ref(0);
 const router = useRouter();
@@ -13,6 +14,21 @@ function nextStep() {
 const redirectToHome = () => {
   window.location.href = 'http://localhost:8000/#/';
 };
+
+onMounted(() => {
+  // Check if the user has completed the onboarding process within the last 30 days
+  if (Cookies.get('onboarding_completed') && new Date(Cookies.get('onboarding_last_seen')) > new Date(new Date().getTime() - 30 * 24 * 60 * 60 * 1000)) {
+    // Redirect to home or skip the onboarding process
+    redirectToHome();
+  }
+});
+
+// Function to mark the onboarding as completed
+function completeOnboarding() {
+  Cookies.set('onboarding_completed', 'true', { expires: 30 }); // Set the cookie to expire in 30 days
+  Cookies.set('onboarding_last_seen', new Date().toISOString()); // Record the last seen time
+  redirectToHome(); // Optionally redirect to home after completing the onboarding
+}
 
 </script>
 
@@ -89,7 +105,7 @@ const redirectToHome = () => {
       </div> -->
       
       <div class="flex flex-col items-center justify-center mt-auto">
-        <button class="btn" @click="redirectToHome">Explorez Maintenant</button>
+        <button class="btn" @click="completeOnboarding">Explorez Maintenant</button>
       </div>
     </div>
   </div>

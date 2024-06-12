@@ -17,11 +17,13 @@
 </template>
 
 <script setup>
-import { ref, defineExpose } from 'vue'; // Import defineExpose
+import { ref, defineExpose, defineEmit } from 'vue'; // Import defineExpose
 import axios from 'axios';
 import {logIn} from '@/utils/apiCalls/apiCalls.js';
 import { UserLocalStorage } from '@/classes/UserLocalStorage.js';
 
+
+const emit = defineEmit(['loginSuccess']);
 
 const formFields = [
     { name: 'email', label: 'Email', value: 'nicolas.aerny@cool.ch', type: 'email', placeholder: 'Email Address', isValid: true },
@@ -36,6 +38,8 @@ const submitForm = async () => {
 
         console.log('Response:', response.data);
         const accessToken = response.data.accessToken;
+
+        showModal.value = true;
 
         // Create an instance of UserLocalStorage
         const userLocalStorage = new UserLocalStorage();
@@ -64,7 +68,7 @@ const submitForm = async () => {
 
 
 
-
+        emit('loginSuccess');
         // Handle success (e.g., redirecting to another page)
     } catch (error) {
         console.error('Error:', error.response ? error.response.data : error.message);
