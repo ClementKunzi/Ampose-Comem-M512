@@ -6,9 +6,10 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\Api\ImageController;
 use App\Http\Controllers\Api\ItineraryTypeController;
 use App\Http\Controllers\Api\ItinerarySourceController;
-use App\Http\Controllers\Api\TagAccessibilityController;
-use App\Http\Controllers\Api\TagCategorieController;
-use App\Http\Controllers\Api\ItineraryDifficultyController;
+use App\Http\Controllers\API\TagAccessibilityController;
+use App\Http\Controllers\API\TagCategorieController;
+use App\Http\Controllers\API\ItineraryDifficultyController;
+use App\Http\Controllers\API\FavoriteController;
 use App\Models\TagAccessibility;
 use App\Models\TagCategorie;
 
@@ -69,5 +70,13 @@ Route::group(['prefix' => 'auth'], function () {
     Route::group(['middleware' => 'auth:sanctum'], function () {
         Route::get('logout', [AuthController::class, 'logout']);
         Route::get('user', [AuthController::class, 'user']);
+    });
+});
+
+Route::group(['prefix' => 'favorites'], function () {
+    Route::group(['middleware' => 'auth:sanctum'], function () {
+        Route::get('/{userId}', [FavoriteController::class, 'show']);
+        Route::post('/', [FavoriteController::class, 'store']);
+        Route::delete('/{id}', [FavoriteController::class, 'destroy']);
     });
 });

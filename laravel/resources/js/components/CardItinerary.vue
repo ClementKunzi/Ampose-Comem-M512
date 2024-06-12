@@ -1,11 +1,22 @@
 <script setup>
-import { defineProps, computed } from 'vue';
+import { defineProps, defineEmits } from 'vue';
 import { Bookmark, Star } from 'lucide-vue-next';
+import ManageFavorite from '../utils/ManageFavorite.js';
 
 const props = defineProps({
-    itinerary: Array,
+  itinerary: Object,
+  isFavoriteFilled: {
+    type: Boolean,
+    default: false,
+  },
 });
-// const imageUrl = computed(() => itinerary.image.url);
+
+const emit = defineEmits(['favoriteToggled']);
+
+const handleFavoriteClick = async () => {
+  await ManageFavorite(props.itinerary.id);
+  emit('favoriteToggled', props.itinerary.id); // Emit the event with the itinerary ID
+};
 </script>
 
 <template>
@@ -60,3 +71,4 @@ const props = defineProps({
 </template>
 
 <style scoped></style>
+
