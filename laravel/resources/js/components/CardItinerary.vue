@@ -2,6 +2,14 @@
 import { defineProps, defineEmits } from 'vue';
 import { Bookmark, Star } from 'lucide-vue-next';
 import ManageFavorite from '../utils/ManageFavorite.js';
+import { getLocalStorageUser } from '../utils/LocalStorageUser.js';
+
+// Function to check if user is logged in
+const isLoggedIn = () => {
+  const user = getLocalStorageUser();
+  return user && user.userConnexion && user.userConnexion.accessToken !== null;
+};
+
 
 const props = defineProps({
   itinerary: Object,
@@ -41,7 +49,8 @@ const handleFavoriteClick = async () => {
           <Star stroke="#f5f5f5" :size="18" />
           <p aria-label="Note du parcours sur 5">4.8</p>
         </div>
-        <button aria-label="Ajouter le parcours aux favoris" @click.prevent="handleFavoriteClick">
+        <!-- Conditionally render the button based on login status -->
+    <button v-if="isLoggedIn()" aria-label="Ajouter le parcours aux favoris" @click.prevent="handleFavoriteClick">
           <div class="bg-tv-wine rounded-full w-[28px] h-[28px] flex justify-center items-center" aria-hidden="true">
             <Bookmark :fill="isFavoriteFilled ? '#f5f5f5' : 'transparent'" stroke="#f5f5f5" :size="18" />
           </div>
