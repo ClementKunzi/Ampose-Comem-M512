@@ -122,7 +122,7 @@ export default {
             // Create routing control (routing machine)
             routingControl.value = L.Routing.control({
                 serviceUrl:
-                    "http://routing.openstreetmap.de/routed-foot/route/v1",
+                    "https://routing.openstreetmap.de/routed-foot/route/v1",
                 language: "fr",
             }).addTo(mapInstance.value);
 
@@ -250,7 +250,7 @@ export default {
                 waypoints: waypoints.value,
                 addWaypoints: false,
                 serviceUrl:
-                    "http://routing.openstreetmap.de/routed-foot/route/v1",
+                    "https://routing.openstreetmap.de/routed-foot/route/v1",
                 language: "fr",
             })
                 .on("waypointcreated", function (e) {

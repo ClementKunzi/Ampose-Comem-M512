@@ -117,9 +117,21 @@ const isFilterSelected = computed(
             :open="isOpen1"
             @toggle="toggleFilter"
         >
-            <summary class="cursor-pointer mb-6">
+            <summary class="summary-flex cursor-pointer mb-6">
                 <h3 class="body-bold-base">Catégories de Sentiers</h3>
-                <!-- <Home stroke="red" :size="30"  :class="{ 'rotate-180': isOpen1 }" /> -->
+                <svg
+                    class="chevron-icon ml-auto"
+                    :class="{ 'rotate-180': isOpen1 }"
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 20 20"
+                    fill="currentColor"
+                >
+                    <path
+                        fill-rule="evenodd"
+                        d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                        clip-rule="evenodd"
+                    />
+                </svg>
             </summary>
             <ul class="flex flex-wrap gap-y-4 mb-6">
                 <li
@@ -141,9 +153,21 @@ const isFilterSelected = computed(
             @toggle="toggleFilter"
             :open="isOpen2"
         >
-            <summary class="cursor-pointer mb-6">
+            <summary class="summary-flex cursor-pointer mb-6">
                 <h3 class="body-bold-base">Accessibilité</h3>
-                <!-- <Home stroke="red" :size="30"  :class="{ 'rotate-180': isOpen1 }" /> -->
+                <svg
+                    class="chevron-icon ml-auto"
+                    :class="{ 'rotate-180': isOpen2 }"
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 20 20"
+                    fill="currentColor"
+                >
+                    <path
+                        fill-rule="evenodd"
+                        d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                        clip-rule="evenodd"
+                    />
+                </svg>
             </summary>
             <ul class="flex flex-wrap gap-y-4 mb-6">
                 <li
@@ -171,28 +195,17 @@ const isFilterSelected = computed(
 </template>
 
 <style scoped>
+.summary-flex {
+    display: flex;
+    align-items: center; /* Centre verticalement le texte et l'icône */
+}
 .rotate-180 {
     transform: rotate(180deg);
 }
 
-details > summary {
-    position: relative;
-    display: flex;
-
-    &::after {
-        content: "";
-        background-image: url("images/svg/chevron-down.svg");
-        width: 24px;
-        height: 24px;
-        background-size: 24px 24px;
-        position: absolute;
-        right: 0;
-    }
-}
-
-details[open] > summary {
-    &::after {
-        transform: rotate(180deg);
-    }
+.chevron-icon {
+    width: 24px; /* Ajustez selon vos besoins */
+    height: 24px; /* Ajustez selon vos besoins */
+    transition: transform 0.2s; /* Animation douce */
 }
 </style>
