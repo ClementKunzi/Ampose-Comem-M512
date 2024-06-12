@@ -52,19 +52,6 @@ const emit = defineEmits(['requireNav']);
 const stepAccess = (id) => {
     router.push(`${route.fullPath}/step/${id + 1}`);
 };
-function downloadPdf() {
-    const route = "storage/itineraries/pdf/";
-    const nom = itinerary.value.pdf_url; // Modifié pour utiliser directement la variable réactive
-
-    // Concaténation de la route et du nom pour former le lien complet
-    const link = document.createElement("a");
-    link.href = `${route}${nom}`; // Modification ici pour inclure le nom dans le lien
-    link.setAttribute("download", `${nom}.pdf`);
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-  router.push(`${route.fullPath}/step/${id + 1}`);
-}
 
 function downloadPdf() {
     const route = "storage/itineraries/pdf/";
@@ -164,7 +151,7 @@ const buttonText = ref('Afficher plus de commentaires');
         <div class="w-1 h-1 mt-[.3rem] bg-tv-wine rounded-full"></div>
         <div class="flex items-center gap-1 text-tv-wine">
           <Footprints stroke="#754043" :size="18" />
-          <p aria-label="Difficulté du parcours">{{ itinerary?.difficulty }}</p>
+          <p aria-label="Difficulté du parcours" class="capitalize">{{ itinerary?.difficulty }}</p>
         </div>
       </div>
       <div v-else class="flex items-center gap-2 mb-16 text-tv-wine">
