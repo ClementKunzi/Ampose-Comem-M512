@@ -21,6 +21,12 @@ import { storeItineraries } from '../../stores/StoreItineraries.js';
 import { ApiGetItinerary } from '../../utils/apiCalls/ApiGetItinerary.js';
 import MapItinerary from '../../components/MapItinerary.vue';
 
+// Function to check if user is logged in
+const isLoggedIn = () => {
+  const user = getLocalStorageUser();
+  return user && user.userConnexion && user.userConnexion.accessToken !== null;
+};
+
 const route = useRoute();
 const router = useRouter();
 const routeItinerary = computed(() => {
@@ -157,7 +163,7 @@ const buttonText = ref('Afficher plus de commentaires');
   :aria-label="isFavoriteState? 'Supprimer des favoris' : 'Ajouter aux favoris'"
   @click="changeFavorite(itinerary.id)"
 >
-  <Bookmark 
+  <Bookmark v-if="isLoggedIn()"
     :fill="isFavoriteState? '#754043' : 'transparent'" 
     stroke="#754043"
     :size="18" 
