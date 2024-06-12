@@ -1,44 +1,70 @@
 <template>
-  <form @submit.prevent="() => {
-    register(
-    formFields[0].value,
-    formFields[1],
-    formFields[2].value,
-    formFields[3].value,
-    formFields[4].value,
-    formFields[5].value);
-    $router.push('/');
-  }">
+  <form @submit.prevent="handleSubmit">
     <div class="flex flex-col gap-6">
       <div v-for="(field, index) in formFields" :key="index">
         <label :for="field.name">{{ field.label }}</label>
-        <input v-if="field.type === 'file'" :id="field.name" :name="field.name" v-model.type="field.value" :type="field.type" accept="image/*" @change="updateImage" :placeholder="field.placeholder" />
-        <input v-else :id="field.name" :name="field.name" v-model.type="field.value" :type="field.type" :placeholder="field.placeholder" />
-
+        <input 
+          v-if="field.type === 'file'" 
+          :id="field.name" 
+          :name="field.name" 
+          type="file" 
+          accept="image/*" 
+          @change="updateImage($event, index)" 
+          :placeholder="field.placeholder" 
+          required 
+        />
+        <input 
+          v-else 
+          :id="field.name" 
+          :name="field.name" 
+          v-model="field.value" 
+          :type="field.type" 
+          :placeholder="field.placeholder" 
+          required 
+        />
+        <span v-if="errors && errors[field.name]" class="text-tv-eggshell flex gap-2 pt-2 items-center body-regular-sm"><TriangleAlert/>{{ errors[field.name][0] }}</span>
       </div>
       <button type="submit" class="btn self-center">S'inscrire</button>
     </div>
   </form>
-
 </template>
 
 <script setup>
-import { ref, defineExpose } from 'vue'; // Import defineExpose
-import axios from 'axios';
-import { register } from '@/utils/apiCalls/apiCalls.js';
+import { ref } from 'vue';
+import { useRouter } from 'vue-router';
+import { useUserStore } from '@/stores/StoreUser';
+import {TriangleAlert} from 'lucide-vue-next';
 
-const formFields = [
-  { name: 'userName', label: 'Nom d\'utilisateur', value: 'Jimbo', type: 'text', placeholder: 'Username', isValid: true },
-  { name: 'userImage', label: 'Image du profile', value: '', type: 'file', placeholder: '', isValid: true },
-  { name: 'lastName', label: 'Nom', value: 'Dugard', type: 'text', placeholder: 'Last Name', isValid: true },
-  { name: 'firstName', label: 'Prénom', value: 'Phil', type: 'text', placeholder: 'First Name', isValid: true },
-  { name: 'email', label: 'Email', value: 'nicolas.aerny@cool.com', type: 'email', placeholder: 'Email Address', isValid: true },
-  { name: 'password', label: 'Password', value: '12345678', type: 'password', isValid: true },
-];
+const { errors, performRegister } = useUserStore();
+const router = useRouter();
 
-const updateImage = (event) => {
-    formFields[1] = event.target.files[0];
+// Définition des champs de formulaire avec leurs types et valeurs initiales
+const formFields = ref([
+  { name: 'userName', label: 'Nom d\'utilisateur', type: 'text', placeholder: 'Username', isValid: true, value: '' },
+  { name: 'userImage', label: 'Image du profile', type: 'file', placeholder: '', isValid: true, file: null },
+  { name: 'lastName', label: 'Nom', type: 'text', placeholder: 'Last Name', isValid: true, value: '' },
+  { name: 'firstName', label: 'Prénom', type: 'text', placeholder: 'First Name', isValid: true, value: '' },
+  { name: 'email', label: 'Email', type: 'email', placeholder: 'Email Address', isValid: true, value: '' },
+  { name: 'password', label: 'Password', type: 'password', isValid: true, value: '' },
+]);
+
+const handleSubmit = async () => {
+  const success = await performRegister(
+    formFields.value[0].value,
+    formFields.value[1].file,
+    formFields.value[2].value,
+    formFields.value[3].value,
+    formFields.value[4].value,
+    formFields.value[5].value
+  );
+
+  if (success) {
+    // Redirection ou autre action après succès
+    router.push('/');
+  }
 };
 
-
+const updateImage = (event, index) => {
+  formFields.value[index].file = event.target.files[0];
+};
 </script>

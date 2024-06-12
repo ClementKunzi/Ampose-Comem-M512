@@ -7,7 +7,7 @@
             <div v-for="(field, index) in formFields" :key="index">
                 <label :for="field.name">{{ field.label }}</label>
                 <input :id="field.name" :name="field.name" v-model.type="field.value" :type="field.type"
-                    :placeholder="field.placeholder" />
+                    :placeholder="field.placeholder" required />
 
             </div>
             <button type="submit" class="btn self-center">Se connecter</button>
