@@ -17,7 +17,7 @@ import MapItinerary from '../../components/MapItinerary.vue';
 const route = useRoute();
 const router = useRouter();
 const routeItinerary = computed(() => {
-  return route.name === 'itinerary.view';
+    return route.name === "itinerary.view";
 });
 const stepId = computed(() => route.params.stepId - 1);
 
@@ -50,6 +50,19 @@ const steps = [];
 const emit = defineEmits(['requireNav']);
 
 const stepAccess = (id) => {
+    router.push(`${route.fullPath}/step/${id + 1}`);
+};
+function downloadPdf() {
+    const route = "storage/itineraries/pdf/";
+    const nom = itinerary.value.pdf_url; // Modifié pour utiliser directement la variable réactive
+
+    // Concaténation de la route et du nom pour former le lien complet
+    const link = document.createElement("a");
+    link.href = `${route}${nom}`; // Modification ici pour inclure le nom dans le lien
+    link.setAttribute("download", `${nom}.pdf`);
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
   router.push(`${route.fullPath}/step/${id + 1}`);
 }
 
