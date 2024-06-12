@@ -57,11 +57,11 @@
                 "image_description": "Image for step 3 of the itinerary 'Tour théâtral proche de Lausanne'"
             },
             {
-                "name": "Théâtre de l'Échandole",
-                "description": "Explorez le Théâtre de l'Échandole, un lieu de création et de diffusion théâtral situé dans le quartier du Flon.",
-                "address": "Place de l'Europe 1, 1003 Lausanne, Suisse",
-                "latitude": 46.778231943912694,
-                "longitude": 6.641499308507065,
+                "name": "Théâtre Boulimie",
+                "description": "Explorez le Théâtre Boulimie, un lieu de création et de diffusion théâtral situé dans le quartier de la Riponne.",
+                "address": "Pl. Marc-Louis-Arlaud, 1005 Lausanne, Suisse",
+                "latitude": 46.5226979748575,
+                "longitude": 6.63202662278486,
                 "order": 4,
                 "external_link": "",
                 "stepImage": "/image_step/tour-theatrale-de-lausanne/step4.jpg",
@@ -77,17 +77,6 @@
                 "external_link": "https://arsenic.ch/",
                 "stepImage": "/image_step/tour-theatrale-de-lausanne/step5.jpg",
                 "image_description": "Image for step 5 of the itinerary 'Tour théâtral proche de Lausanne'"
-            },
-            {
-                "name": "Théâtre de Vidy",
-                "description": "Commencez votre balade au Théâtre de Vidy, un lieu de création et de diffusion théâtral situé au bord du lac Léman.",
-                "address": "Avenue Emile Jaques-Dalcroze 5, 1007 Lausanne, Suisse",
-                "latitude": 46.512857105594044,
-                "longitude": 6.610835110872302,
-                "order": 6,
-                "external_link": "https://vidy.ch/",
-                "stepImage": "/image_step/tour-theatrale-de-lausanne/step6.jpg",
-                "image_description": "Image for step 6 of the itinerary 'Tour théâtral proche de Lausanne'"
             }
         ]
     },
@@ -536,17 +525,6 @@
                 "image_description": "Image for step 1 of the itinerary 'Vevey à travers les âges'"
             },
             {
-                "name": "Château de Chillon",
-                "description": "Visitez le Château de Chillon, situé à seulement 3 km de Vevey, un joyau de l'architecture médiévale qui a servi de scène à la pièce de théâtre 'La Princesse de Clèves'.",
-                "address": "Château de Chillon, 1820 Veyrier-du-Lac, Suisse",
-                "latitude": 46.414212563408086,
-                "longitude": 6.9274839161924575,
-                "order": 2,
-                "external_link": "https://www.chillon.ch/",
-                "stepImage": "/image_step/vevey-a-travers-les-ages/step2.jpg",
-                "image_description": "Image for step 2 of the itinerary 'Vevey à travers les âges'"
-            },
-            {
                 "name": "Musée de l'Alimentation",
                 "description": "Découvrez le Musée de l'Alimentation, qui retrace l'histoire de l'alimentation à travers les âges et propose des expositions interactives.",
                 "address": "Quai Perdonnet 25, 1800 Vevey, Suisse",
@@ -556,28 +534,6 @@
                 "external_link": "https://www.alimentarium.org/fr",
                 "stepImage": "/image_step/vevey-a-travers-les-ages/step3.jpg",
                 "image_description": "Image for step 3 of the itinerary 'Vevey à travers les âges'"
-            },
-            {
-                "name": "Fondation Pierre Gianadda",
-                "description": "Visitez la Fondation Pierre Gianadda, qui abrite des expositions temporaires d'art classique et moderne, ainsi que des sculptures romaines.",
-                "address": "Route de Lavaux 136, 1800 Vevey, Suisse",
-                "latitude": 46.09518974523818,
-                "longitude": 7.07086745943281,
-                "order": 4,
-                "external_link": "https://www.fondationgianadda.ch/",
-                "stepImage": "/image_step/vevey-a-travers-les-ages/step4.jpg",
-                "image_description": "Image for step 4 of the itinerary 'Vevey à travers les âges'"
-            },
-            {
-                "name": "Promenade de la Treille",
-                "description": "Profitez d'une promenade paisible le long de la Promenade de la Treille, offrant des vues spectaculaires sur le lac Léman et les montagnes.",
-                "address": "Promenade de la Treille, 1800 Vevey, Suisse",
-                "latitude": 46.20041738065914,
-                "longitude": 6.146259496662884,
-                "order": 5,
-                "external_link": "",
-                "stepImage": "/image_step/vevey-a-travers-les-ages/step5.jpg",
-                "image_description": "Image for step 5 of the itinerary 'Vevey à travers les âges'"
             },
             {
                 "name": "Église St-Martin",
@@ -808,26 +764,26 @@
                 "image_description": "Image for step 2 of the itinerary 'Parcours des vignobles et de l'histoire du Lavaux'"
             },
             {
+                "name": "Domaine Wannaz",
+                "description": "Faites une pause au Domaine Wannaz pour profiter d'une magnifique vue sur le Léman.",
+                "address": "La Tour de Chenaux, 1091 Chenaux, Suisse",
+                "latitude": 46.4947449431434,
+                "longitude": 6.7289266871468945,
+                "order": 3,
+                "external_link": "",
+                "stepImage": "/image_step/parcours-des-vignobles-et-de-lhistoire-du-lavaux/step4.jpg",
+                "image_description": "Image for step 4 of the itinerary 'Parcours des vignobles et de l'histoire du Lavaux'"
+            },
+            {
                 "name": "Domaine Bovy, Rivaz",
                 "description": "Marchez jusqu'à Rivaz pour une visite au Domaine Bovy, où vous pourrez déguster des vins locaux tout en appréciant une vue imprenable sur le lac Léman.",
                 "address": "Route de la Corniche 2, 1071 Rivaz, Suisse",
                 "latitude": 46.48021739840303,
                 "longitude": 6.77999817691416,
-                "order": 3,
+                "order": 4,
                 "external_link": "https://www.domaine-bove.ch/",
                 "stepImage": "/image_step/parcours-des-vignobles-et-de-lhistoire-du-lavaux/step3.jpg",
                 "image_description": "Image for step 3 of the itinerary 'Parcours des vignobles et de l'histoire du Lavaux'"
-            },
-            {
-                "name": "Maison de la Dîme, Cully",
-                "description": "Descendez à Cully pour visiter la Maison de la Dîme, un bâtiment historique transformé en espace culturel, offrant une exposition permanente sur la viticulture locale.",
-                "address": "Grand-Rue 10, 1096 Cully, Suisse",
-                "latitude": 46.31491198362163,
-                "longitude": 6.9756884629796945,
-                "order": 4,
-                "external_link": "https://www.lavaux.ch/fr/culture-et-patrimoine/maison-de-la-dime-cully.html",
-                "stepImage": "/image_step/parcours-des-vignobles-et-de-lhistoire-du-lavaux/step4.jpg",
-                "image_description": "Image for step 4 of the itinerary 'Parcours des vignobles et de l'histoire du Lavaux'"
             },
             {
                 "name": "Retour à Lutry",

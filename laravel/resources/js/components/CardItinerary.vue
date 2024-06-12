@@ -5,7 +5,6 @@ import { Bookmark, Star } from 'lucide-vue-next';
 const props = defineProps({
     itinerary: Array,
 });
-// const imageUrl = computed(() => itinerary.image.url);
 </script>
 
 <template>
