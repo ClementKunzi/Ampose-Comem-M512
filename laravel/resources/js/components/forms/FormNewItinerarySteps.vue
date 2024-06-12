@@ -8,6 +8,8 @@ import "leaflet/dist/leaflet.css"
 import * as L from 'leaflet';
 import 'leaflet-routing-machine';
 import 'leaflet-routing-machine/dist/leaflet-routing-machine.css';
+import 'leaflet-control-geocoder/dist/Control.Geocoder.js';
+import 'leaflet-control-geocoder/dist/Control.Geocoder.css';
 
 const props = defineProps({
     isActive: Boolean,
@@ -21,21 +23,14 @@ let markerLat = ref(null);
 let markerLng = ref(null);
 const emits = defineEmits(['updateName, updateImage']);
 
-const formFields = reactive({
-    // id: props.index,
-    // name: '',
-    // image: '',
-    // image_description: '',
-    // coordinate: [markerLat, markerLng],
-    // description: '',
-    // link: '',
+const formFields = reactive({    
     id: props.index,
-    name: 'Cool',
+    name: '',
     image: '',
-    image_description: 'Jolie description',
+    image_description: '',
     coordinate: [markerLat, markerLng],
-    description: 'Jolie description les amis.',
-    link: 'https://cool.io',
+    description: '',
+    external_link: '',
 });
 
 watch(() => formFields.name, (newValue, oldValue) => {
@@ -171,7 +166,7 @@ onMounted(() => {
             </div>
             <div>
                 <label for="link">Lien utile:</label>
-                <input id="link" v-model="formFields.link" type="text" placeholder="https://cool.io" required />
+                <input id="link" v-model="formFields.external_link" type="text" placeholder="https://exemple.ch" required />
             </div>            
             <button type="submit" id="btn-itineraryStep" class="btn self-center z-[-10] w-0
             h-0 absolute">Submit</button>

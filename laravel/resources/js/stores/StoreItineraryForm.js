@@ -60,6 +60,8 @@ export const storeItineraryForm = reactive({
         data.append('image', this.main.image); // Assuming you're using Node.js for server-side code
         data.append('image_description', 'Image Description');
         data.append('pdf_url', 'https://r.mtdv.me/videos/HUcHKsy3Lw');
+        data.append('categories', this.main.category);
+        data.append('accessibilities', this.main.accessibility);
 
         // Adding steps
         for (let i = 0; i < this.steps.length; i++) {
@@ -72,10 +74,7 @@ export const storeItineraryForm = reactive({
             data.append(`steps[${i}][external_link]`, 'External Link Value');
             data.append(`steps[${i}][stepImage]`, this.steps[0].image);
             data.append(`steps[${i}][image_description]`,this.steps[0].image_description);
-            data.append(`steps[${i}][order]`, i);
-            // Adding tags
-            data.append(`tagCategories[${i}]`, 'Tag Category Value');
-            data.append(`tagAccessibilities[${i}]`, 'Tag Accessibility Value');
+            data.append(`steps[${i}][order]`, i);            
         }
 
 

@@ -90,11 +90,11 @@ class ItineraryController extends Controller
                 'image_id' => $image->id,
             ]);
 
-            $tagCategories = TagCategorie::find($request->input('tagCategories'));
+            $tagCategories = TagCategorie::find($request->input('categories'));
             $itinerary->tagCategorie()->attach($tagCategories);
 
             // Ajouter les tags d'accessibilité à l'itinéraire
-            $tagAccessibilities = TagAccessibility::find($request->input('tagAccessibilities'));
+            $tagAccessibilities = TagAccessibility::find($request->input('accessibilities'));
             $itinerary->tagAccessibility()->attach($tagAccessibilities);
 
             // Update additional attributes if present in the validated data

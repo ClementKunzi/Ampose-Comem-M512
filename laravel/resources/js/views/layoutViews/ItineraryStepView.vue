@@ -1,7 +1,7 @@
 <script setup>
 import { useRoute } from 'vue-router';
 import MapItineraryStep from '../../components/MapItineraryStep.vue';
-import { ExternalLink } from 'lucide-vue-next';
+import { ExternalLink, ArrowLeft } from 'lucide-vue-next';
 
 const itinerary = JSON.parse(localStorage.getItem('currentItinerary'));
 
@@ -13,9 +13,17 @@ console.log('step', step);
 
 </script>
 <template>  
+<div class="md:mr-[15%] md:ml-[15%]">
   <div :style="{ 'background-image': 'url(storage/images/' + step.images[0].url + ')' }"
-    class="bg-center w-screen h-[250px] p-4 flex">
-  </div>
+        class="bg-center bg-no-repeat bg-cover
+         w-full h-[250px] p-4 flex">
+        <button @click="$router.go(-1)" class="mr-auto btn-iconContainer flex justify-center items-center"
+          aria-label="Retour">
+          <ArrowLeft aria-hidden="true" stroke="#754043" :size="18" />
+        </button>
+        
+        
+      </div>
   <div class="p-4">
     <div class="mb-16">
       <h1 class="h3 text-tv-wine">
@@ -43,6 +51,6 @@ console.log('step', step);
         Plus d'infos</a>
     </div>    
   </div>
-
+</div>
 
 </template>

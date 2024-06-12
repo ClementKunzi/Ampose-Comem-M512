@@ -1,18 +1,20 @@
 <script setup>
 import { ref, onMounted } from 'vue';
-import { useRouter } from 'vue-router';
+import { useRouter, useRoute } from 'vue-router';
 import { MapPinned, Castle, Route, Smile, Droplet, TriangleAlert } from 'lucide-vue-next';
 import Cookies from 'js-cookie';
 
 const currentStep = ref(0);
 const router = useRouter();
+const route = useRoute();
 
 function nextStep() {
   currentStep.value++;
 }
 
 const redirectToHome = () => {
-  window.location.href = 'http://localhost:8000/#/';
+  // window.location.href = 'http://localhost:8000/#/';
+  router.push(`/`);
 };
 
 onMounted(() => {

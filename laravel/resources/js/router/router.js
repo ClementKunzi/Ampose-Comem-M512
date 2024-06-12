@@ -73,6 +73,9 @@ const routes = [
         path: '/create',
         name: 'ItineraryCreationView',
         component: ItineraryCreationView,
+        meta: {
+            requiresAuth: true,
+        },
     },
     {
         path: '/create/steps',

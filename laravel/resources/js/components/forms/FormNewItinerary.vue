@@ -1,23 +1,30 @@
 <script setup>
-import { ref, reactive, defineExpose } from 'vue';
+import { ref, reactive, computed } from 'vue';
 import axios from 'axios';
 import { useRouter } from 'vue-router';
 import { storeItineraryForm } from '../../stores/StoreItineraryForm';
+import { storeCategories } from "../../stores/StoreItineraryCategories.js";
+import { storeDifficulty } from "../../stores/StoreItineraryDifficulty.js";
+import { storeAccessibilities } from "../../stores/StoreItineraryAccessibility.js";
 
 const router = useRouter();
+
+const categories = computed(() => storeCategories.categories);
+const difficulties = computed(() => storeDifficulty.difficulties);
+const accessibilities = computed(() => storeAccessibilities.accessibilities);
 
 const updateImage = (event) => {
     formFields.image = event.target.files[0];
 };
 
 const formFields = reactive({
-    name: 'Jean',
+    name: '',
     image: '',
-    category: 'Architectural',
-    accessibility: 'Pentu',
-    estimated_time: 35,    
-    difficulty: 'modérée',
-    description: 'Jolie description les amis.',
+    category: [],
+    accessibility: [],
+    estimated_time: '',    
+    difficulty: '',
+    description: '',
 });
 </script>
 
@@ -32,19 +39,24 @@ const formFields = reactive({
                 <label for="name">Image</label>
                 <input type="file" name="img" @change="updateImage" ref="imageInput" accept="image/*" required />
             </div>
-            <div>
+            <div>                                          
                 <label for="category">Catégories</label>
-                <select id="category" v-model="formFields.category" required>
-                    <option value="undefined" disabled>Select a category</option>
-                    <option value="2020">2020</option>
-                    <option value="2021">2021</option>
-                    <option value="2022">2022</option>
+                <select id="category" v-model="formFields.category" required multiple>
+                    <!-- <option value="" disabled selected>Choisir une catégorie</option>                 -->
+                    <option v-for="category in categories" :value="category.taxonomy.name" :key="category.id">{{ category.taxonomy.name }}</option>                    
                 </select>
             </div>
-            <div>
+            <div>                
                 <label for="difficulty">Difficulté</label>
                 <select id="difficulty" v-model="formFields.difficulty" required>
-                    <!-- Difficulty options here -->
+                    <option value="" disabled selected>Choisir une difficulté</option>  
+                    <option v-for="difficulty in difficulties" :value="difficulty">{{ difficulty }}</option>              
+                </select>
+            </div>
+            <div>                
+                <label for="accessibility">Accessibilité</label>
+                <select id="accessibility" v-model="formFields.accessibility" required multiple>
+                    <option v-for="accessibility in accessibilities" :value="accessibility.taxonomy.name" :key="accessibility.id">{{ accessibility.taxonomy.name }}</option>              
                 </select>
             </div>
             <div>

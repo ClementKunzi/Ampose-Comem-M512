@@ -3,7 +3,8 @@
 namespace App\Http\Requests;
 
 use App\Enums\SourceEnum;
-use App\Enums\TypeItineraryEnum; // Add this import statement
+use App\Enums\TypeItineraryEnum;
+use App\Enums\NameTaxonomyEnum; // Add this import statement
 
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
@@ -39,6 +40,8 @@ class StoreItineraryRequest extends FormRequest
             'difficulty' => 'required|string',
             'type' => ['required', Rule::in(array_values(TypeItineraryEnum::toArray()))],
             'source' => ['required', Rule::in(array_values(SourceEnum::toArray()))],
+            'categories' => ['required', Rule::in(array_values(NameTaxonomyEnum::toArray()))],
+            'accessibilities' => ['required', Rule::in(array_values(NameTaxonomyEnum::toArray()))],
             'image' => 'required|image',
             'image_description' => 'required|string',
             'pdf_url' => 'nullable|url',

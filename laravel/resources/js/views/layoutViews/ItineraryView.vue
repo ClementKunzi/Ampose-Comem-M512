@@ -48,14 +48,15 @@ const myItinerary = async () => {
 };
 const steps = [];
 
-// const resolveData = async () => {
-//   const resolvedValue = await myItinerary();
-//   console.log('Resolved value:', resolvedValue);
-//   // steps.forEach(element => {
-//   //   console.log('element', element);
-//   // });
-// }
-// resolveData();
+const copyUrlToClipboard = () => {
+    navigator.clipboard.writeText(window.location.href)
+     .then(() => {
+        alert('UVous avez copié l\'url de cette page!');
+      })
+     .catch(err => {
+        console.error('Il semble qu\'il y a eu un problème en copiant l\'adresse de cette page.', err);
+      });
+  }
 
 
 
@@ -149,24 +150,25 @@ const buttonText = ref('Afficher plus de commentaires');
   <div class="md:mr-[15%] md:ml-[15%]">
     <div>
       <div v-if="routeItinerary" :style="{ 'background-image': 'url(storage/images/' + itinerary?.image.url + ')' }"
-        class="bg-center w-full h-[250px] p-4 flex">
+        class="bg-center bg-no-repeat bg-cover
+         w-full h-[250px] p-4 flex">
         <button @click="$router.go(-1)" class="mr-auto btn-iconContainer flex justify-center items-center"
           aria-label="Retour">
           <X aria-hidden="true" stroke="#754043" :size="18" />
         </button>
-        <button class="mr-2 btn-iconContainer flex justify-center items-center"
-        aria-label="Télécharger">
+        <button @click="copyUrlToClipboard()" class="mr-2 btn-iconContainer flex justify-center items-center"
+        aria-label="Partager">
           <Share aria-hidden="true" stroke="#754043" :size="18" />
         </button>
-        <button 
-  class="bg-tv-eggshell rounded-full w-[28px] h-[28px] flex justify-center items-center"
+        <button  v-if="isLoggedIn()"
+  class="bg-tv-eggshell rounded-full flex justify-center items-center btn-iconContainer"
   :aria-label="isFavoriteState? 'Supprimer des favoris' : 'Ajouter aux favoris'"
   @click="changeFavorite(itinerary.id)"
 >
-  <Bookmark v-if="isLoggedIn()"
+  <Bookmark
     :fill="isFavoriteState? '#754043' : 'transparent'" 
     stroke="#754043"
-    :size="18" 
+    :size="18"
   />
 </button>
       </div>
@@ -174,9 +176,9 @@ const buttonText = ref('Afficher plus de commentaires');
         class="bg-center w-screen h-[250px] p-4 flex"></div>
     </div>
     <div class="p-4">
-      <ul class="mt-[-2rem] flex gap-3">
+      <ul class="mt-[-2rem] mb-[1rem] flex gap-3">
         <li v-for="tag in itinerary?.tag_categorie" :key="tag.id"
-          class="bg-tv-eggshell rounded-full w-[28px] h-[28px] flex justify-center items-center"
+          class="btn-iconContainer flex justify-center items-center"
           aria-label="tag.taxonomy.name">
           <img :src="`storage/icons/${tag.taxonomy.icon}`" :alt="tag.taxonomy.description"
             style="width: 20px; height: 20px;">
@@ -213,14 +215,14 @@ const buttonText = ref('Afficher plus de commentaires');
         <address class="not-italic">{{ step.adress }}</address>
       </div>
 
-      <div v-if="routeItinerary" class="mb-16 bg-tv-wine text-tv-eggshell rounded-3xl p-8 flex justify-between">
+      <div v-if="routeItinerary" class="mb-16 bg-tv-wine text-tv-eggshell rounded-3xl p-8 md:py-8 md:px-14 flex justify-between">
         <div class="flex flex-col items-center flex-wrap">
           <div class="w-full flex items-center gap-1 text-tv-beige">
             <Route stroke="#FAF0CA" :size="18" />
             <p>Distance
             </p>
           </div>
-          <p>4.5 km</p>
+          <p class="body-bold-2xl">4.5 km</p>
         </div>
 
         <div class="flex flex-col items-center flex-wrap">
@@ -229,7 +231,7 @@ const buttonText = ref('Afficher plus de commentaires');
             <p>Durée
             </p>
           </div>
-          <p><time>{{ itinerary?.estimated_time }}</time></p>
+          <p class="body-bold-2xl"><time>{{ itinerary?.estimated_time }} min</time></p>
         </div>
 
         <div class="flex flex-col items-center flex-wrap">
@@ -238,7 +240,7 @@ const buttonText = ref('Afficher plus de commentaires');
             <p>Dénivelé
             </p>
           </div>
-          <p>234m</p>
+          <p class="body-bold-2xl">234m</p>
         </div>
 
       </div>
@@ -277,10 +279,10 @@ const buttonText = ref('Afficher plus de commentaires');
         </a>
       </div>
       <div v-if="routeItinerary">
-        <h3 class="text-tv-wine">Avis de la communauté <span>(8)</span></h3>
+        <h3 class="text-tv-wine">Avis de la communauté <span>({{ comments.length }})</span></h3>
         <div class="flex items-center gap-1 text-tv-wine">
           <Star stroke="#754043" :size="18" />
-          <p aria-label="Note du parcours sur 5">
+          <p class="body-bold-2xl" aria-label="Note du parcours sur 5">
             4.8</p>
         </div>
         <div class="mb-16">

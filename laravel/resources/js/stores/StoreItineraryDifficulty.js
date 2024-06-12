@@ -1,10 +1,7 @@
 // store.js
 import { reactive } from 'vue';
 
-import { ApiCallDifficulty } from '../utils/apiCalls/ApiCallDifficulty.js';
-
-// const cool = ApiCallItineraries();
-// console.log(cool);
+import { ApiCallDifficulty } from '../utils/apiCalls/ApiGetDifficulty.js';
 
 export const storeDifficulty = reactive({
     difficulties: [],
