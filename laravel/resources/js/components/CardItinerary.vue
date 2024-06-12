@@ -42,10 +42,10 @@ const handleFavoriteClick = async () => {
                     <p aria-label="Note du parcours sur 5">
                         4.8</p>
                 </div>
-                <button aria-label="Ajouter le parcours aux favoris">
+                <button aria-label="Ajouter le parcours aux favoris"  @click.prevent="handleFavoriteClick">
                     <div class="bg-tv-wine rounded-full w-[28px] h-[28px] flex justify-center items-center"
                         aria-hidden="true">
-                        <Bookmark stroke="#f5f5f5" :size="18" />
+                        <Bookmark :fill="isFavoriteFilled ? '#f5f5f5' : 'transparent'" stroke="#f5f5f5" :size="18" />
                     </div>
                 </button>
             </div>

@@ -5,6 +5,12 @@ import { useRoute, useRouter } from 'vue-router';
 import { Bookmark, Share, Download, Star, MapPin, Footprints, Route, Clock, Mountain, Accessibility, TriangleAlert, SquareArrowOutUpRight, ChevronDown, ChevronUp, X } from 'lucide-vue-next';
 import { hideMarker } from "../../utils/MarkersVisibility.js";
 
+//gestion  des favoris
+import  ManageFavorite  from '../../utils/ManageFavorite.js'; 
+import { getFavorites } from '../../stores/StoreFavoriteIcon.js';
+import { toggleFavorite } from '../../stores/StoreFavoriteIcon.js';
+import { getFavoritesFromId } from '../../stores/StoreFavoriteIcon.js';
+
 import "leaflet/dist/leaflet.css"
 import * as L from 'leaflet';
 import 'leaflet-routing-machine';
@@ -20,6 +26,17 @@ const routeItinerary = computed(() => {
     return route.name === "itinerary.view";
 });
 const stepId = computed(() => route.params.stepId - 1);
+
+//gestion des favoris
+const props = defineProps({
+  itinerary: Object,
+});
+
+const isFavorite = computed(() => getFavorites().some(favorite => favorite.itinerary_id === props.itinerary?.id));
+
+const isFavoriteById = computed(() => {
+  return getFavorites().some(favorite => favorite.itinerary_id === itineraryId.value);
+});
 
 
 const itinerary = computed(() => storeItinerary.itinerary.data);
@@ -45,7 +62,39 @@ const steps = [];
 // onMounted(() => {
   
 // })
+const itineraryId = ref(props.itinerary?.id);
 
+const bookmarkIconRef = ref(null);
+
+// Définition de isFavoriteState comme une ref
+const isFavoriteState = ref(isFavorite.value); // Initialisation avec la valeur actuelle de isFavorite
+
+const changeFavorite = (itineraryId) => {
+  console.log(itineraryId);
+  if (getFavorites().some(favorite => favorite.itinerary_id === itineraryId)) {
+    //console.log("l'itinéraire existe");
+    //toggleFavorite(itineraryId);
+    ManageFavorite(itineraryId);
+    isFavoriteState.value = false;
+  } else {
+    //console.log("l'itinéraire n'existe pas");
+    //toggleFavorite(itineraryId);
+    ManageFavorite(itineraryId);
+    isFavoriteState.value = true;
+  }
+};
+
+
+
+const fillFavorite = (itineraryId) => {
+  console.log(props.itinerary?.id);
+  console.log(itineraryId);
+  getFavoritesFromId(itineraryId);
+};
+hideMarker(stepId);
+
+// Exposition de la ref pour qu'elle soit accessible depuis le template
+defineExpose({ bookmarkIconRef, isFavoriteState });
 
 const emit = defineEmits(['requireNav']);
 
@@ -110,10 +159,17 @@ const buttonText = ref('Afficher plus de commentaires');
         aria-label="Télécharger">
           <Share aria-hidden="true" stroke="#754043" :size="18" />
         </button>
-        <button class="btn-iconContainer flex justify-center items-center"
-        aria-label="Ajouter aux favoris">
-          <Bookmark aria-hidden="true" stroke="#754043" :size="18" />
-        </button>
+        <button 
+  class="bg-tv-eggshell rounded-full w-[28px] h-[28px] flex justify-center items-center"
+  :aria-label="isFavoriteState? 'Supprimer des favoris' : 'Ajouter aux favoris'"
+  @click="changeFavorite(itinerary.id)"
+>
+  <Bookmark 
+    :fill="isFavoriteState? '#754043' : 'transparent'" 
+    stroke="#754043"
+    :size="18" 
+  />
+</button>
       </div>
       <div v-else :style="{ 'background-image': 'url(storage/images/' + step.images[0].url + ')' }"
         class="bg-center w-screen h-[250px] p-4 flex"></div>
