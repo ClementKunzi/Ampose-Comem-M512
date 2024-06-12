@@ -16,14 +16,18 @@
 </template>
 
 <script>
-import { ref, onMounted, computed, watch, toRaw } from "vue";
+import { ref, onMounted, computed, watch, toRaw, watchEffect } from "vue";
 
 import L from "leaflet";
 import "leaflet/dist/leaflet.css";
+import SearchBar from "../components/TheSearch.vue";
 import "leaflet-routing-machine";
 import MapModal from "./MapModal.vue";
 import { storeMap } from "../stores/storeMap.js";
 import { storeItineraries } from "../stores/StoreItineraries.js";
+import { useRoute } from "vue-router";
+import { useSelectedCategoryStore } from "../stores/StoreSelectedCategories.js";
+import { useSelectedAccessibilityStore } from "../stores/StoreSelectedAccessibility.js";
 
 export default {
     components: {
@@ -35,13 +39,60 @@ export default {
         const mapInstance = ref(null);
         const routingControl = ref(null);
         const modalIsVisible = ref(false);
+        const route = useRoute();
+        const searchQuery = ref("");
+        const selectedCategoryStore = useSelectedCategoryStore();
+        const selectedCategoryIds = selectedCategoryStore.selectedCategoryIds;
+        const selectedAccessibilityStore = useSelectedAccessibilityStore();
+        const selectedAccessibilityIds =
+            selectedAccessibilityStore.selectedAccessibilityIds;
 
         function toggleModalVisibility() {
             modalIsVisible.value = !modalIsVisible.value; // Toggle the visibility
         }
+
+        // Define filteredItineraries function first
+        function filteredItineraries() {
+            const { selectedCategoryIds } = useSelectedCategoryStore();
+            const categoryIds = selectedCategoryIds.value || [];
+
+            const { selectedAccessibilityIds } =
+                useSelectedAccessibilityStore();
+            const accessibilityIds = selectedAccessibilityIds.value || [];
+
+            return storeItineraries.itineraries.filter(
+                (itinerary) =>
+                    (categoryIds.length === 0 ||
+                        itinerary.tag_categorie.some((tag) =>
+                            categoryIds.includes(tag.id)
+                        )) &&
+                    (accessibilityIds.length === 0 ||
+                        itinerary.tag_accessibility.some((tag) =>
+                            accessibilityIds.includes(tag.id)
+                        )) &&
+                    (searchQuery.value === "" ||
+                        itinerary.name
+                            .toLowerCase()
+                            .includes(searchQuery.value.toLowerCase()) ||
+                        itinerary.description
+                            .toLowerCase()
+                            .includes(searchQuery.value.toLowerCase()) ||
+                        itinerary.image.alt_attr
+                            .toLowerCase()
+                            .includes(searchQuery.value.toLowerCase()) ||
+                        itinerary.difficulty
+                            .toLowerCase()
+                            .includes(searchQuery.value.toLowerCase()) ||
+                        itinerary.type
+                            .toString()
+                            .includes(searchQuery.value.toLowerCase()))
+            );
+        }
+
         onMounted(() => {
             // Assurez-vous que les itinéraires sont chargés
             if (storeItineraries.itineraries.length > 0) {
+                storeItineraries.itineraries = filteredItineraries();
                 markers.value = extractMarkersFromItineraries();
             } else {
                 watch(
@@ -131,12 +182,17 @@ export default {
         }
 
         function createMarkers() {
+            mapInstance.value.eachLayer(function (layer) {
+                if (layer instanceof L.Marker) {
+                    layer.remove();
+                }
+            });
             console.log("Markers to display:", markers.value); // Utilisez .value pour accéder aux données
             markers.value.forEach((itinerary, index) => {
                 const firstCoord = itinerary[0]; // Prendre la première coordonnée de chaque itinéraire
-                const singleMarker = L.marker(firstCoord).addTo(
-                    mapInstance.value
-                );
+                const singleMarker = L.marker(firstCoord, {
+                    draggable: false, // Assurez-vous que cette option est bien définie ici
+                }).addTo(mapInstance.value);
                 singleMarker.on("click", () => {
                     newWaypoints.value = itinerary.map((coords) =>
                         L.latLng(...coords)
@@ -147,6 +203,7 @@ export default {
                         storeItineraries.itineraries[index];
                 });
             });
+            makeMarkersNonDraggable();
         }
 
         function clikOnMap() {
@@ -189,28 +246,52 @@ export default {
             waypoints.value = newWaypoints.value;
 
             // Re-initialize the routing control with the updated waypoints
-            // Note: Depending on your setup, you might need to destroy the existing routing control before re-initializing it.
             routingControl.value = L.Routing.control({
                 waypoints: waypoints.value,
+                addWaypoints: false,
                 serviceUrl:
                     "http://routing.openstreetmap.de/routed-foot/route/v1",
                 language: "fr",
             })
                 .on("waypointcreated", function (e) {
-                    const marker = L.marker(e.waypoint.latlng).addTo(
-                        mapInstance.value
-                    );
+                    const marker = L.marker(e.waypoint.latlng, {
+                        draggable: false, // Assurez-vous que draggable est false ici
+                    }).addTo(mapInstance.value);
                     // Customize the marker as needed
                 })
                 .addTo(mapInstance.value);
+            makeMarkersNonDraggable();
         }
-        return {
-            markers,
-            mapInstance,
-            initialMarkers,
-            modalIsVisible,
-            selectedItinerary,
-        };
+
+        function makeMarkersNonDraggable() {
+            mapInstance.value.eachLayer(function (layer) {
+                if (layer instanceof L.Marker) {
+                    // Vérifie si la propriété dragging existe avant de l'utiliser
+                    if (layer.dragging) {
+                        layer.dragging.disable();
+                    }
+                }
+            });
+        }
+        watch(
+            [selectedCategoryIds, selectedAccessibilityIds, searchQuery],
+            () => {
+                if (mapInstance.value) {
+                    mapInstance.value.eachLayer(function (layer) {
+                        if (layer instanceof L.Marker) {
+                            layer.remove();
+                        }
+                    });
+                    storeItineraries.itineraries = filteredItineraries();
+                    markers.value = extractMarkersFromItineraries();
+                    createMarkers();
+                }
+            },
+            {
+                immediate: true,
+                deep: true,
+            }
+        );
     },
 };
 </script>

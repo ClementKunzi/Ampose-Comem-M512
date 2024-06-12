@@ -13,9 +13,16 @@ const searchQuery = ref("");
 
 // Dans HomeView
 const handleSearchUpdate = (newValue) => {
-    // Mettre à jour la variable réactive ou effectuer d'autres actions
     searchQuery.value = newValue;
 };
+
+onMounted(async () => {
+    await storeItineraries.reloadItineraries(); // Utilise la fonction pour recharger les itinéraires
+    console.log(
+        "Contenu après rechargement de storeItineraries.itineraries:",
+        storeItineraries.itineraries
+    );
+});
 
 const itineraries = computed(() => {
     let sourceFilter = "";
@@ -59,9 +66,7 @@ const itineraries = computed(() => {
     );
 });
 
-onMounted(async () => {
-    // Logique de montage ici, si nécessaire
-});
+console.log("Contenu de itineraries:", itineraries.value);
 </script>
 
 <template>
