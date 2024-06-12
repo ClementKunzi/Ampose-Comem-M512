@@ -12,10 +12,7 @@ const step = itinerary.data.steps[stepId]
 console.log('step', step);
 
 </script>
-<template>
-
-  <h1>coucou</h1>
-  {{ $route.params }}
+<template>  
   <div :style="{ 'background-image': 'url(storage/images/' + step.images[0].url + ')' }"
     class="bg-center w-screen h-[250px] p-4 flex">
   </div>
