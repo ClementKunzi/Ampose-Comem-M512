@@ -12,8 +12,9 @@ import OnboardingView from '@/views/layoutViews/OnboardingView.vue';
 import UserEditView from '@/views/layoutViews/UserEditView.vue';
 import ItineraryCreationStepView from '@/views/layoutViews/ItineraryCreationStepView.vue';
 import { getUserAccessToken } from '../utils/UserAccessToken.js';
-import { storeItineraryById } from '../stores/StoreItinerary.js';
+import { storeItineraryById, storeItinerary } from '../stores/StoreItinerary.js';
 import { showMarker } from '../utils/MarkersVisibility.js';
+import Cookies from 'js-cookie';
 
 // Function to check if the user is authenticated
 function isAuthenticated() {
@@ -93,11 +94,10 @@ const routes = [
         name: 'itinerary.view',
         component: ItineraryView,
         beforeEnter: async (to, from, next) => {
-            const itineraryId = to.params.id;
-
+            const itineraryId = to.params.id;            
             try {
                 storeItineraryById(itineraryId);
-                console.log('Itinerary data fetched:', storeItineraryById(itineraryId));
+                console.log('Itinerary data fetched:', storeItineraryById(itineraryId));                
                 window.addEventListener('popstate', function (event) {
                     // Trigger showMarker function when navigating back
                     showMarker();
@@ -108,22 +108,13 @@ const routes = [
                 console.error('Failed to fetch itinerary data:', error);
                 next(false);
             }
-        },
-        children: [
-            {
-                path: 'step/:stepId',
-                name: 'itinerary.step.view',
-                // component: StepView,
-                // You can also use props to pass route params as props to the component
-                props: true
-            }
-        ],
+        },        
     },
-    // {
-    //   path: '/itinerary/:id/step/:stepId',
-    //   name: 'itinerary.step.view',
-    //   component: ItineraryView,
-    // },
+    {
+      path: '/itinerary/:id/step/:stepId',
+      name: 'itinerary.step.view',
+      component: ItineraryStepView,
+    },
     {
         path: '/user/profile',
         name: 'user.view',
@@ -175,7 +166,28 @@ router.beforeEach((to, from, next) => {
         // Proceed with the route transition
         next();
     }
+
+    
 });
+
+router.beforeEach((to, from, next) => {
+    // Check if the navigation is to the home route
+    if (to.name === 'Home') {
+      // Determine if the user needs to see the onboarding process by checking the 'onboarding_completed' cookie
+      const onboardingCompleted = Cookies.get('onboarding_completed');
+  
+      if (!onboardingCompleted) {
+        // If the 'onboarding_completed' cookie is not set or false, redirect to onboarding
+        next('/onboarding');
+      } else {
+        // If the 'onboarding_completed' cookie is set and true, proceed to the home route
+        next();
+      }
+    } else {
+      // If navigating to a route other than home, proceed normally
+      next();
+    }
+  });
 
 
 

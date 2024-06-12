@@ -1,5 +1,5 @@
 <script setup>
-import { CircleX, Pencil, LogOut, User } from 'lucide-vue-next';
+import { X, Pencil, LogOut, User } from 'lucide-vue-next';
 import CardItinerary from '../../components/CardItinerary.vue';
 import { storeItineraries } from '../../stores/StoreItineraries.js';
 import { onMounted, ref } from 'vue';
@@ -34,7 +34,7 @@ export default {
     <IconManager :icons="icons" default-size="24" />
     <div class="mb-6 flex justify-between gap-4">
       <button @click="$router.go(-1)" class="mr-auto btn-iconContainer" aria-label="Retour">
-        <CircleX aria-hidden="true" :size="32" />
+        <X aria-hidden="true" :size="32" />
       </button>
       <div class="flex gap-4 md:flex-col">
         <button @click="() => { logOut(), $router.push('/') }" class="btn-iconContainer" aria-label="Se déconnecter">

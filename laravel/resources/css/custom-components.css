@@ -42,7 +42,7 @@
   }
 
   .map-pageLayout {
-    @apply w-full h-96 rounded-3xl;
+    @apply w-full h-[80vh] rounded-3xl;
   }
 
   .map-noUi {

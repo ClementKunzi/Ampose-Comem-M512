@@ -1,225 +1,50 @@
 <script setup>
-import { onMounted,computed, ref } from 'vue';
-import { useRoute, useRouter } from 'vue-router';
-import { Bookmark, CircleX, Share, Download, Star, MapPin, Footprints, Route, Clock, Mountain, Accessibility, TriangleAlert } from 'lucide-vue-next';
+import { useRoute } from 'vue-router';
+import MapItineraryStep from '../../components/MapItineraryStep.vue';
+import { ExternalLink } from 'lucide-vue-next';
 
-import "leaflet/dist/leaflet.css"
-import * as L from 'leaflet';
-import 'leaflet-routing-machine';
-import 'leaflet-routing-machine/dist/leaflet-routing-machine.css';
-import { storeItinerary } from '../../stores/StoreItinerary.js';
-import { getIdFromUrl } from '../../utils/IdFromUrl.js';
+const itinerary = JSON.parse(localStorage.getItem('currentItinerary'));
 
 const route = useRoute();
-const router = useRouter()
-const test = computed(() => route.params.stepId);
-console.log('test', test);
-const itinerary = computed(() => storeItinerary.itinerary.data);
-const steps = computed(() => storeItinerary.itinerary.data.steps);
-
-let coordinates = steps.value.map(step => [step.latitude, step.longitude]);
-let stepTitles = steps.value.map(step => step.name);
-console.log('stepTitles', stepTitles);
-
-const emit = defineEmits(['requireNav']);
-
-const stepAccess = (id) => {
-    router.push(`${route.fullPath}/step/${id+1}`);
-}
-
-onMounted(() => {
- 
-  const orsToken = '1894ebf9-bfe5-4ab1-80b2-e8ccf733ab5e';
-  var map = L.map('map', {
-    scrollWheelZoom: false,
-  });
-
-  L.tileLayer('https://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png', {
-    attribution: '© OpenStreetMap contributors'
-  }).addTo(map);
-
-  let waypoints = coordinates.map(coord => L.latLng(coord[0], coord[1]));
-
-  let control = L.Routing.control({
-    // router: new L.Routing.GraphHopper(orsToken),
-    waypoints,
-    serviceUrl: "https://routing.openstreetmap.de/routed-foot/route/v1",
-      language: 'fr',
-
-    routeWhileDragging: false,
-    createMarker: function(i, wp, nWps) {
-        return L.marker(wp.latLng)
-           .bindPopup(stepTitles[i]).on('click', function(e) {
-            // Custom click event logic here
-            stepAccess(i)            
-        });;
-    },
-    // geocoder: L.Control.Geocoder.nominatim(),
-    addWaypoints: false,
-    draggableWaypoints: false,
-    showInstructions: false,
-  }).addTo(map);
-  
-  console.log('waypoints', control.getWaypoints());
-  
-  // control.setWaypoints([46.778186, 6.641524], [46.778186, 6.641524]);
-  // control.spliceWaypoints(0, 3)
-  // control.setWaypoints(waypoints);
-
-  // control.setWaypoints([46.778186, 6.641524], [46.778186, 6.641524]);
-
-  L.Control.geocoder().addTo(map);
-
-});
+console.log('route', route.params.stepId);
+const stepId = route.params.stepId - 1;
+const step = itinerary.data.steps[stepId]
+console.log('step', step);
 
 </script>
+<template>
 
-
-<template>  
-<h1>Hello</h1>
-  <div>
-    <div :style="{ backgroundImage: 'url(/storage/images/' + itinerary.image.url + ')' }"
-      class="bg-center w-screen h-[250px] p-4 flex">
-      <button class="mr-auto bg-tv-eggshell rounded-full w-[28px] h-[28px] flex justify-center items-center"
-        aria-label="Retour">
-        <CircleX aria-hidden="true" stroke="#754043" :size="18" />
-      </button>
-      <button class="mr-2 bg-tv-eggshell rounded-full w-[28px] h-[28px] flex justify-center items-center"
-        aria-label="Télécharger">
-        <Share aria-hidden="true" stroke="#754043" :size="18" />
-      </button>
-      <button class="bg-tv-eggshell rounded-full w-[28px] h-[28px] flex justify-center items-center"
-        aria-label="Ajouter aux favoris">
-        <Bookmark aria-hidden="true" stroke="#754043" :size="18" />
-      </button>
-
-    </div>
+  <h1>coucou</h1>
+  {{ $route.params }}
+  <div :style="{ 'background-image': 'url(storage/images/' + step.images[0].url + ')' }"
+    class="bg-center w-screen h-[250px] p-4 flex">
   </div>
   <div class="p-4">
-    <ul class="mt-[-2rem] flex gap-3">
-      <li class="bg-tv-eggshell rounded-full w-[28px] h-[28px] flex justify-center items-center"
-        aria-label="Nom catégorie">
-        <Bookmark aria-hidden="true" stroke="#754043" :size="18" />
-      </li>
-
-      <li class="bg-tv-eggshell rounded-full w-[28px] h-[28px] flex justify-center items-center"
-        aria-label="Nom catégorie">
-        <Bookmark aria-hidden="true" stroke="#754043" :size="18" />
-      </li>
-    </ul>
-
-    <div class="flex justify-between">
-      <h1 class="h3 text-tv-wine">{{itinerary.name}}</h1>  
-      <div class="flex items-center gap-1 text-tv-wine">
-        <Star stroke="#754043" :size="18" />
-        <p aria-label="Note du parcours sur 5">
-          4.8</p>
-      </div>
-    </div>
-    <div class="flex items-center gap-2 mb-16">
-      <div class="flex items-center gap-1 text-tv-wine">
-        <MapPin stroke="#754043" :size="18" />
-        <address class="not-italic">Lausanne</address>
-      </div>
-      <div class="w-1 h-1 mt-[.3rem] bg-tv-wine rounded-full"></div>
-      <div class="flex items-center gap-1 text-tv-wine">
-        <Footprints stroke="#754043" :size="18" />
-        <p aria-label="Difficulté du parcours">{{itinerary.difficulty}}</p>
-      </div>
-    </div>
-
-    <div class="mb-16 bg-tv-wine text-tv-eggshell rounded-3xl p-8 flex justify-between">
-      <div class="flex flex-col items-center flex-wrap">
-        <div class="w-full flex items-center gap-1 text-tv-beige">
-          <Route stroke="#FAF0CA" :size="18" />
-          <p>Distance
-          </p>
-        </div>
-        <p>4.5 km</p>
-      </div>
-
-      <div class="flex flex-col items-center flex-wrap">
-        <div class="w-full flex items-center gap-1 text-tv-beige">
-          <Clock stroke="#FAF0CA" :size="18" />
-          <p>Durée
-          </p>
-        </div>
-        <p><time>{{itinerary.estimated_time}}</time></p>
-      </div>
-
-      <div class="flex flex-col items-center flex-wrap">
-        <div class="w-full flex items-center gap-1 text-tv-beige">
-          <Mountain stroke="#FAF0CA" :size="18" />
-          <p>Dénivelé
-          </p>
-        </div>
-        <p>234m</p>
-      </div>
-
+    <div class="mb-16">
+      <h1 class="h3 text-tv-wine">
+      {{ step.name }}
+    </h1>
+    <address class="not-italic text-tv-wine">{{ step.adress }}</address>
     </div>
 
     <div class="mb-16">
-      <h3 class="text-tv-wine">Description</h3>
-      <p>{{itinerary.description}}</p>
+      <h3 class="text-tv-wine h4">Description</h3>
+      <p>{{ step.description }}</p>
     </div>
+
     <div class="mb-16">
-      <h3 class="text-tv-wine">Parcours</h3>
-      <div id="map" class="map-pageLayout map-noUi"></div>
+      <h3 class="text-tv-wine h4">Emplacement</h3>
+      <MapItineraryStep />
     </div>
-    <div class="text-tv-wine">
-      <h3>Accessibilité</h3>
-      <ul class="flex flex-col gap-3">
-        <li class="flex items-center gap-1">
-          <Accessibility aria-hidden="true" stroke="#754043" :size="18" />
-          <p>Accès en fauteuil roulant</p>
-        </li>
-        <li class="flex items-center gap-1">
-          <Accessibility aria-hidden="true" stroke="#754043" :size="18" />
-          <p>Accès en fauteuil roulant</p>
-        </li>
-      </ul>
-    </div>
-    <div class="mb-16">
-      <button class="btn">
-        <Download aria-hidden="true" stroke="#754043" :size="18" />
-        Télécharger le parcours
-      </button>
-    </div>
-    <div>
-      <h3 class="text-tv-wine">Avis de la communauté <span>(8)</span></h3>
-      <div class="flex items-center gap-1 text-tv-wine">
-        <Star stroke="#754043" :size="18" />
-        <p aria-label="Note du parcours sur 5">
-          4.8</p>
-      </div>
-      <div>
-        <div class="border-t border-solid border-tv-wine py-4" v-for="i in 3" :key="i">
-          <div class="mb-4 flex gap-4">
-            <div class="w-11 h-11">
-              <img class="rounded-full" src="https://loremflickr.com/88/88" alt="">
-            </div>
-            <div>
-              <h4>Username</h4>
-              <div class="flex items-center gap-1" aria-label="Note de l'utilisateur: 5 étoiles sur 5">
-                <Star aria-hidden="true" stroke="#754043" :size="18" />
-                <Star aria-hidden="true" stroke="#754043" :size="18" />
-                <Star aria-hidden="true" stroke="#754043" :size="18" />
-                <Star aria-hidden="true" stroke="#754043" :size="18" />
-                <Star aria-hidden="true" stroke="#754043" :size="18" />
-              </div>
-            </div>
-          </div>
-          <p class="mb-4">Pizza très bonne, je recommande Pizza très bonne, je recommande sdf kjbs dfksdj nf 👍</p>
-          <p class="text-right"><time aria-label="">11.11.2023</time></p>
-        </div>
-        <button class="btn">Afficher plus de commentaires</button>
-      </div>
-      <div>
-        <a href="#" class="link justify-center">
-          <TriangleAlert aria-hidden="true" stroke="#754043" :size="18" />
-          Signaler un problème avec ce parcours</a>
-      </div>
-    </div>
+
+    <div class="flex justify-center">     
+      <a :href="step.external_link" rel="noopener" target="_blank" class="btn">
+        <button class="mr-2 bg-tv-eggshell rounded-full w-[28px] h-[28px] flex justify-center items-center"
+          aria-label="Télécharger">
+          <ExternalLink aria-hidden="true" stroke="#754043" :size="18" />
+        </button>
+        Plus d'infos</a>
+    </div>    
   </div>
 
 

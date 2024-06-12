@@ -1,6 +1,6 @@
 <script setup>
 import FormNewItinerary from '@/components/forms/FormNewItinerary.vue';
-import { CircleX, ArrowLeft, Plus, Watch } from 'lucide-vue-next';
+import { X, ArrowLeft, Plus, Watch } from 'lucide-vue-next';
 import { ref } from 'vue';
 import AccordionItem from '@/components/AccordionItem.vue';
 import Accordion from '@/components/Accordion.vue';
@@ -62,7 +62,7 @@ export default {
   <div v-show="isVisible" class="p-4">
     <button @click="$router.go(-1)"
         class="mr-auto btn-iconContainer" aria-label="Retour">        
-          <CircleX aria-hidden="true" :size="32" />              
+          <X aria-hidden="true" :size="32" />              
       </button>
     <h1 class="h3 pb-4 text-tv-wine text-center">Nouveau parcours</h1 class="h3">
   <FormNewItinerary ref="childFormRef" @toggleVisibility="toggleVisibility" />

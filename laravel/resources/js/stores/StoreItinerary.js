@@ -15,6 +15,7 @@ let currentItinerary = getIdFromUrl(window.location.href);
 
 export async function storeItineraryById(id) {
   storeItinerary.itinerary = await ApiGetItinerary(id);
+  localStorage.setItem('currentItinerary', JSON.stringify(storeItinerary.itinerary));
 }
 // Iniital call to get currentItinerary data
 if(storeItinerary.itinerary.length === 0) {

@@ -1,5 +1,5 @@
 <script setup>
-import { CircleX, Settings } from 'lucide-vue-next';
+import { X, Settings } from 'lucide-vue-next';
 import FormEditUser from '../../components/forms/FormEditUser.vue';
 </script>
 
@@ -8,7 +8,7 @@ import FormEditUser from '../../components/forms/FormEditUser.vue';
     <div class="mb-6 flex justify-between">
       <button @click="$router.go(-1)"
         class="bg-tv-eggshell rounded-full w-[28px] h-[28px] flex justify-center items-center" aria-label="Retour">
-        <CircleX aria-hidden="true" stroke="#754043" :size="18" />
+        <X aria-hidden="true" stroke="#754043" :size="18" />
       </button>      
     </div>
 
