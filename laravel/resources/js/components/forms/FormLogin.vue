@@ -24,8 +24,8 @@ import { UserLocalStorage } from '@/classes/UserLocalStorage.js';
 
 
 const formFields = [
-    { name: 'email', label: 'Email', value: 'nicolas.aerny@cool.ch', type: 'email', placeholder: 'Email Address', isValid: true },
-    { name: 'password', label: 'Password', value: '12345678', type: 'password', isValid: true },
+    { name: 'email', label: 'Email', value: '', type: 'email', placeholder: 'Email Address', isValid: true },
+    { name: 'password', label: 'Password', value: '', type: 'password', placeholder: 'Mot de passe', isValid: true },
 ];
 const submitForm = async () => {
     try {

@@ -10,7 +10,7 @@ const currentUser = new UserLocalStorage();
 
 <template>
 
-    <div v-if="isDesktop.value" class="p-4">
+    <div v-if="$route.meta.requireNav && isDesktop.value" class="p-4">
         <div class="flex justify-between items-center">
 
             <!-- Navigation Links -->

@@ -35,14 +35,14 @@ function completeOnboarding() {
 
 
 <template>
-  <div class="onboarding-container-welcome text-tv-eggshell py-8 px-10">
+  <div class="onboarding-container-welcome text-tv-eggshell tv-text-shadow py-8 px-10">
     <div class="flex flex-col h-full">
       <div class="flex justify-center mb-10" v-if="currentStep === 0">
         <img src="/images/logo/logo-tv-blanc.svg" alt="Terravaud Logo"/>
       </div>
       
       <h2 class="h2 mb-10" v-if="currentStep === 0">Bienvenue sur <br><span class="">Terravaud</span></br></h2>
-      <p class="body-regular-sm mb-16" v-if="currentStep === 0">Votre guide pour découvrir les trésors culturels du canton de Vaud</p>
+      <p class="body-regular-sm md:body-medium-lg mb-16" v-if="currentStep === 0">Votre guide pour découvrir les trésors culturels du canton de Vaud</p>
         
       <!-- <div v-if="currentStep === 0" class="step-indicators mb-2 mt-auto">
         <span class="active"></span>

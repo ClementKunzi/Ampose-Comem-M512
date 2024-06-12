@@ -1,10 +1,12 @@
 @layer components {
   .btn {
-    @apply bg-tv-eggshell text-tv-wine min-h-12 py-3 px-5 border-2 border-tv-wine rounded-full shadow-md flex gap-2 items-center body-medium-base leading-5 hover:bg-red-200;
+    @apply bg-tv-eggshell text-tv-wine min-h-12 py-3 px-5 border-2 border-tv-wine rounded-full shadow-md flex gap-2 items-center body-medium-base leading-5 
+    hover:bg-tv-wine hover:text-tv-eggshell hover:border-tv-eggshell;
   }
 
   .btn-wine {
-    @apply bg-tv-wine text-white border-white rounded-full;
+    @apply bg-tv-wine text-white border-white rounded-full
+    hover:bg-tv-eggshell hover:text-tv-wine hover:border-tv-wine;
   }
 
   .btn:focus-visible {

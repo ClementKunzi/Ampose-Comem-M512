@@ -40,12 +40,12 @@ const router = useRouter();
 
 // Définition des champs de formulaire avec leurs types et valeurs initiales
 const formFields = ref([
-  { name: 'userName', label: 'Nom d\'utilisateur', type: 'text', placeholder: 'Username', isValid: true, value: '' },
-  { name: 'userImage', label: 'Image du profile', type: 'file', placeholder: '', isValid: true, file: null },
-  { name: 'lastName', label: 'Nom', type: 'text', placeholder: 'Last Name', isValid: true, value: '' },
-  { name: 'firstName', label: 'Prénom', type: 'text', placeholder: 'First Name', isValid: true, value: '' },
-  { name: 'email', label: 'Email', type: 'email', placeholder: 'Email Address', isValid: true, value: '' },
-  { name: 'password', label: 'Password', type: 'password', isValid: true, value: '' },
+  { name: 'userName', label: 'Nom d\'utilisateur', type: 'text', placeholder: 'Nom d\'utilisateur', isValid: true, value: '' },
+  { name: 'userImage', label: 'Image du profile', type: 'file', placeholder: 'Image de profil', isValid: true, file: null },
+  { name: 'lastName', label: 'Nom', type: 'text', placeholder: 'Nom de famille', isValid: true, value: '' },
+  { name: 'firstName', label: 'Prénom', type: 'text', placeholder: 'Prénom', isValid: true, value: '' },
+  { name: 'email', label: 'Email', type: 'email', placeholder: 'Adresse mail', isValid: true, value: '' },
+  { name: 'password', label: 'Password', type: 'password', placeholder: 'Mot de passe', isValid: true, value: '' },
 ]);
 
 const handleSubmit = async () => {
