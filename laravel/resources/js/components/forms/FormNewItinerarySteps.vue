@@ -10,6 +10,7 @@ import 'leaflet-routing-machine';
 import 'leaflet-routing-machine/dist/leaflet-routing-machine.css';
 import 'leaflet-control-geocoder/dist/Control.Geocoder.js';
 import 'leaflet-control-geocoder/dist/Control.Geocoder.css';
+import { storeMap } from '../../stores/storeMap';
 
 const props = defineProps({
     isActive: Boolean,
@@ -89,7 +90,7 @@ onMounted(() => {
 
     function initializeMap() {
         const mapContainer = document.getElementById('map'); // Assuming your map container has an ID of 'map'
-        const map = L.map(mapContainerRef.value).setView([51.505, -0.09], 13);
+        const map = L.map(mapContainerRef.value).setView(storeMap.setViewVaud, storeMap.ZoomDefault);
 
         L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
             maxZoom: 19,
