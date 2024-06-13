@@ -34,8 +34,12 @@ class UserSeeder extends Seeder
             // Define path to save image
             $imagePath = 'public/images/' . $newFilename;
 
+
             // Save image to the defined path
-            Storage::put($imagePath, $imageContent);
+            Storage::put($imagePath, $newFilename);
+
+            $newFilename = 'images/' . $newFilename;
+
             // Insert data into the users table
             DB::table('users')->insert([
                 'username' => $user['username'],

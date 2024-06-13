@@ -47,6 +47,13 @@ export default {
         const selectedAccessibilityIds =
             selectedAccessibilityStore.selectedAccessibilityIds;
 
+        const customIcon = L.icon({
+            iconUrl: "/images/map/marker.png",
+            iconSize: [30, 30], // Taille de l'icône (largeur, hauteur)
+            iconAnchor: [0, 15], // Point d'ancrage de l'icône (la partie basse au milieu de l'icône)
+            popupAnchor: [0, -41], // Point d'ancrage de la popup (s'ouvre au-dessus de l'icône)
+        });
+
         function toggleModalVisibility() {
             modalIsVisible.value = !modalIsVisible.value; // Toggle the visibility
         }
@@ -178,7 +185,7 @@ export default {
 
         // used to get the itinerary based on the clicked marker index
         function getItineraryByIndex(index) {
-            return itineraries.value[index - 1];
+            return storeItineraries.itineraries[index - 1];
         }
 
         function createMarkers() {
@@ -187,28 +194,27 @@ export default {
                     layer.remove();
                 }
             });
-            console.log("Markers to display:", markers.value); // Utilisez .value pour accéder aux données
+            console.log("Markers to display:", markers.value);
             markers.value.forEach((itinerary, index) => {
                 const firstCoord = itinerary[0]; // Prendre la première coordonnée de chaque itinéraire
                 const singleMarker = L.marker(firstCoord, {
+                    icon: customIcon,
                     draggable: false, // Assurez-vous que cette option est bien définie ici
                 }).addTo(mapInstance.value);
                 singleMarker.on("click", () => {
                     newWaypoints.value = itinerary.map((coords) =>
                         L.latLng(...coords)
                     ); // Utiliser l'itinéraire complet
+                    const selectedItinerary = getItineraryByIndex(index + 1); // Utilisez l'index + 1 car l'indexation commence à 0
                     displayWaypoints(newWaypoints);
-                    toggleModalVisibility();
-                    selectedItinerary.value =
-                        storeItineraries.itineraries[index];
+                    selectedItinerary.value = selectedItinerary; // Définir l'itinéraire sélectionné
+                    toggleModalVisibility(); // Ouvrir le popup
                 });
             });
             makeMarkersNonDraggable();
         }
-
         function clikOnMap() {
             mapInstance.value.on("click", function (e) {
-                // alert(`You clicked the map at ${e.latlng}`);
                 modalIsVisible.value ? toggleModalVisibility() : null;
                 const map = mapInstance.value;
 
@@ -221,13 +227,17 @@ export default {
                         layer.remove();
                     }
                 });
-                // remove reamaining markers
+                // remove remaining markers
                 mapInstance.value.eachLayer(function (layer) {
                     if (layer instanceof L.Marker) {
                         layer.remove();
                     }
                 });
-                // Display markers/first points from markers array
+
+                // Update selectedItinerary here if needed, based on your logic
+                // For example, if you have a way to determine the nearest marker or something similar
+
+                // Display markers/first points from markers array after updating selectedItinerary
                 createMarkers();
             });
         }
@@ -252,14 +262,12 @@ export default {
                 serviceUrl:
                     "https://routing.openstreetmap.de/routed-foot/route/v1",
                 language: "fr",
-            })
-                .on("waypointcreated", function (e) {
-                    const marker = L.marker(e.waypoint.latlng, {
-                        draggable: false, // Assurez-vous que draggable est false ici
-                    }).addTo(mapInstance.value);
-                    // Customize the marker as needed
-                })
-                .addTo(mapInstance.value);
+                createMarker: function (i, waypoint, n) {
+                    // Utiliser l'icône personnalisée pour chaque marqueur de routage
+                    return L.marker(waypoint.latLng, { icon: customIcon });
+                },
+            }).addTo(mapInstance.value);
+            toggleModalVisibility();
             makeMarkersNonDraggable();
         }
 
@@ -273,25 +281,12 @@ export default {
                 }
             });
         }
-        watch(
-            [selectedCategoryIds, selectedAccessibilityIds, searchQuery],
-            () => {
-                if (mapInstance.value) {
-                    mapInstance.value.eachLayer(function (layer) {
-                        if (layer instanceof L.Marker) {
-                            layer.remove();
-                        }
-                    });
-                    storeItineraries.itineraries = filteredItineraries();
-                    markers.value = extractMarkersFromItineraries();
-                    createMarkers();
-                }
-            },
-            {
-                immediate: true,
-                deep: true,
+
+        watchEffect(() => {
+            if (selectedItinerary.value) {
+                modalIsVisible.value = true;
             }
-        );
+        });
     },
 };
 </script>

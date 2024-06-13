@@ -16,7 +16,12 @@ import { useRoute, useRouter } from "vue-router";
 import MapModal from "./MapModal.vue";
 import { storeMap } from "../stores/storeMap.js";
 import { storeItineraries } from "../stores/StoreItineraries.js";
-
+const customIcon = L.icon({
+    iconUrl: "/images/map/marker.png",
+    iconSize: [30, 30], // Taille de l'icône (largeur, hauteur)
+    iconAnchor: [0, 15], // Point d'ancrage de l'icône (la partie basse au milieu de l'icône)
+    popupAnchor: [0, -41], // Point d'ancrage de la popup (s'ouvre au-dessus de l'icône)
+});
 const route = useRoute();
 const router = useRouter();
 
@@ -51,25 +56,6 @@ const newWaypoints = ref([]);
 // Function to toggle modal visibility
 const toggleModalVisibility = () => {
     modalIsVisible.value = !modalIsVisible.value;
-};
-
-// Function to create markers on the map
-const createMarkers = () => {
-    initialMarkers.value.forEach((marker, index) => {
-        const singleMarker = L.marker(marker).addTo(mapInstance.value);
-        singleMarker.on("click", () => {
-            newWaypoints.value = getItineraryByIndex(index + 1).map((coords) =>
-                L.latLng(...coords)
-            );
-            displayWaypoints(newWaypoints);
-            toggleModalVisibility();
-        });
-    });
-};
-
-// Function to get itinerary by index
-const getItineraryByIndex = (index) => {
-    return itineraries.value[index - 1];
 };
 
 // Function to display waypoints on the map
