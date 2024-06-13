@@ -68,9 +68,8 @@ export const storeItineraryForm = reactive({
             data.append(`steps[${i}][name]`, this.steps[1].name);
             data.append(`steps[${i}][description]`, this.steps[1].description);
             data.append(`steps[${i}][address]`, 'Rue de l’industrie 4 - 1000 Lausanne');
-            data.append(`steps[${i}][latitude]`, this.steps[1].coordinate[0]._value);
-            data.append(`steps[${i}][longitude]`, this.steps[1].coordinate[1]._value);
-            data.append(`steps[${i}][order]`, 'Order Value');
+            data.append(`steps[${i}][latitude]`, this.steps[i].coordinate[0]._value);
+            data.append(`steps[${i}][longitude]`, this.steps[i].coordinate[1]._value);            
             data.append(`steps[${i}][external_link]`, 'External Link Value');
             data.append(`steps[${i}][stepImage]`, this.steps[1].image);
             data.append(`steps[${i}][image_description]`,this.steps[1].image_description);

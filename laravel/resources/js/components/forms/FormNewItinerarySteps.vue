@@ -167,7 +167,7 @@ onMounted(() => {
             </div>
             <div>
                 <label for="link">Lien utile:</label>
-                <input id="link" v-model="formFields.external_link" type="text" placeholder="https://exemple.ch" required />
+                <input id="link" v-model="formFields.external_link" type="text" placeholder="https://exemple.ch" />
             </div>            
             <button type="submit" id="btn-itineraryStep" class="btn self-center z-[-10] w-0
             h-0 absolute">Submit</button>
