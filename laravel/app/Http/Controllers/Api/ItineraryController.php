@@ -16,6 +16,7 @@ use Illuminate\Support\Facades\Log;
 use App\Models\TagCategorie;
 use App\Models\TagAccessibility;
 use TCPDF;
+use App\Models\Taxonomy;
 
 
 
@@ -90,9 +91,10 @@ class ItineraryController extends Controller
                 'image_id' => $image->id,
             ]);
 
-            $tagCategories = TagCategorie::find($request->input('categories'));
-            $itinerary->tagCategorie()->attach($tagCategories);
-
+            $categoryNames = $request->input('categories');
+            $taxonomyIds = Taxonomy::whereIn('name', $categoryNames)->pluck('id');
+            $tagCategoryIds = TagCategorie::whereIn('taxonomy_id', $taxonomyIds)->pluck('id');
+            $itinerary->tagCategorie()->attach($tagCategoryIds);
             // Ajouter les tags d'accessibilité à l'itinéraire
             $tagAccessibilities = TagAccessibility::find($request->input('accessibilities'));
             $itinerary->tagAccessibility()->attach($tagAccessibilities);

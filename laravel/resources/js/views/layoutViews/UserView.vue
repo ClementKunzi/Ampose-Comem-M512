@@ -2,13 +2,18 @@
 import { X, Pencil, LogOut, User } from 'lucide-vue-next';
 import CardItinerary from '../../components/CardItinerary.vue';
 import { storeItineraries } from '../../stores/StoreItineraries.js';
-import { onMounted, ref } from 'vue';
+import { onMounted, ref, computed } from 'vue';
 import { UserLocalStorage } from '@/classes/UserLocalStorage.js';
 import { logOut } from '../../utils/apiCalls/apiCalls.js';
 import axios from 'axios';
 
 const user = new UserLocalStorage();
+const currentUserUsername = computed(() => user.getUserName());
 const userImage = ref(user.getUserImageProfile());
+
+const filteredItineraries = computed(() => {
+  return storeItineraries.itineraries.filter(itinerary => itinerary.user.username === currentUserUsername.value);
+});
 
 onMounted(() => {
 
@@ -40,9 +45,9 @@ export default {
         <button @click="() => { logOut(), $router.push('/') }" class="btn-iconContainer" aria-label="Se déconnecter">
         <LogOut aria-hidden="true" :size="32" />
       </button>
-      <router-link to="/user/edit" aria-label="Editer le profile" class="btn-iconContainer">
+      <!-- <router-link to="/user/edit" aria-label="Editer le profile" class="btn-iconContainer">
         <Pencil aria-hidden="true" :size="32" />
-      </router-link>
+      </router-link> -->
       </div>     
     </div>
     <div class="mb-1 flex justify-center">
@@ -57,10 +62,15 @@ export default {
 
     <div>
       <h2 class="h3 text-tv-wine">Mes sentiers</h2>
-      <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-        <router-link v-for="itinerary in itineraries" :key="itinerary.id" :to="`/itinerary/${itinerary.id}`">
-          <CardItinerary :itinerary="itinerary" :image="itinerary.image.url" />
+      <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">    
+        <!-- {{ itineraries[0].user.username }}     -->
+        <router-link
+        v-for="itinerary in filteredItineraries" :key="itinerary.id" :to="`/itinerary/${itinerary.id}`">
+          <CardItinerary :itinerary="itinerary" :image="itinerary.image.url" />          
         </router-link>
+        <p v-if="filteredItineraries.length == 0" class="flex flex-col">Vous n'avez encore créé aucun parcours.
+          <router-link :to="'/create'" class="btn self-start mt-2">Créer mon premier parcours</router-link>
+        </p>
       </div>
     </div>
 

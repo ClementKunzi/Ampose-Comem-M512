@@ -10,6 +10,7 @@ import 'leaflet-routing-machine';
 import 'leaflet-routing-machine/dist/leaflet-routing-machine.css';
 import 'leaflet-control-geocoder/dist/Control.Geocoder.js';
 import 'leaflet-control-geocoder/dist/Control.Geocoder.css';
+import { storeMap } from '../../stores/storeMap';
 
 const props = defineProps({
     isActive: Boolean,
@@ -89,7 +90,7 @@ onMounted(() => {
 
     function initializeMap() {
         const mapContainer = document.getElementById('map'); // Assuming your map container has an ID of 'map'
-        const map = L.map(mapContainerRef.value).setView([51.505, -0.09], 13);
+        const map = L.map(mapContainerRef.value).setView(storeMap.setViewVaud, storeMap.ZoomDefault);
 
         L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
             maxZoom: 19,
@@ -166,7 +167,7 @@ onMounted(() => {
             </div>
             <div>
                 <label for="link">Lien utile:</label>
-                <input id="link" v-model="formFields.external_link" type="text" placeholder="https://exemple.ch" required />
+                <input id="link" v-model="formFields.external_link" type="text" placeholder="https://exemple.ch" />
             </div>            
             <button type="submit" id="btn-itineraryStep" class="btn self-center z-[-10] w-0
             h-0 absolute">Submit</button>

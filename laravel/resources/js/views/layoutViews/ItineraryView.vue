@@ -4,6 +4,8 @@ import { onMounted, computed, ref, watch } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 import { Bookmark, Share, Download, Star, MapPin, Footprints, Route, Clock, Mountain, Accessibility, TriangleAlert, SquareArrowOutUpRight, ChevronDown, ChevronUp, X } from 'lucide-vue-next';
 import { hideMarker } from "../../utils/MarkersVisibility.js";
+import { ApiDeleteItinerary } from '../../utils/apiCalls/ApiDeleteItinerary.js';
+
 
 //gestion des favoris
 import ManageFavorite from '../../utils/ManageFavorite.js'; 
@@ -21,11 +23,7 @@ import { storeItineraries } from '../../stores/StoreItineraries.js';
 import { ApiGetItinerary } from '../../utils/apiCalls/ApiGetItinerary.js';
 import MapItinerary from '../../components/MapItinerary.vue';
 
-// Function to check if user is logged in
-const isLoggedIn = () => {
-  const user = getLocalStorageUser();
-  return user && user.userConnexion && user.userConnexion.accessToken !== null;
-};
+
 
 const route = useRoute();
 const router = useRouter();
@@ -34,7 +32,27 @@ const routeItinerary = computed(() => {
 });
 const stepId = computed(() => route.params.stepId - 1);
 
+// Est-ce que l'user est connecté ?
+const isLoggedIn = () => {
+  const user = getLocalStorageUser();
+  return user && user.userConnexion && user.userConnexion.accessToken !== null;
+};
+
+
+//Pop-up de confirmation de suppression
+
+const featureNotImplemented = () => {
+    navigator.clipboard.writeText(window.location.href)
+     .then(() => {
+        alert('Cette fonctionnalité sera bientôt disponible.');
+      })
+     .catch(err => {
+        console.error('Il semble qu\'il y a eu un problème.', err);
+      });
+  }
+
 //gestion des favoris
+
 const props = defineProps({
   itinerary: Object,
 });
@@ -51,7 +69,7 @@ const steps = [];
 const copyUrlToClipboard = () => {
     navigator.clipboard.writeText(window.location.href)
      .then(() => {
-        alert('UVous avez copié l\'url de cette page!');
+        alert('Vous avez copié l\'url de cette page!');
       })
      .catch(err => {
         console.error('Il semble qu\'il y a eu un problème en copiant l\'adresse de cette page.', err);
@@ -119,25 +137,25 @@ function downloadPdf() {
 import { ref } from 'vue';
 const showAllComments = ref(false);
 let comments = ref([
-  { username: 'Utilisateur1', rating: 5, review: 'La marche culturelle à Lausanne était incroyablement enrichissante. J\'ai adoré découvrir les différents aspects de la ville.', timestamp: '11.11.2023' },
+  { username: 'Utilisateur1', rating: 5, review: 'La marche culturelle était incroyablement enrichissante. J\'ai adoré découvrir les différents aspects du parcours.', timestamp: '11.11.2023' },
   { username: 'Utilisateur2', rating: 4, review: 'Bien que j\'aie aimé certains aspects de la marche, il manquait un peu de variété dans les attractions proposées.', timestamp: '12.11.2023' },
-  { username: 'Utilisateur3', rating: 5, review: 'Excellente découverte de Lausanne grâce à cette marche culturelle. Les guides étaient passionnants et les lieux visités étaient magnifiques.', timestamp: '13.11.2023' },
+  { username: 'Utilisateur3', rating: 5, review: 'Excellente découverte grâce à cette marche culturelle. Les guides étaient passionnants et les lieux visités étaient magnifiques.', timestamp: '13.11.2023' },
   { username: 'Utilisateur4', rating: 3, review: 'J\'ai trouvé la marche assez standard. Il aurait été intéressant d\'avoir plus de surprises ou de découvertes imprévues.', timestamp: '14.11.2023' },
-  { username: 'Utilisateur5', rating: 4, review: 'La marche culturelle à Lausanne m\'a permis de découvrir des aspects de la ville que je n\'aurais pas explorés autrement. Un bon choix pour les amateurs de culture.', timestamp: '15.11.2023' },
-  { username: 'Utilisateur6', rating: 5, review: 'Cette marche culturelle a vraiment fait ressortir la beauté de Lausanne. Chaque arrêt était une nouvelle surprise et les guides étaient super compétents.', timestamp: '16.11.2023' },
-  { username: 'Utilisateur7', rating: 2, review: 'Malgré mes attentes, la marche ne m\'a pas convaincu. Je préfère explorer les villes par moi-même sans guide.', timestamp: '17.11.2023' },
-  { username: 'Utilisateur8', rating: 4, review: 'La marche culturelle à Lausanne était très instructive. J\'ai apprécié les anecdotes historiques et les explications sur l\'art local.', timestamp: '18.11.2023' },
-  { username: 'Utilisateur9', rating: 5, review: 'Une expérience inoubliable! La marche culturelle à Lausanne nous a offert une vision unique de la ville, mêlant histoire, art et architecture.', timestamp: '19.11.2023' },
+  { username: 'Utilisateur5', rating: 4, review: 'Ce sentier m\'a permis de découvrir des aspects du Canton que je n\'aurais pas explorés autrement. Un bon choix pour les amateurs de culture.', timestamp: '15.11.2023' },
+  { username: 'Utilisateur6', rating: 5, review: 'Cette marche culturelle a vraiment fait ressortir la beauté de la région. Chaque arrêt était une nouvelle surprise.', timestamp: '16.11.2023' },
+  { username: 'Utilisateur7', rating: 2, review: 'Malgré mes attentes, la marche ne m\'a pas convaincu.', timestamp: '17.11.2023' },
+  { username: 'Utilisateur8', rating: 4, review: 'La marche culturelle était très instructive. J\'ai apprécié les anecdotes historiques et les explications sur la culture locale.', timestamp: '18.11.2023' },
+  { username: 'Utilisateur9', rating: 5, review: 'Une expérience inoubliable! La marche nous a offert une vision unique de la région.', timestamp: '19.11.2023' },
   { username: 'Utilisateur10', rating: 4, review: 'La marche culturelle a bien structuré notre journée. Cependant, j\'aurais aimé avoir plus de temps libre pour explorer certains lieux.', timestamp: '20.11.2023' },
   { username: 'Utilisateur11', rating: 3, review: 'Bien que la marche ait été intéressante, elle manquait de profondeur. Plus de discussions approfondies auraient rendu l\'expérience plus enrichissante.', timestamp: '21.11.2023' },
-  { username: 'Utilisateur12', rating: 5, review: 'La marche culturelle à Lausanne a été une véritable découverte. Les guides ont su captiver notre attention avec leurs connaissances passionnées.', timestamp: '22.11.2023' },
-  { username: 'Utilisateur13', rating: 4, review: 'La marche culturelle a été une excellente introduction à Lausanne. Les guides étaient très engageants et les lieux visités étaient impressionnants.', timestamp: '23.11.2023' },
-  { username: 'Utilisateur14', rating: 5, review: 'Un moment inoubliable! La marche culturelle à Lausanne a été une expérience mémorable, mettant en valeur la richesse culturelle de la ville.', timestamp: '24.11.2023' },
-  { username: 'Utilisateur15', rating: 4, review: 'La marche culturelle a été une belle façon de découvrir Lausanne. Les guides étaient très compétents et les lieux visités étaient impressionnants.', timestamp: '25.11.2023' },
-  { username: 'Utilisateur16', rating: 3, review: 'Bien que la marche ait été intéressante, elle manquait de profondeur. Plus de discussions approfondies auraient rendu l\'expérience plus enrichissante.', timestamp: '26.11.2023' },
-  { username: 'Utilisateur17', rating: 5, review: 'La marche culturelle à Lausanne a été une véritable découverte. Les guides étaient très compétents et les lieux visités étaient impressionnants.', timestamp: '27.11.2023' },
-  { username: 'Utilisateur18', rating: 4, review: 'La marche culturelle a été une belle façon de découvrir Lausanne. Les guides étaient très compétents et les lieux visités étaient impressionnants.', timestamp: '28.11.2023' },
-  { username: 'Utilisateur19', rating: 5, review: 'La marche culturelle a été une véritable découverte. Les guides étaient très compétents et les lieux visités étaient impressionnants.', timestamp: '29.11.2023' },
+  { username: 'Utilisateur12', rating: 5, review: 'La marche culturelle a été une véritable découverte. Les guides ont su captiver notre attention avec leurs connaissances passionnées.', timestamp: '22.11.2023' },
+  { username: 'Utilisateur13', rating: 4, review: 'La marche culturelle a été une excellente introduction à la culture locale. Les guides étaient très engageants et les lieux visités étaient impressionnants.', timestamp: '23.11.2023' },
+  { username: 'Utilisateur14', rating: 5, review: 'Un moment inoubliable! La marche culturelle a été une expérience mémorable, mettant en valeur la richesse culturelle de la région.', timestamp: '24.11.2023' },
+  { username: 'Utilisateur15', rating: 4, review: 'La marche culturelle a été une belle façon de découvrir le canton de Vaud.', timestamp: '25.11.2023' },
+  { username: 'Utilisateur16', rating: 3, review: 'Bien que la marche ait été intéressante, elle manquait de profondeur.', timestamp: '26.11.2023' },
+  { username: 'Utilisateur17', rating: 5, review: 'Ce sentier culturel a été une véritable découverte. Les lieux visités étaient impressionnants.', timestamp: '27.11.2023' },
+  { username: 'Utilisateur18', rating: 4, review: 'La marche culturelle a été une belle façon de découvrir la région. Lieux visités étaient impressionnants.', timestamp: '28.11.2023' },
+  { username: 'Utilisateur19', rating: 5, review: 'La marche culturelle a été une véritable découverte. Lieux visités étaient impressionnants.', timestamp: '29.11.2023' },
 ]);
 function toggleComments() {
   showAllComments.value =!showAllComments.value;
@@ -315,7 +333,7 @@ const buttonText = ref('Afficher plus de commentaires');
         </div>
       </div>
       <div>
-        <a href="#" class="link justify-center">
+        <a href="#" class="link justify-center" @click=featureNotImplemented()>
           <TriangleAlert aria-hidden="true" stroke="#754043" :size="18" />
           Signaler un problème avec ce parcours
         </a>

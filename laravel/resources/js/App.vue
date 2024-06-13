@@ -1,6 +1,7 @@
 <script setup>
 import TheHeader from './components/TheHeader.vue';
 import './utils/LocalStorageUser.js';
+import TheFooter from './components/TheFooter.vue';
 import { getUserAccessToken } from './utils/UserAccessToken.js';
 import { UserLocalStorage } from '@/classes/UserLocalStorage.js';
 
@@ -27,6 +28,7 @@ if (getUserAccessToken() !== null) {
 
         <router-view />
     </main>
+    <TheFooter />
 </template>
 
 

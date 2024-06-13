@@ -27,6 +27,9 @@ const currentUser = new UserLocalStorage();
                 <router-link class="opacity-60 hover:opacity-100 flex items-center" aria-label="Carte des parcours" to="/map">
                     <span aria-hidden="true">Carte</span>
                 </router-link>
+                <router-link class="opacity-60 hover:opacity-100 flex items-center" aria-label="Mes favoris" to="/favoris">
+                    <span aria-hidden="true">Favoris</span>
+                </router-link>
             </nav>
 
             <!-- Right Side Content -->
@@ -38,7 +41,7 @@ const currentUser = new UserLocalStorage();
                     <Menu stroke="#000" :size="24" /> 
                     <img src="https://loremflickr.com/300/300" alt="Profile Picture" class="rounded-full h-6 w-6" />
                 </span> -->
-                <router-link v-if="isDesktop.value" aria-label="Profile utilisateur" to="/user/profile">
+                <router-link v-if="isDesktop.value" aria-label=" utilisateur" to="/user/profile">
               <div class="max-w-12 h-12">
                 <img class="h-full rounded-full object-cover" :src="currentUser.getUserImageProfile()" alt="">
               </div>               

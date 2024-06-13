@@ -41,7 +41,7 @@ const formFields = reactive({
             </div>
             <div>                                          
                 <label for="category">Catégories</label>
-                <select id="category" v-model="formFields.category" required multiple>
+                <select id="category" v-model="formFields.category" required>
                     <!-- <option value="" disabled selected>Choisir une catégorie</option>                 -->
                     <option v-for="category in categories" :value="category.taxonomy.name" :key="category.id">{{ category.taxonomy.name }}</option>                    
                 </select>
@@ -55,7 +55,7 @@ const formFields = reactive({
             </div>
             <div>                
                 <label for="accessibility">Accessibilité</label>
-                <select id="accessibility" v-model="formFields.accessibility" required multiple>
+                <select id="accessibility" v-model="formFields.accessibility" required>
                     <option v-for="accessibility in accessibilities" :value="accessibility.taxonomy.name" :key="accessibility.id">{{ accessibility.taxonomy.name }}</option>              
                 </select>
             </div>

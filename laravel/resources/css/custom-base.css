@@ -19,19 +19,19 @@
 
   h1,
   .h1 {
-    @apply text-5xl leading-[1.2] font-serif;
+    @apply text-5xl leading-[1.2] font-serif font-bold;
 
   }
 
   h2,
   .h2 {
-    @apply text-4xl leading-[1.2] font-serif;
+    @apply text-4xl leading-[1.2] font-serif font-bold;
 
   }
 
   h3,
   .h3 {
-    @apply text-2xl leading-[1.2] font-serif;
+    @apply text-2xl leading-[1.2] font-serif font-bold;
 
   }
 
