@@ -6,7 +6,7 @@ const userLocalStorage = new UserLocalStorage();
 const ApiGetFavorites = async (id) => {
     try {
         const response = await axios.get(
-            `https://terravaud.chapi/favorites/${id}`,
+            `https://terravaud.ch/api/favorites/${id}`,
             {
                 headers: {
                     Authorization: `Bearer ${userLocalStorage.getAccessToken()}`,

@@ -3,7 +3,7 @@ import axios from "axios";
 const ApiCallSources = async () => {
     try {
         const response = await axios.get(
-            "https://terravaud.chapi/itinerary-sources",
+            "https://terravaud.ch/api/itinerary-sources",
             {}
         );
         console.log("Response:", response.data);

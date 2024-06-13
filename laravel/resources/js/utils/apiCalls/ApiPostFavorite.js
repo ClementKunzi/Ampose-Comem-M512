@@ -12,7 +12,7 @@ const ApiPostFavorite = async (itineraryIdObj) => {
         };
 
         const response = await axios.post(
-            "https://terravaud.chapi/favorites/",
+            "https://terravaud.ch/api/favorites/",
             requestBody,
             {
                 headers: {

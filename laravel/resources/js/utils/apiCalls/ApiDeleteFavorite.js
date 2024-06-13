@@ -6,7 +6,7 @@ const userLocalStorage = new UserLocalStorage();
 const ApiDeleteFavorite = async (favoriteId) => {
     try {
         const response = await axios.delete(
-            `https://terravaud.chapi/favorites/${favoriteId}`,
+            `https://terravaud.ch/api/favorites/${favoriteId}`,
             {
                 headers: {
                     "Content-Type": "application/json",

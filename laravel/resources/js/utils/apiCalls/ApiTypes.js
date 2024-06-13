@@ -3,7 +3,7 @@ import axios from "axios";
 const ApiCallTypes = async () => {
     try {
         const response = await axios.get(
-            "https://terravaud.chapi/itinerary-types",
+            "https://terravaud.ch/api/itinerary-types",
             {}
         );
         console.log("Response:", response.data);
