@@ -29,5 +29,4 @@ export default defineConfig({
         }),
     ],
     base: process.env.APP_ENV === "production" ? "/build/" : "/",
-    // Vous pouvez ajouter d'autres configurations globales de Vite ici si nécessaire
 });
