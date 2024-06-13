@@ -28,7 +28,7 @@ if (getUserAccessToken() !== null) {
 
         <router-view />
     </main>
-    <TheFooter />
+    <!-- <TheFooter /> -->
 </template>
 
 

@@ -54,7 +54,7 @@ function completeOnboarding() {
 
       <div class="flex flex-col items-center justify-center mt-auto" v-if="currentStep === 0">
         <button class="btn mb-2" @click="nextStep" :disabled="currentStep === 3">Commencer</button>
-        <button class="opacity-50 underline body-regular-sm" @click="redirectToHome">Passer</button>
+        <button class="underline body-regular-base" @click="redirectToHome">Passer</button>
       </div>
     </div>
 
@@ -81,7 +81,7 @@ function completeOnboarding() {
 
       <div class="flex flex-col items-center justify-center mt-auto" v-if="currentStep === 1">
         <button class="btn mb-2" @click="nextStep" :disabled="currentStep === 3">Suivant</button>
-        <button class="opacity-50 underline body-regular-sm" @click="redirectToHome">Passer</button>
+        <button class="opacity-50 underline body-regular-sm" @click="redirectToHome">Passer</button>        
       </div>
     </div>
 
@@ -110,6 +110,7 @@ function completeOnboarding() {
         <button class="btn" @click="completeOnboarding">Explorez Maintenant</button>
       </div>
     </div>
+    <p v-if="currentStep === 0" class="text-slate-400 body-regular-sm mt-2">Ce site est une application web fictive réalisée dans le cadre du projet d'intégration 2024 en fin de 2e année du Bachelor d'ingénierie des médias à la HEIG-VD.</p>
   </div>
 </template>
 
