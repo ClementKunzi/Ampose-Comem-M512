@@ -13,7 +13,7 @@ function nextStep() {
 }
 
 const redirectToHome = () => {
-  // window.location.href = 'http://localhost:8000/#/';
+  // window.location.href = 'https://terravaud.ch#/';
   router.push(`/`);
 };
 
@@ -42,16 +42,16 @@ function completeOnboarding() {
       <div class="flex justify-center mb-10" v-if="currentStep === 0">
         <img src="/images/logo/logo-tv-blanc.svg" alt="Terravaud Logo"/>
       </div>
-      
+
       <h2 class="h2 mb-10" v-if="currentStep === 0">Bienvenue sur <br><span class="">Terravaud</span></br></h2>
       <p class="body-regular-sm md:body-medium-lg mb-16" v-if="currentStep === 0">Votre guide pour découvrir les trésors culturels du canton de Vaud</p>
-        
+
       <!-- <div v-if="currentStep === 0" class="step-indicators mb-2 mt-auto">
         <span class="active"></span>
         <span></span>
         <span></span>
       </div> -->
-      
+
       <div class="flex flex-col items-center justify-center mt-auto" v-if="currentStep === 0">
         <button class="btn mb-2" @click="nextStep" :disabled="currentStep === 3">Commencer</button>
         <button class="opacity-50 underline body-regular-sm" @click="redirectToHome">Passer</button>
@@ -78,7 +78,7 @@ function completeOnboarding() {
         <span class="active"></span>
         <span></span>
       </div> -->
-      
+
       <div class="flex flex-col items-center justify-center mt-auto" v-if="currentStep === 1">
         <button class="btn mb-2" @click="nextStep" :disabled="currentStep === 3">Suivant</button>
         <button class="opacity-50 underline body-regular-sm" @click="redirectToHome">Passer</button>
@@ -105,7 +105,7 @@ function completeOnboarding() {
         <span></span>
         <span class="active"></span>
       </div> -->
-      
+
       <div class="flex flex-col items-center justify-center mt-auto">
         <button class="btn" @click="completeOnboarding">Explorez Maintenant</button>
       </div>

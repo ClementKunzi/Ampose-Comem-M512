@@ -13,30 +13,33 @@ export class UserLocalStorage {
 
     // Method to initialize the terraVaud item if it doesn't exist
     initializeUserLocalStorage() {
-        if (!localStorage.getItem('terraVaud')) {
-            localStorage.setItem('terraVaud', JSON.stringify({
-                userConnexion: {
-                    accessToken: null,
-                },
-                userData: {
-                    email: null,
-                    first_name: null,
-                    id: null,
-                    last_name: null,
-                    number_path_added: null,
-                    profile_picture: null,
-                    username: null,
-                }
-            }));
+        if (!localStorage.getItem("terraVaud")) {
+            localStorage.setItem(
+                "terraVaud",
+                JSON.stringify({
+                    userConnexion: {
+                        accessToken: null,
+                    },
+                    userData: {
+                        email: null,
+                        first_name: null,
+                        id: null,
+                        last_name: null,
+                        number_path_added: null,
+                        profile_picture: null,
+                        username: null,
+                    },
+                })
+            );
         }
-        this.terraVaud = JSON.parse(localStorage.getItem('terraVaud')) || {};
+        this.terraVaud = JSON.parse(localStorage.getItem("terraVaud")) || {};
     }
 
     // Methods to set properties
     setAccessToken(value) {
         this.terraVaud.userConnexion = this.terraVaud.userConnexion || {};
         this.terraVaud.userConnexion.accessToken = value;
-        localStorage.setItem('terraVaud', JSON.stringify(this.terraVaud));
+        localStorage.setItem("terraVaud", JSON.stringify(this.terraVaud));
         return this;
     }
 
@@ -47,18 +50,17 @@ export class UserLocalStorage {
     clearAccessToken() {
         this.terraVaud.userConnexion = this.terraVaud.userConnexion || {};
         this.terraVaud.userConnexion.accessToken = null;
-        localStorage.setItem('terraVaud', JSON.stringify(this.terraVaud));
+        localStorage.setItem("terraVaud", JSON.stringify(this.terraVaud));
     }
 
     clearLocalStorage() {
-        localStorage.removeItem('terraVaud');
-    
+        localStorage.removeItem("terraVaud");
     }
 
     setEmail(value) {
         this.terraVaud.userData = this.terraVaud.userData || {};
         this.terraVaud.userData.email = value; // Use the passed value to set the email
-        localStorage.setItem('terraVaud', JSON.stringify(this.terraVaud));
+        localStorage.setItem("terraVaud", JSON.stringify(this.terraVaud));
     }
 
     getEmail() {
@@ -68,7 +70,7 @@ export class UserLocalStorage {
     setUserName(value) {
         this.terraVaud.userData = this.terraVaud.userData || {};
         this.terraVaud.userData.username = value; // Use the passed value to set the email
-        localStorage.setItem('terraVaud', JSON.stringify(this.terraVaud));
+        localStorage.setItem("terraVaud", JSON.stringify(this.terraVaud));
     }
 
     getUserName() {
@@ -78,29 +80,31 @@ export class UserLocalStorage {
     setFirstName(value) {
         this.terraVaud.userData = this.terraVaud.userData || {};
         this.terraVaud.userData.first_name = value; // Use the passed value to set the email
-        localStorage.setItem('terraVaud', JSON.stringify(this.terraVaud));
+        localStorage.setItem("terraVaud", JSON.stringify(this.terraVaud));
     }
 
     setLastName(value) {
         this.terraVaud.userData = this.terraVaud.userData || {};
         this.terraVaud.userData.last_name = value; // Use the passed value to set the email
-        localStorage.setItem('terraVaud', JSON.stringify(this.terraVaud));
+        localStorage.setItem("terraVaud", JSON.stringify(this.terraVaud));
     }
 
     setId(value) {
         this.terraVaud.userData = this.terraVaud.userData || {};
         this.terraVaud.userData.id = value; // Use the passed value to set the email
-        localStorage.setItem('terraVaud', JSON.stringify(this.terraVaud));
+        localStorage.setItem("terraVaud", JSON.stringify(this.terraVaud));
     }
 
     setImageProfile(value) {
         this.terraVaud.userData = this.terraVaud.userData || {};
         this.terraVaud.userData.profile_picture = value;
-        localStorage.setItem('terraVaud', JSON.stringify(this.terraVaud));
+        localStorage.setItem("terraVaud", JSON.stringify(this.terraVaud));
     }
 
     getUserImageProfile() {
-        return (this.getAccessToken()) ? 'storage/' + this.terraVaud.userData.profile_picture : '/images/placeholder-profile.jpg';
+        return this.getAccessToken()
+            ? "storage/" + this.terraVaud.userData.profile_picture
+            : "/images/placeholder-profile.jpg";
     }
 
     getUserId() {
@@ -110,15 +114,15 @@ export class UserLocalStorage {
     async getUserDataFromApi() {
         try {
             const accessToken = this.getAccessToken();
-            const response = await axios.get('http://localhost:8000/api/auth/user', {
+            const response = await axios.get("/api/auth/user", {
                 headers: {
                     Authorization: `Bearer ${accessToken}`,
-                },            
+                },
             });
-    
+
             return response.data;
         } catch (error) {
-            console.error('Error fetching user data:', error);
+            console.error("Error fetching user data:", error);
             throw error; // Throw the error to be caught by the caller
         }
     }
@@ -127,7 +131,7 @@ export class UserLocalStorage {
 
     // Finalize the builder and save to localStorage
     save() {
-        localStorage.setItem('terraVaud', JSON.stringify(this.terraVaud));
+        localStorage.setItem("terraVaud", JSON.stringify(this.terraVaud));
     }
 }
 
