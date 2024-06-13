@@ -27,6 +27,9 @@ const currentUser = new UserLocalStorage();
                 <router-link class="opacity-60 hover:opacity-100 flex items-center" aria-label="Carte des parcours" to="/map">
                     <span aria-hidden="true">Carte</span>
                 </router-link>
+                <router-link class="opacity-60 hover:opacity-100 flex items-center" aria-label="Mes favoris" to="/favoris">
+                    <span aria-hidden="true">Favoris</span>
+                </router-link>
             </nav>
 
             <!-- Right Side Content -->
